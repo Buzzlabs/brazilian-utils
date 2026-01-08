@@ -2,9 +2,9 @@ name: Code Quality
 
 on:
   push:
-    branches: [main, develop]
+    branches: [master]
   pull_request:
-    branches: [main, develop]
+    branches: [master]
 
 jobs:
   lint:
@@ -33,11 +33,11 @@ jobs:
         cli: latest
     
     - name: Check code formatting
-      run: clj -M:format --check
+      run: clojure -M:format --check
       continue-on-error: true
     
     - name: Lint with clj-kondo
-      run: clj -M:lint
+      run: clojure -M:lint
       continue-on-error: true
 
   security:

@@ -45,7 +45,7 @@ jobs:
         </settings>' > ~/.m2/settings.xml
     
     - name: Deploy to Clojars
-      run: clj -X:deploy/clojars
+      run: clojure -X:deploy/clojars
       env:
         CLOJARS_USERNAME: ${{ secrets.CLOJARS_USERNAME }}
         CLOJARS_TOKEN: ${{ secrets.CLOJARS_TOKEN }}
