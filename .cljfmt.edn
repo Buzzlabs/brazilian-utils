@@ -1,0 +1,6 @@
+{:indentation? true
+ :line-length 100
+ :remove-surrounding-whitespace? true
+ :remove-trailing-whitespace? true
+ :insert-missing-newlines? true
+ :remove-consecutive-blank-lines? false}

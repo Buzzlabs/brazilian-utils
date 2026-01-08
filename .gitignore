@@ -1,0 +1,102 @@
+# Clojure
+target/
+classes/
+.cpcache/
+out/
+build/
+*.jar
+*.class
+
+# ClojureScript
+node_modules/
+.shadow-cljs/
+.cljs_rhino_repl/
+out/
+dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build outputs
+/out/
+/target/
+/dist/
+/build/
+
+# Dependencies
+/node_modules/
+/.m2/
+
+# REPL history
+.nrepl-history
+.nrepl-port
+
+# Development
+*.log
+.env
+.env.local
+
+# Test coverage
+/coverage/
+*.lcov
+
+# Maven
+pom.xml.asc
+*.war
+*.ear
+release.properties
+pom.xml.releaseBackup
+
+# Security
+~/.m2/settings.xml
+*.pem
+*.key
+.ssh/
+.DS_Store
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# Build
+dist/
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.editorconfig
+
+# Testing
+.nrepl-port
+.nrepl-history

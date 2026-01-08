@@ -1,0 +1,51 @@
+name: Publish to Clojars
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: 17
+        distribution: 'temurin'
+    
+    - name: Cache clojure dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-clojure-${{ hashFiles('**/deps.edn') }}
+        restore-keys: |
+          ${{ runner.os }}-clojure-
+    
+    - name: Install Clojure tools
+      uses: DeLaGuardo/setup-clojure@12.5
+      with:
+        cli: latest
+    
+    - name: Configure Maven settings
+      run: |
+        mkdir -p ~/.m2
+        echo '<settings>
+          <servers>
+            <server>
+              <id>clojars</id>
+              <username>${{secrets.CLOJARS_USERNAME}}</username>
+              <password>${{secrets.CLOJARS_TOKEN}}</password>
+            </server>
+          </servers>
+        </settings>' > ~/.m2/settings.xml
+    
+    - name: Deploy to Clojars
+      run: clj -X:deploy/clojars
+      env:
+        CLOJARS_USERNAME: ${{ secrets.CLOJARS_USERNAME }}
+        CLOJARS_TOKEN: ${{ secrets.CLOJARS_TOKEN }}
