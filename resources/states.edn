@@ -1,0 +1,27 @@
+{  :AC {:code "2" :area-codes [68] :ie-length 13 :name "Acre"}
+   :AL {:code "4" :area-codes [82] :ie-length 9  :name "Alagoas"}
+   :AP {:code "2" :area-codes [96] :ie-length 9  :name "Amapá"}
+   :AM {:code "2" :area-codes [92 97] :ie-length 9 :name "Amazonas"}
+   :BA {:code "5" :area-codes [71 73 74 75 77] :ie-length [8 9] :name "Bahia"}
+   :CE {:code "3" :area-codes [85 88] :ie-length 9 :name "Ceará"}
+   :DF {:code "1" :area-codes [61] :ie-length 13 :name "Distrito Federal"}
+   :ES {:code "7" :area-codes [27 28] :ie-length 9 :name "Espírito Santo"}
+   :GO {:code "1" :area-codes [62 64] :ie-length 9 :name "Goiás"}
+   :MA {:code "3" :area-codes [98 99] :ie-length 9 :name "Maranhão"}
+   :MG {:code "6" :area-codes [31 32 33 34 35 37 38] :ie-length 13 :name "Minas Gerais"}
+   :MT {:code "1" :area-codes [65 66] :ie-length 11 :name "Mato Grosso"}
+   :MS {:code "1" :area-codes [67] :ie-length 9 :name "Mato Grosso do Sul"}
+   :PA {:code "2" :area-codes [91 93 94] :ie-length 9 :name "Pará"}
+   :PB {:code "4" :area-codes [83] :ie-length 9 :name "Paraíba"}
+   :PE {:code "4" :area-codes [81 87] :ie-length 9 :name "Pernambuco"}
+   :PI {:code "3" :area-codes [86 89] :ie-length 9 :name "Piauí"}
+   :PR {:code "9" :area-codes [41 42 43 44 45 46] :ie-length 10 :name "Paraná"}
+   :RJ {:code "7" :area-codes [21 22 24] :ie-length 8 :name "Rio de Janeiro"}
+   :RN {:code "4" :area-codes [84] :ie-length [9 10] :name "Rio Grande do Norte"}
+   :RO {:code "2" :area-codes [69] :ie-length 14 :name "Rondônia"}
+   :RS {:code "0" :area-codes [51 53 54 55] :ie-length 10 :name "Rio Grande do Sul"}
+   :RR {:code "2" :area-codes [95] :ie-length 9 :name "Roraima"}
+   :SC {:code "9" :area-codes [47 48 49] :ie-length 9 :name "Santa Catarina"}
+   :SE {:code "5" :area-codes [79] :ie-length 9 :name "Sergipe"}
+   :SP {:code "8" :area-codes [11 12 13 14 15 16 17 18 19] :ie-length 12 :name "São Paulo"}
+   :TO {:code "1" :area-codes [63] :ie-length [9 11] :name "Tocantins"}}
