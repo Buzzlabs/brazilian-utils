@@ -17,6 +17,8 @@ dist/
 # IDE
 .idea/
 .vscode/
+.calva/
+.clj-kondo/
 *.swp
 *.swo
 *~

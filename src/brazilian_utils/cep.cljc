@@ -1,5 +1,5 @@
 (ns brazilian-utils.cep
-  "API pública do módulo de CEP."
+  "Public API for the CEP module."
   (:require [brazilian-utils.cep.core :as core]))
 
 (def is-valid? core/is-valid?)

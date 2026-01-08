@@ -1,8 +1,7 @@
 (ns brazilian-utils.cep.schemas
-  "Schemas de validação para CEP (Código de Endereçamento Postal).
+  "Validation schemas for CEP (Brazilian postal code).
    
-   Utiliza malli para definir e validar estruturas de dados
-   relacionadas a CEPs brasileiros."
+   Uses malli to define and validate CEP-related data structures."
   (:require [malli.core :as m]))
 
 ;; ============================================================================
@@ -10,28 +9,28 @@
 ;; ============================================================================
 
 (def CEPNumber
-  "Schema para CEP sem formatação (8 dígitos numéricos).
+  "Schema for unformatted CEP (8 numeric digits).
    
-   Exemplo:
+   Example:
    (m/validate CEPNumber \"01310100\") ;; true
-   (m/validate CEPNumber \"0131010\")  ;; false (menos de 8)
-   (m/validate CEPNumber \"013101000\") ;; false (mais de 8)"
+   (m/validate CEPNumber \"0131010\")  ;; false (fewer than 8)
+   (m/validate CEPNumber \"013101000\") ;; false (more than 8)"
   [:re #"^\d{8}$"])
 
 (def CEPFormatted
-  "Schema para CEP formatado (xxxxx-xxx).
+  "Schema for formatted CEP (xxxxx-xxx).
    
-   Exemplo:
+   Example:
    (m/validate CEPFormatted \"01310-100\") ;; true
    (m/validate CEPFormatted \"01310100\")  ;; false"
   [:re #"^\d{5}-\d{3}$"])
 
 (defn validate-cep
-  "Valida se uma string é um CEP válido (com ou sem formatação).
+  "Validates whether a string is a valid CEP (formatted or not).
    
-   Retorna true se válido, false caso contrário.
+   Returns true if valid, false otherwise.
    
-   Exemplo:
+   Example:
    (validate-cep \"01310100\")  ;; true
    (validate-cep \"01310-100\") ;; true
    (validate-cep \"0131010\")   ;; false"

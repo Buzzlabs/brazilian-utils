@@ -1,11 +1,11 @@
 (ns brazilian-utils.cep-test
-  "Testes para o módulo de CEP (Código de Endereçamento Postal)."
+  "Tests for the CEP (postal code) module."
   (:require
    [clojure.test :refer [deftest is testing]]
    [brazilian-utils.cep :as cep]))
 
 ;; ============================================================================
-;; Testes: is-valid?
+;; Tests: is-valid?
 ;; ============================================================================
 
 (deftest is-valid?-test
@@ -20,13 +20,13 @@
     (is (true? (cep/is-valid? "00000-000"))))
 
   (testing "returns false for invalid CEPs"
-    (is (false? (cep/is-valid? "0131010")))    ;; 7 dígitos
-    (is (false? (cep/is-valid? "013101000")))  ;; 9 dígitos
-    (is (false? (cep/is-valid? "01310-10")))   ;; formatado incompleto
-    (is (false? (cep/is-valid? "abcdefgh")))   ;; não numérico
-    (is (false? (cep/is-valid? "")))           ;; vazio
-    (is (false? (cep/is-valid? nil)))          ;; nil
-    (is (true? (cep/is-valid? "01310 100"))))  ;; espaço é aceito (extraído como 01310100)
+    (is (false? (cep/is-valid? "0131010")))    ;; 7 digits
+    (is (false? (cep/is-valid? "013101000")))  ;; 9 digits
+    (is (false? (cep/is-valid? "01310-10")))   ;; incomplete formatted
+    (is (false? (cep/is-valid? "abcdefgh")))   ;; non-numeric
+    (is (false? (cep/is-valid? "")))           ;; empty
+    (is (false? (cep/is-valid? nil)))           ;; nil
+    (is (true? (cep/is-valid? "01310 100"))))  ;; spaces stripped to 01310100
 
   (testing "handles mixed characters"
     (is (true? (cep/is-valid? "CEP: 01310-100"))))
@@ -37,7 +37,7 @@
     (is (false? (cep/is-valid? {})))))
 
 ;; ============================================================================
-;; Testes: format-cep
+;; Tests: format-cep
 ;; ============================================================================
 
 (deftest format-cep-test
