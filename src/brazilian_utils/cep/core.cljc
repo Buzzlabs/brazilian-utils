@@ -45,6 +45,25 @@
     false
     (validation/validate-cep cep)))
 
+(defn clean
+  "Removes all non-numeric characters from a CEP.
+
+  This function normalizes CEP input by removing formatting characters like hyphens,
+  returning only the digits.
+
+  Args:
+    cep - The CEP string to clean (may include formatting)
+
+  Returns:
+    A string containing only digits (0-9)
+
+  Examples:
+    (clean \"01310-100\") ;; => \"01310100\"
+    (clean \"01310100\")  ;; => \"01310100\"
+    (clean \"\")          ;; => \"\""
+  [cep]
+  (helpers/only-numbers cep))
+
 (defn format-cep
   "Formats a CEP by adding hyphen at the correct position (xxxxx-xxx).
    

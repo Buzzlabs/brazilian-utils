@@ -46,6 +46,37 @@
     (is (false? (cep/is-valid? {})))))
 
 ;; ============================================================================
+;; Tests: clean
+;; ============================================================================
+
+(deftest clean-test
+  (testing "removes formatting from valid CEP"
+    (is (= "01310100" (cep/clean "01310-100")))
+    (is (= "12345678" (cep/clean "12345-678")))
+    (is (= "98765432" (cep/clean "98765-432"))))
+
+  (testing "returns unchanged when CEP has no formatting"
+    (is (= "01310100" (cep/clean "01310100")))
+    (is (= "12345678" (cep/clean "12345678"))))
+
+  (testing "removes all non-numeric characters"
+    (is (= "01310100" (cep/clean "01310.100")))
+    (is (= "01310100" (cep/clean "01310 100")))
+    (is (= "01310100" (cep/clean "CEP: 01310-100")))
+    (is (= "01310100" (cep/clean "0.1.3.1.0-1.0.0"))))
+
+  (testing "handles empty input"
+    (is (= "" (cep/clean ""))))
+
+  (testing "handles nil by converting to empty string"
+    (is (= "" (cep/clean nil))))
+
+  (testing "preserves all digits regardless of length"
+    (is (= "0131010099999" (cep/clean "01310-10099999")))
+    (is (= "013" (cep/clean "013")))
+    (is (= "0" (cep/clean "0")))))
+
+;; ============================================================================
 ;; Tests: format-cep
 ;; ============================================================================
 
