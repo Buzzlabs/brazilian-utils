@@ -1,7 +1,7 @@
 (ns brazilian-utils.data
   (:require [malli.core :as m]
-            [brazilian-utils.states.schemas :as state-schemas]
-            [brazilian-utils.cities.schemas :as city-schemas])
+            [brazilian-utils.states.validation :as state-validation]
+            [brazilian-utils.cities.validation :as city-validation])
   #?(:clj (:require [clojure.edn :as edn]
                     [clojure.java.io :as io]))
   #?(:cljs (:require-macros [brazilian-utils.data :refer [load-edn-resource]])))
@@ -29,13 +29,13 @@
 
 (defn- normalize-states-map
   "Validates (and potentially normalizes) the states map loaded from EDN.
-   Currently only validates against state-schemas/StatesDataByUf."
+   Currently only validates against state-validation/StatesDataByUf."
   [m]
-  (if (state-schemas/validate-states-map m)
+  (if (state-validation/validate-states-map m)
     m
     (throw (ex-info "states.edn is invalid"
-                    {:schema state-schemas/StatesDataByUf
-                     :explain (m/explain state-schemas/StatesDataByUf m)}))))
+                    {:schema state-validation/StatesDataByUf
+                     :explain (m/explain state-validation/StatesDataByUf m)}))))
 
 (def states-map
   "Complete map with information for all 27 Brazilian states.
@@ -52,13 +52,13 @@
 
 (defn- normalize-cities-by-state
   "Validates (and potentially normalizes) the cities-by-state map
-   loaded from EDN. Currently validates against city-schemas/CitiesByUf."
+   loaded from EDN. Currently validates against city-validation/CitiesByUf."
   [m]
-  (if (city-schemas/validate-cities-map m)
+  (if (city-validation/validate-cities-map m)
     m
     (throw (ex-info "cities.edn is invalid"
-                    {:schema city-schemas/CitiesByUf
-                     :explain (m/explain city-schemas/CitiesByUf m)}))))
+                    {:schema city-validation/CitiesByUf
+                     :explain (m/explain city-validation/CitiesByUf m)}))))
 
 (def cities-by-state
   "Map of cities by state (UF).

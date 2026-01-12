@@ -1,4 +1,4 @@
-(ns brazilian-utils.states.schemas
+(ns brazilian-utils.states.validation
   "Validation schemas for Brazilian states (UF).
    
    Uses malli to define and validate state-related data structures."

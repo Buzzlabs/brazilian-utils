@@ -1,12 +1,12 @@
-(ns brazilian-utils.cities.schemas
-  "Validation schemas for Brazilian cities.
+(ns brazilian-utils.cities.validation
+  "Validation validation for Brazilian cities.
    
    Uses malli to define and validate city-related data structures."
   (:require [malli.core :as m]
-            [brazilian-utils.states.schemas :as state-schemas]))
+            [brazilian-utils.states.validation :as validation]))
 
 ;; ============================================================================
-;; City (Cidade) Schemas  
+;; City (Cidade) validation  
 ;; ============================================================================
 
 (def City
@@ -23,7 +23,7 @@
    Example:
    {:SP [\"São Paulo\" \"Campinas\" ...]
     :RJ [\"Rio de Janeiro\" \"Niterói\" ...]}"
-  [:map-of state-schemas/State [:vector City]])
+  [:map-of validation/State [:vector City]])
 
 ;; ============================================================================
 ;; Validation Functions

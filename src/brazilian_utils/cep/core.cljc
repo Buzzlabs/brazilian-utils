@@ -1,5 +1,5 @@
 (ns brazilian-utils.cep.core
-  (:require [brazilian-utils.cep.schemas :as schemas]
+  (:require [brazilian-utils.cep.validation :as validation]
             [brazilian-utils.helpers :as helpers]))
 
 ;; ============================================================================
@@ -21,14 +21,19 @@
 (defn is-valid?
   "Validates if a CEP (Postal Code) is valid.
    
-   Checks:
-   - Type (must be string)
-   - Format (8 numeric digits)
-   
-   Arguments:
-   - cep: String containing the CEP for validation
-   
-   Returns true if valid, false otherwise.
+  Checks if the provided CEP is valid by verifying:
+  - It is a string
+  - It contains only digits and optionally a hyphen in the correct position
+  - It has exactly 8 digits
+  - All digits are numeric (0-9)
+
+  Accepts both formatted (XXXXX-XXX) and unformatted (XXXXXXXX) CEPs.
+
+  Args:
+    cep - The CEP string to validate
+
+  Returns:
+    true if valid, false otherwise
    
    Example:
    (is-valid? \"01310-100\") ;; true
@@ -36,13 +41,9 @@
    (is-valid? \"0131010\")   ;; false (7 digits)
    (is-valid? nil)         ;; false"
   [cep]
-  (if (or (not cep) (not (string? cep)))
+  (if-not (string? cep)
     false
-    (let [digits (helpers/only-numbers cep)]
-      (try
-        (schemas/validate-cep digits)
-        (catch #?(:clj Exception :cljs :default) _
-          false)))))
+    (validation/validate-cep cep)))
 
 (defn format-cep
   "Formats a CEP by adding hyphen at the correct position (xxxxx-xxx).

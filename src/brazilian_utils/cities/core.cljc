@@ -1,7 +1,7 @@
 (ns brazilian-utils.cities.core
   "Utilities to work with Brazilian cities by state (UF)."
   (:require [brazilian-utils.data :as data]
-            [brazilian-utils.states.schemas :as state-schemas]))
+            [brazilian-utils.states.validation :as state-validation]))
 
 (defn- valid-state?
   "Returns true if state is a valid UF keyword.
@@ -11,7 +11,7 @@
    
    Returns true if valid, false otherwise."
   [state]
-  (state-schemas/valid-uf? state))
+  (state-validation/valid-uf? state))
 
 (defn cities-of
   "Returns all cities of a given state.

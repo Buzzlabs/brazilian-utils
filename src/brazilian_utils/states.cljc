@@ -1,15 +1,17 @@
 (ns brazilian-utils.states
   (:require [brazilian-utils.states.core :as core]
-            [brazilian-utils.states.schemas :as schemas]))
+            [brazilian-utils.states.validation :as validation]
+            [brazilian-utils.states.internal :as internal]))
 
 ;; Validation
-(def valid-uf? schemas/valid-uf?)
+(def valid-uf? validation/valid-uf?)
 
 ;; Lookups
 (def uf->state-name core/uf->state-name)
 (def uf->ie-length core/uf->ie-length)
 (def uf->area-codes core/uf->area-codes)
+(def uf->code core/uf->code)
 
 ;; Aggregations
-(def all-ufs core/all-ufs)
-(def all-state-names core/all-state-names)
+(def all-ufs internal/all-ufs)
+(def all-state-names internal/all-state-names)
