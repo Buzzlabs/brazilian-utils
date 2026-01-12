@@ -75,7 +75,26 @@ Same as Clojure - add to your `deps.edn` or `project.clj` as shown above. Works 
 (cep/format-cep "01310100")
 ```
 
-## Contributors
+### Setup
+
+```bash
+git clone https://github.com/Buzzlabs/brazilian-utils.git
+cd brazilian-utils
+```
+
+### Run Tests
+
+```bash
+# Clojure
+clojure -M:test
+
+# ClojureScript
+clojure -M:cljs
+```
+
+### Code Style
+
+We use `cljfmt` for code formatting. Your PR should follow these style guidelines.
 
 <table>
   <tr>

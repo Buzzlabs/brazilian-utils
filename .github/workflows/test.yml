@@ -68,6 +68,11 @@ jobs:
       with:
         cli: latest
     
-    - name: Build ClojureScript
-      run: clj -M:cljs compile
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Run ClojureScript tests
+      run: clj -M:cljs compile test
       continue-on-error: true
