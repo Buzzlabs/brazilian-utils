@@ -72,7 +72,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
     
     - name: Cache shadow-cljs
       uses: actions/cache@v3
@@ -85,4 +84,5 @@ jobs:
           ${{ runner.os }}-shadow-cljs-
     
     - name: Run ClojureScript tests
-      run: clojure -M:cljs test
+      # Compile the :test build once; :autorun true runs the node tests and exits
+      run: clojure -M:cljs compile test
