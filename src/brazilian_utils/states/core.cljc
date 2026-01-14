@@ -53,12 +53,12 @@
     (get-in data/states-map [uf :area-codes])))
 
 (defn uf->code
-  "Returns the code for a UF.
+  "Returns the numeric IBGE code for a UF.
    
-   Arguments:
-   - uf: Keyword representing the state abbreviation
+   Args:
+   - uf: keyword (e.g., :SP)
    
-   Returns aintegers or nil if not found."
+   Returns integer or nil if not found."
   [uf]
   (when (validation/valid-uf? uf)
     (get-in data/states-map [uf :code])))
