@@ -31,6 +31,9 @@ jobs:
       with:
         cli: latest
     
+    - name: Run tests before publishing
+      run: clojure -M:test
+    
     - name: Configure Maven settings
       run: |
         mkdir -p ~/.m2

@@ -7,7 +7,7 @@
 
 (def CNPJFormatted
   "Schema for formatted numeric CNPJ: XX.XXX.XXX/XXXX-XX"
-  [:re #"^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$"])
+  [:re #"^\d{2}\.\d{3}\.\d{3}[/]\d{4}-\d{2}$"])
 
 (def CNPJAlfanumericStrict
   "Schema for unformatted alphanumeric CNPJ: 12 chars (A-Z or 0-9) + 2 numeric DVs"
@@ -18,7 +18,7 @@
 (def CNPJAlfanumericFormatted
   "Schema for formatted alphanumeric CNPJ: XX.XXX.XXX/XXXX-XX (with letters)"
   [:and
-   [:re #"^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}/[0-9A-Z]{4}-\d{2}$"]
+   [:re #"^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}[/][0-9A-Z]{4}-\d{2}$"]
    [:re #"[A-Z]"]])
 
 (defn is-formatted-alfanumeric?

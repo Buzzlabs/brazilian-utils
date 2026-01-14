@@ -27,7 +27,8 @@
   "Maps a character to CNPJ value: 0-9 -> 0..9, A-Z -> 10..35. Throws for invalid chars."
   [c]
   (let [c (first (str c))
-        code (int c)]
+        code #?(:clj (int c)
+                :cljs (.charCodeAt c 0))]
     (cond
       (<= 48 code 57) (helpers/char->digit c)
       (<= 65 code 90) (+ 10 (- code 65))
@@ -67,7 +68,7 @@
   ([cnpj] (format-alfanumeric cnpj {}))
   ([cnpj {:keys [pad]}]
    (let [s (str cnpj)
-         already (re-matches #"^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}\/[0-9A-Z]{4}-\d{2}$" s)]
+         already (re-matches #"^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}[/][0-9A-Z]{4}-\d{2}$" s)]
      (if (and (not pad) already)
        s
        (let [cleaned (clean-alfanumeric s)

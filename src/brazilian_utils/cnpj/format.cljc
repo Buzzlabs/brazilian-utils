@@ -1,6 +1,5 @@
 (ns brazilian-utils.cnpj.format
-  (:require [clojure.string :as string]
-            [brazilian-utils.cnpj.internal :as i]))
+  (:require [brazilian-utils.cnpj.internal :as i]))
 
 (defn format-cnpj
   "Formats numeric or alphanumeric CNPJ as XX.XXX.XXX/XXXX-XX.

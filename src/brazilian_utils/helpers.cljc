@@ -65,8 +65,10 @@
      (char->digit \" 5 \") ;; => 5
      (char->digit \\5) ;; => 5"
   [c]
-  (let [c (first (str c))]
-    (- (int c) 48)))
+  (let [c (first (str c))
+        code #?(:clj (int c)
+                :cljs (.charCodeAt c 0))]
+    (- code 48)))
 
 (defn weighted-sum
   "Computes the weighted sum of digit characters.

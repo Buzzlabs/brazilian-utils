@@ -85,11 +85,17 @@ cd brazilian-utils
 ### Run Tests
 
 ```bash
-# Clojure
+# Clojure (JVM)
 clojure -M:test
 
-# ClojureScript
-clojure -M:cljs
+# ClojureScript (Node.js)
+clojure -M:cljs test
+
+# Watch mode - recompila automaticamente quando arquivos mudam
+clojure -M:cljs watch test
+
+# REPL ClojureScript no browser
+clojure -M:cljs watch :browser
 ```
 
 ### Code Style

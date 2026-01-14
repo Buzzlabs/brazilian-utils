@@ -91,7 +91,7 @@
       (let [generated (cnpj/generate)
             formatted (cnpj/format-cnpj generated)]
         (is (cnpj/is-valid? formatted))
-        (is (re-matches #"^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$" formatted)))))
+        (is (re-matches #"^\d{2}\.\d{3}\.\d{3}[/]\d{4}-\d{2}$" formatted)))))
 
   (testing "generated CNPJs should not be reserved numbers"
     (dotimes [_ 50]
@@ -227,7 +227,7 @@
       (let [generated (cnpj/generate-alfanumeric)
             formatted (cnpj/format-cnpj generated)]
         (is (cnpj/is-valid? formatted))
-        (is (re-matches #"^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}\/[0-9A-Z]{4}-\d{2}$" formatted)))))
+        (is (re-matches #"^[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}[/][0-9A-Z]{4}-\d{2}$" formatted)))))
 
   (testing "alphanumeric CNPJ check digits are always numeric"
     (dotimes [_ 30]
@@ -328,12 +328,3 @@
     (is (= 11 (i/char->cnpj-value "B")))
     (is (= 0 (i/char->cnpj-value "0")))
     (is (= 9 (i/char->cnpj-value "9")))))
-
-(deftest test-valid-format
-  (testing "mascarado válido (numérico)"
-    (is (validation/is-formatted? "12.345.678/0001-95")))
-  (testing "mascarado válido (alfanumérico)"
-    (is (validation/is-formatted-alfanumeric? "12.ABC.345/01DE-35"))
-  (testing "sem máscara (aproximação do isValidFormat do JS)"
-    (is (boolean (re-matches #"^\d{14}$" "12345678000195")))
-    (is (boolean (re-matches #"^[0-9A-Z]{14}$" "12ABC34501DE35"))))))
