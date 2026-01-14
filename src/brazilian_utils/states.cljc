@@ -15,3 +15,6 @@
 ;; Aggregations
 (def all-ufs internal/all-ufs)
 (def all-state-names internal/all-state-names)
+
+(def code->uf core/code->uf)
+(def name->uf core/name->uf)

@@ -11,10 +11,14 @@
   "Schema for Mercosul license plate format (newer plates).
    Format: 3 letters + 1 digit + 1 letter + 2 digits (e.g., ABC1D23).
    
+   Important: The 5th character (letter after first digit) cannot be I, O, or Q
+   to avoid confusion with digits (I looks like 1, O looks like 0).
+   
    Example:
    (m/validate MercosulLicensePlate \"ABC1D23\")  ;; true
+   (m/validate MercosulLicensePlate \"ABC1I23\")  ;; false (I not allowed)
    (m/validate MercosulLicensePlate \"ABC-1D23\") ;; false (no formatting)"
-  [:re #"(?i)^[a-z]{3}[0-9]{1}[a-z]{1}[0-9]{2}$"])
+  [:re #"(?i)^[a-z]{3}[0-9]{1}[a-hj-npr-z]{1}[0-9]{2}$"])
 
 (def BrazilianLicensePlate
   "Schema for traditional Brazilian license plate format.

@@ -194,3 +194,53 @@
       (let [codes (states/uf->area-codes uf)]
         (is (vector? codes))
         (is (every? integer? codes))))))
+
+;; ============================================================================
+;; Tests: code->uf
+;; ============================================================================
+
+(deftest code->uf-test
+  (testing "returns the correct UF for IBGE state code"
+    (is (= :SP (states/code->uf "8")))
+    (is (= :SP (states/code->uf 8)))
+    (is (= :RJ (states/code->uf "7")))
+    (is (= :RJ (states/code->uf 7)))
+    (is (= :MG (states/code->uf "6"))))
+
+  (testing "returns nil for invalid codes"
+    (is (nil? (states/code->uf "99")))
+    (is (nil? (states/code->uf 99)))
+    (is (nil? (states/code->uf nil))))
+
+  (testing "handles unique state codes correctly"
+    (is (= :RS (states/code->uf "0")))
+    (is (= :SP (states/code->uf "8")))
+    (is (= :MG (states/code->uf "6"))))
+
+  (testing "code 2 returns one of the Norte region states (AC, AP, AM share code 2)"
+    (let [result (states/code->uf "2")]
+      (is (contains? #{:AC :AP :AM :PA :RO :RR} result)))))
+
+;; ============================================================================
+;; Tests: name->uf
+;; ============================================================================
+
+(deftest name->uf-test
+  (testing "returns the correct UF for state name"
+    (is (= :SP (states/name->uf "São Paulo")))
+    (is (= :RJ (states/name->uf "Rio de Janeiro")))
+    (is (= :MG (states/name->uf "Minas Gerais"))))
+
+  (testing "is case-insensitive"
+    (is (= :SP (states/name->uf "são paulo")))
+    (is (= :SP (states/name->uf "SÃO PAULO")))
+    (is (= :RJ (states/name->uf "rio de janeiro"))))
+
+  (testing "returns nil for invalid or unknown names"
+    (is (nil? (states/name->uf "Invalid State")))
+    (is (nil? (states/name->uf "")))
+    (is (nil? (states/name->uf nil))))
+
+  (testing "returns nil for non-string inputs"
+    (is (nil? (states/name->uf 123)))
+    (is (nil? (states/name->uf :SP)))))

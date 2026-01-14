@@ -65,3 +65,43 @@
    (all-city-names) ;; [\"São Paulo\" \"Rio de Janeiro\" \"Salvador\" ...]"
   []
   (reduce into [] (vals data/cities-by-state)))
+
+(defn find-city-by-name
+  "Finds all occurrences of a city by its name (case-insensitive).
+   
+   Arguments:
+   - city-name: String with the city name to search
+   
+   Returns a vector of maps with :state and :city keys for all matches.
+   
+   Example:
+   (find-city-by-name \"São Paulo\") ;; [{:state :SP :city \"São Paulo\"}]
+   (find-city-by-name \"santa cruz\") ;; Multiple cities named Santa Cruz in different states"
+  [city-name]
+  (when (string? city-name)
+    (let [name-lower (clojure.string/lower-case city-name)]
+      (->> data/cities-by-state
+           (mapcat (fn [[uf cities]]
+                     (->> cities
+                          (filter #(= (clojure.string/lower-case %) name-lower))
+                          (map (fn [c] {:state uf :city c})))))
+           vec))))
+
+(defn city-exists?
+  "Checks if a city exists in a given state.
+   
+   Arguments:
+   - state: Keyword representing the state code (UF)
+   - city-name: String with the city name (case-insensitive)
+   
+   Returns true if the city exists in that state, false otherwise.
+   
+   Example:
+   (city-exists? :SP \"São Paulo\") ;; true
+   (city-exists? :SP \"Rio de Janeiro\") ;; false
+   (city-exists? :RJ \"Rio de Janeiro\") ;; true"
+  [state city-name]
+  (when (and (valid-state? state) (string? city-name))
+    (let [name-lower (clojure.string/lower-case city-name)
+          cities (get data/cities-by-state state [])]
+      (boolean (some #(= (clojure.string/lower-case %) name-lower) cities)))))

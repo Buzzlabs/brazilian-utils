@@ -70,3 +70,55 @@
         (is (vector? result))
         (when (seq result)
           (is (every? string? result)))))))
+
+;; ============================================================================
+;; Tests: find-city-by-name
+;; ============================================================================
+
+(deftest find-city-by-name-test
+  (testing "finds city with exact match"
+    (let [result (cities/find-city-by-name "São Paulo")]
+      (is (vector? result))
+      (is (some #(and (= (:state %) :SP) (= (:city %) "São Paulo")) result))))
+
+  (testing "is case-insensitive"
+    (let [result1 (cities/find-city-by-name "são paulo")
+          result2 (cities/find-city-by-name "SÃO PAULO")]
+      (is (seq result1))
+      (is (seq result2))))
+
+  (testing "returns empty vector for non-existent city"
+    (is (= [] (cities/find-city-by-name "Cidade Inexistente"))))
+
+  (testing "returns nil for nil input"
+    (is (nil? (cities/find-city-by-name nil))))
+
+  (testing "returns nil for non-string input"
+    (is (nil? (cities/find-city-by-name 123)))))
+
+;; ============================================================================
+;; Tests: city-exists?
+;; ============================================================================
+
+(deftest city-exists?-test
+  (testing "returns true for existing city in state"
+    (is (true? (cities/city-exists? :SP "São Paulo")))
+    (is (true? (cities/city-exists? :RJ "Rio de Janeiro"))))
+
+  (testing "is case-insensitive"
+    (is (true? (cities/city-exists? :SP "são paulo")))
+    (is (true? (cities/city-exists? :SP "SÃO PAULO"))))
+
+  (testing "returns false for city in wrong state"
+    (is (false? (cities/city-exists? :SP "Rio de Janeiro")))
+    (is (false? (cities/city-exists? :RJ "São Paulo"))))
+
+  (testing "returns false for non-existent city"
+    (is (false? (cities/city-exists? :SP "Cidade Inexistente"))))
+
+  (testing "returns nil for invalid state"
+    (is (nil? (cities/city-exists? :XX "São Paulo"))))
+
+  (testing "returns nil for nil inputs"
+    (is (nil? (cities/city-exists? nil "São Paulo")))
+    (is (nil? (cities/city-exists? :SP nil)))))

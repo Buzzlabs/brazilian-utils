@@ -62,3 +62,42 @@
   [uf]
   (when (validation/valid-uf? uf)
     (get-in data/states-map [uf :code])))
+
+(defn code->uf
+  "Returns the UF keyword for a given IBGE state code.
+   
+   Arguments:
+   - code: String or integer representing the IBGE state code
+   
+   Returns a keyword with the UF or nil if not found.
+   
+   Example:
+   (code->uf \"8\") ;; :SP
+   (code->uf 8) ;; :SP
+   (code->uf \"3\") ;; :CE (first match if multiple states have same code)"
+  [code]
+  (let [code-str (str code)]
+    (->> data/states-map
+         (filter (fn [[_ v]] (= (:code v) code-str)))
+         first
+         first)))
+
+(defn name->uf
+  "Returns the UF keyword for a given state name.
+   
+   Arguments:
+   - name: String with the full or partial state name (case-insensitive)
+   
+   Returns a keyword with the UF or nil if not found.
+   
+   Example:
+   (name->uf \"São Paulo\") ;; :SP
+   (name->uf \"são paulo\") ;; :SP
+   (name->uf \"Rio de Janeiro\") ;; :RJ"
+  [name]
+  (when (string? name)
+    (let [name-lower (clojure.string/lower-case name)]
+      (->> data/states-map
+           (filter (fn [[_ v]] (= (clojure.string/lower-case (:name v)) name-lower)))
+           first
+           first))))

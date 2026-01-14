@@ -8,3 +8,6 @@
 ;; Aggregations
 (def all-cities core/all-cities)
 (def all-city-names core/all-city-names)
+
+(def find-city-by-name core/find-city-by-name)
+(def city-exists? core/city-exists?)
