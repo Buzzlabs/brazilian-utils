@@ -99,21 +99,21 @@
         (is (not (re-matches #"^(\d)\1{13}$" generated)))))))
 
 ;; ============================================================================
-;; Test clean
+;; Test remove-symbols
 ;; ============================================================================
 
-(deftest test-clean
+(deftest test-remove-symbols
   (testing "should remove special characters and convert to uppercase"
-    (is (= "12ABC34501DE35" (cnpj/clean "12.ABC.345/01DE-35")))
-    (is (= "12345678000195" (cnpj/clean "12.345.678/0001-95")))
-    (is (= "ABCDEFGHIJKL35" (cnpj/clean "ab.cde.fgh/ijkl-35")))
-    (is (= "12ABC34501DE35ABC" (cnpj/clean "12.?ABC.345/01DE-35abc"))))
+    (is (= "12ABC34501DE35" (cnpj/remove-symbols "12.ABC.345/01DE-35")))
+    (is (= "12345678000195" (cnpj/remove-symbols "12.345.678/0001-95")))
+    (is (= "ABCDEFGHIJKL35" (cnpj/remove-symbols "ab.cde.fgh/ijkl-35")))
+    (is (= "12ABC34501DE35ABC" (cnpj/remove-symbols "12.?ABC.345/01DE-35abc"))))
 
   (testing "handles edge cases"
-    (is (= "" (cnpj/clean "")))
-    (is (= "" (cnpj/clean nil)))
-    (is (= "" (cnpj/clean "   ")))
-    (is (= "" (cnpj/clean "!@#$%^&*()")))))
+    (is (= "" (cnpj/remove-symbols "")))
+    (is (= "" (cnpj/remove-symbols nil)))
+    (is (= "" (cnpj/remove-symbols "   ")))
+    (is (= "" (cnpj/remove-symbols "!@#$%^&*()")))))
 
 ;; ============================================================================
 ;; Test is-valid?
@@ -307,20 +307,20 @@
 
 (deftest test-is-numeric-cnpj
   (testing "numeric CNPJs"
-    (is (true? (validation/is-numeric? (cnpj/clean "12345678000195"))))
-    (is (true? (validation/is-numeric? (cnpj/clean "12.345.678/0001-95"))))
-    (is (true? (validation/is-numeric? (cnpj/clean "00000000000000")))))
+    (is (true? (validation/is-numeric? (cnpj/remove-symbols "12345678000195"))))
+    (is (true? (validation/is-numeric? (cnpj/remove-symbols "12.345.678/0001-95"))))
+    (is (true? (validation/is-numeric? (cnpj/remove-symbols "00000000000000")))))
   (testing "alphanumeric CNPJs"
-    (is (false? (validation/is-numeric? (cnpj/clean "12ABC34501DE35"))))
-    (is (false? (validation/is-numeric? (cnpj/clean "AB.1C2.D3E/4F5G-35"))))))
+    (is (false? (validation/is-numeric? (cnpj/remove-symbols "12ABC34501DE35"))))
+    (is (false? (validation/is-numeric? (cnpj/remove-symbols "AB.1C2.D3E/4F5G-35"))))))
 
 (deftest test-is-alfanumeric-cnpj
   (testing "alphanumeric CNPJs"
-    (is (true? (validation/is-alfanumeric? (cnpj/clean "12ABC34501DE35"))))
-    (is (true? (validation/is-alfanumeric? (cnpj/clean "AB.1C2.D3E/4F5G-35")))))
+    (is (true? (validation/is-alfanumeric? (cnpj/remove-symbols "12ABC34501DE35"))))
+    (is (true? (validation/is-alfanumeric? (cnpj/remove-symbols "AB.1C2.D3E/4F5G-35")))))
   (testing "numeric CNPJs"
-    (is (false? (validation/is-alfanumeric? (cnpj/clean "12345678000195"))))
-    (is (false? (validation/is-alfanumeric? (cnpj/clean "12.345.678/0001-95"))))))
+    (is (false? (validation/is-alfanumeric? (cnpj/remove-symbols "12345678000195"))))
+    (is (false? (validation/is-alfanumeric? (cnpj/remove-symbols "12.345.678/0001-95"))))))
 
 (deftest test-char-to-cnpj-value
   (testing "internal char mapping (documentar diferença vs suite JS)"

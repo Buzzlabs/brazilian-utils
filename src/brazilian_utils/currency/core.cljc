@@ -19,7 +19,7 @@
 (defn parse
   "Parses a BRL-formatted string into a number (double).
 
-   Accepts input with or without \"R$\" and separators. Nil/blank returns 0.0.
-   Example: \"R$ 1.234,56\" => 1234.56"
+  Accepts input with or without \"R$\" and separators. Nil/blank returns 0.0.
+  Example: \"R$ 1.234,56\" => 1234.56"
   [value]
   (fmt/parse-currency value))

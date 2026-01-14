@@ -6,6 +6,6 @@
   "Validates a PIS number (11 digits)."
   core/is-valid?)
 
-(def clean
+(def remove-symbols
   "Removes formatting from a PIS string."
-  core/clean)
+  core/remove-symbols)

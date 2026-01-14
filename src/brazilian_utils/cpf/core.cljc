@@ -6,28 +6,32 @@
             [brazilian-utils.helpers :as helpers]))
 
 
-(defn clean
+(defn remove-symbols
   "Removes all non-numeric characters from a CPF.
 
   This function normalizes CPF input by removing formatting characters like dots
   and hyphens, returning only the digits.
 
   Args:
-    cpf - The CPF string to clean (may include formatting)
+    cpf - CPF string (formatted or unformatted); nil allowed
 
   Returns:
-    A string containing only digits (0-9)
+    Digits-only string; nil yields an empty string
 
   Examples:
-    (clean \"123.456.789-09\") ;; => \"12345678909\"
-    (clean \"12345678909\")     ;; => \"12345678909\"
-    (clean \"\")                ;; => \"\""
+    (remove-symbols \"123.456.789-09\") ;; => \"12345678909\"
+    (remove-symbols \"12345678909\")    ;; => \"12345678909\"
+    (remove-symbols nil)                  ;; => \"\"
+    (remove-symbols \"\")              ;; => \"\""
   [cpf]
   (helpers/only-numbers cpf))
 
 (defn format-cpf
   "Formats a CPF string with standard Brazilian punctuation (XXX.XXX.XXX-XX).
-   Supports partial inputs and optional zero-padding."
+  Supports partial inputs and optional zero-padding.
+
+  Input: string or number; optional opts map for zero-padding behavior.
+  Output: formatted CPF string with mask."
   ([cpf] (fmt/format-cpf cpf))
   ([cpf opts] (fmt/format-cpf cpf opts)))
 
@@ -40,15 +44,15 @@
   of the reserved (all-repeated-digits) numbers.
 
   Args:
-    state - Optional. The Brazilian state code keyword (e.g., :SP, :RJ) to use as the 9th digit.
+    state - Optional Brazilian state code keyword (e.g., :SP, :RJ) to use as the 9th digit.
             If not provided or invalid, a random digit is used.
 
   Returns:
-    A valid 11-digit numeric CPF string (unformatted)
+    Valid 11-digit numeric CPF string (unformatted)
 
   Examples:
-    (generate) ;; => \"12345678909\"
-    (generate :SP) ;; => \"12345678901\" (with SP state code)"
+    (generate)       ;; => \"12345678909\"
+    (generate :SP)   ;; => \"12345678901\" (with SP state code)"
   ([]
    (generate nil))
   ([state]
@@ -80,23 +84,23 @@
   Accepts both formatted (XXX.XXX.XXX-XX) and unformatted (XXXXXXXXXXX) CPFs.
 
   Args:
-    cpf - The CPF string to validate (formatted or unformatted)
+    cpf - CPF string to validate (formatted or unformatted)
 
   Returns:
-    true if valid, false otherwise
+    true if valid; false otherwise
 
   Examples:
-    (is-valid? \"123.456.789-09\") ;; => true or false
-    (is-valid? \"12345678909\")     ;; => true or false
-    (is-valid? \"00000000000\")     ;; => false (reserved)
-    (is-valid? \"12345678900\")     ;; => false (invalid check digit)
+    (is-valid? \"123.456.789-09\") ;; => true/false
+    (is-valid? \"12345678909\")    ;; => true/false
+    (is-valid? \"00000000000\")    ;; => false (reserved)
+    (is-valid? \"12345678900\")    ;; => false (invalid check digit)
     (is-valid? nil)                 ;; => false"
   [cpf]
-(if-not (string? cpf)
-   false
-   (and (validation/is-valid-format? cpf)
-        (let [cleaned (clean cpf)]
-          (boolean
-           (and (helpers/only-numbers cleaned)
-                (not (helpers/repeated-digits? cleaned))
-                (i/valid-checksum* cleaned)))))))
+  (if-not (string? cpf)
+    false
+    (and (validation/is-valid-format? cpf)
+         (let [cleaned (remove-symbols cpf)]
+           (boolean
+            (and (helpers/only-numbers cleaned)
+                 (not (helpers/repeated-digits? cleaned))
+                 (i/valid-checksum* cleaned)))))))

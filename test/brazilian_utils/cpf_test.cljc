@@ -7,31 +7,31 @@
 (def cpf-length 11)
 
 ;; ============================================================================
-;; Test clean
+;; Test remove-symbols
 ;; ============================================================================
 
-(deftest test-clean
+(deftest test-remove-symbols
   (testing "should remove all non-numeric characters"
-    (is (= "12345678909" (cpf/clean "123.456.789-09")))
-    (is (= "12345678909" (cpf/clean "123-456-789-09")))
-    (is (= "12345678909" (cpf/clean "123 456 789 09")))
-    (is (= "12345678909" (cpf/clean "abc123def456ghi789jkl09")))
-    (is (= "12345678909" (cpf/clean "!@#123$%^456&*(789)09"))))
+    (is (= "12345678909" (cpf/remove-symbols "123.456.789-09")))
+    (is (= "12345678909" (cpf/remove-symbols "123-456-789-09")))
+    (is (= "12345678909" (cpf/remove-symbols "123 456 789 09")))
+    (is (= "12345678909" (cpf/remove-symbols "abc123def456ghi789jkl09")))
+    (is (= "12345678909" (cpf/remove-symbols "!@#123$%^456&*(789)09"))))
 
   (testing "should return empty string for nil or empty input"
-    (is (= "" (cpf/clean nil)))
-    (is (= "" (cpf/clean ""))))
+    (is (= "" (cpf/remove-symbols nil)))
+    (is (= "" (cpf/remove-symbols ""))))
 
   (testing "should handle already clean CPF"
-    (is (= "12345678909" (cpf/clean "12345678909"))))
+    (is (= "12345678909" (cpf/remove-symbols "12345678909"))))
 
   (testing "should handle numbers"
-    (is (= "12345678909" (cpf/clean 12345678909))))
+    (is (= "12345678909" (cpf/remove-symbols 12345678909))))
 
   (testing "should extract only digits from mixed content"
-    (is (= "12345678909" (cpf/clean "CPF: 123.456.789-09")))
-    (is (= "12345678909" (cpf/clean "foo123.456.789-09bar")))
-    (is (= "00000000000" (cpf/clean "000.000.000-00")))))
+    (is (= "12345678909" (cpf/remove-symbols "CPF: 123.456.789-09")))
+    (is (= "12345678909" (cpf/remove-symbols "foo123.456.789-09bar")))
+    (is (= "00000000000" (cpf/remove-symbols "000.000.000-00")))))
 
 ;; ============================================================================
 ;; Test format-cpf

@@ -50,22 +50,22 @@
     (is (true? (pis/is-valid? "120.7041.469-0")))))
 
 ;; ============================================================================
-;; Tests: clean
+;; Tests: remove-symbols
 ;; ============================================================================
 
-(deftest clean-test
+(deftest remove-symbols-test
   (testing "removes formatting from PIS"
-    (is (= "12056412847" (pis/clean "120.5641.284-7"))))
+    (is (= "12056412847" (pis/remove-symbols "120.5641.284-7"))))
 
   (testing "returns unchanged if already clean"
-    (is (= "12056412847" (pis/clean "12056412847"))))
+    (is (= "12056412847" (pis/remove-symbols "12056412847"))))
 
   (testing "handles nil input"
-    (is (= "" (pis/clean nil))))
+    (is (= "" (pis/remove-symbols nil))))
 
   (testing "handles empty string"
-    (is (= "" (pis/clean ""))))
+    (is (= "" (pis/remove-symbols ""))))
 
   (testing "removes any non-numeric characters"
-    (is (= "12056412847" (pis/clean "120-564-128-47")))
-    (is (= "12056412847" (pis/clean "120 564 128 47")))))
+    (is (= "12056412847" (pis/remove-symbols "120-564-128-47")))
+    (is (= "12056412847" (pis/remove-symbols "120 564 128 47")))))

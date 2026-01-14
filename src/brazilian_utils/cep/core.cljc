@@ -19,48 +19,48 @@
 ;; ============================================================================
 
 (defn is-valid?
-  "Validates if a CEP (Postal Code) is valid.
+  "Validates whether a CEP (postal code) is well-formed.
    
-  Checks if the provided CEP is valid by verifying:
-  - It is a string
-  - It contains only digits and optionally a hyphen in the correct position
-  - It has exactly 8 digits
-  - All digits are numeric (0-9)
+  Checks:
+  - Input is a string
+  - Contains only digits and an optional hyphen in the correct position
+  - Has exactly 8 digits
+  - All characters are numeric (0-9)
 
   Accepts both formatted (XXXXX-XXX) and unformatted (XXXXXXXX) CEPs.
 
   Args:
-    cep - The CEP string to validate
+    cep - CEP string to validate (formatted or unformatted)
 
   Returns:
-    true if valid, false otherwise
+    true if valid; false otherwise
    
-   Example:
-   (is-valid? \"01310-100\") ;; true
-   (is-valid? \"01310100\")  ;; true
-   (is-valid? \"0131010\")   ;; false (7 digits)
-   (is-valid? nil)         ;; false"
+  Examples:
+    (is-valid? \"01310-100\") ;; true
+    (is-valid? \"01310100\")  ;; true
+    (is-valid? \"0131010\")   ;; false (7 digits)
+    (is-valid? nil)             ;; false"
   [cep]
   (if-not (string? cep)
     false
     (validation/validate-cep cep)))
 
-(defn clean
+(defn remove-symbols
   "Removes all non-numeric characters from a CEP.
 
-  This function normalizes CEP input by removing formatting characters like hyphens,
-  returning only the digits.
+  Normalizes CEP input by stripping hyphens and other symbols, returning only digits.
 
   Args:
-    cep - The CEP string to clean (may include formatting)
+    cep - CEP string to normalize (formatted or unformatted); nil allowed
 
   Returns:
-    A string containing only digits (0-9)
+    String with digits only (0-9); nil yields an empty string
 
   Examples:
-    (clean \"01310-100\") ;; => \"01310100\"
-    (clean \"01310100\")  ;; => \"01310100\"
-    (clean \"\")          ;; => \"\""
+    (remove-symbols \"01310-100\") ;; => \"01310100\"
+    (remove-symbols \"01310100\")  ;; => \"01310100\"
+    (remove-symbols nil)             ;; => \"\"
+    (remove-symbols \"\")          ;; => \"\""
   [cep]
   (helpers/only-numbers cep))
 
@@ -73,10 +73,10 @@
    Returns a formatted string with hyphen.
    Removes non-numeric characters and limits to 8 digits.
    
-   Example:
-   (format-cep \"01310100\")  ;; \"01310-100\"
-   (format-cep \"01310-100\") ;; \"01310-100\"
-   (format-cep \"013101\")    ;; \"01310-1\" (partial)"
+  Example:
+  (format-cep \"01310100\")  ;; \"01310-100\"
+  (format-cep \"01310-100\") ;; \"01310-100\"
+  (format-cep \"013101\")    ;; \"01310-1\" (partial)"
   [cep]
   (let [digits (helpers/only-numbers cep)
         normalized-cep (subs digits 0 (min length (count digits)))

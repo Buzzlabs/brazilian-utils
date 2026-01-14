@@ -70,21 +70,21 @@
     (is (false? (pj/is-valid? [])))))
 
 ;; ============================================================================
-;; Tests: clean
+;; Tests: remove-symbols
 ;; ============================================================================
 
-(deftest clean-test
+(deftest remove-symbols-test
   (testing "removes formatting from Processo Jurídico"
-    (is (= "00020802520125150049" (pj/clean "0002080-25.2012.515.0049"))))
+    (is (= "00020802520125150049" (pj/remove-symbols "0002080-25.2012.515.0049"))))
 
   (testing "returns unchanged if already clean"
-    (is (= "00020802520125150049" (pj/clean "00020802520125150049"))))
+    (is (= "00020802520125150049" (pj/remove-symbols "00020802520125150049"))))
 
   (testing "handles nil input"
-    (is (= "" (pj/clean nil))))
+    (is (= "" (pj/remove-symbols nil))))
 
   (testing "handles empty string"
-    (is (= "" (pj/clean ""))))
+    (is (= "" (pj/remove-symbols ""))))
 
   (testing "removes any non-numeric characters"
-    (is (= "00020802520125150049" (pj/clean "0002080@$25201%!@2515.%0049")))))
+    (is (= "00020802520125150049" (pj/remove-symbols "0002080@$25201%!@2515.%0049")))))

@@ -6,9 +6,9 @@
   "Validates a Processo Jurídico number (20 digits)."
   core/is-valid?)
 
-(def clean
+(def remove-symbols
   "Removes formatting from a Processo Jurídico string."
-  core/clean)
+  core/remove-symbols)
 
 (def format-processo
   "Formats a Processo Jurídico with standard Brazilian court case format."

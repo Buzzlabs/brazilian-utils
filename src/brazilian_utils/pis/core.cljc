@@ -3,52 +3,50 @@
             [brazilian-utils.pis.validation :as validation]
             [brazilian-utils.helpers :as helpers]))
 
-(defn clean
+(defn remove-symbols
   "Removes all non-numeric characters from a PIS.
 
-  This function normalizes PIS input by removing formatting characters like dots
-  and hyphens, returning only the digits.
-
   Args:
-    pis - The PIS string to clean (may include formatting)
+    pis - PIS string (formatted or unformatted); nil allowed
 
   Returns:
-    A string containing only digits (0-9)
+    Digits-only string; nil becomes an empty string
 
   Examples:
-    (clean \"120.56874.10-7\") ;; => \"12056874107\"
-    (clean \"12056874107\")     ;; => \"12056874107\"
-    (clean \"\")                ;; => \"\""
+    (remove-symbols \"120.56874.10-7\") ;; => \"12056874107\"
+    (remove-symbols \"12056874107\")    ;; => \"12056874107\"
+    (remove-symbols nil)                  ;; => \"\"
+    (remove-symbols \"\")              ;; => \"\""
   [pis]
   (helpers/only-numbers pis))
 
 (defn is-valid?
   "Validates a PIS (Programa de Integração Social) number.
 
-  Checks if the provided PIS is valid by verifying:
-  - It is a string
-  - It has exactly 11 digits (after cleaning)
-  - It is not a reserved number (all repeated digits)
-  - The check digit is correct according to the Brazilian PIS algorithm
+  Checks:
+  - Input is a string
+  - Exactly 11 digits after removing formatting
+  - Not all digits repeated
+  - Check digit matches PIS algorithm
 
-  Accepts both formatted (XXX.XXXXX.XX-X) and unformatted (XXXXXXXXXXX) PIS.
+  Accepts formatted (XXX.XXXXX.XX-X) or unformatted (XXXXXXXXXXX).
 
   Args:
-    pis - The PIS string to validate (formatted or unformatted)
+    pis - PIS string to validate (formatted or not)
 
   Returns:
-    true if valid, false otherwise
+    true when valid; false otherwise
 
   Examples:
-    (is-valid? \"120.56874.10-7\") ;; => true or false
-    (is-valid? \"12056874107\")     ;; => true or false
-    (is-valid? \"00000000000\")     ;; => false (reserved)
-    (is-valid? \"12345678901\")     ;; => false (invalid check digit)
+    (is-valid? \"120.56874.10-7\") ;; => true/false
+    (is-valid? \"12056874107\")    ;; => true/false
+    (is-valid? \"00000000000\")    ;; => false
+    (is-valid? \"12345678901\")    ;; => false
     (is-valid? nil)                 ;; => false"
   [pis]
   (if-not (string? pis)
     false
     (and (validation/is-valid-format? pis)
-         (let [cleaned (clean pis)]
+         (let [cleaned (remove-symbols pis)]
            (and (not (helpers/repeated-digits? cleaned))
                 (i/valid-checksum* cleaned))))))
