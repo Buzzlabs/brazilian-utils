@@ -7,6 +7,7 @@
      - get-format: detect format as \"LLLNNNN\" or \"LLLNLNN\"
      - convert-to-mercosul: convert traditional plates to Mercosul style"
   (:require [brazilian-utils.license-plate.validation :as validation]
+            [brazilian-utils.helpers :as helpers]
             [clojure.string :as str]))
 
 ;; ============================================================================
@@ -93,8 +94,7 @@
               first-digit (str (first digits))
               ;; Get second digit as a character, convert to int, then to letter
               second-digit-char (second digits)
-              second-digit-int #?(:clj (Character/getNumericValue second-digit-char)
-                                  :cljs (js/parseInt (str second-digit-char)))
+              second-digit-int (helpers/char->digit second-digit-char)
               second-digit-code (+ 65 second-digit-int)
               converted-letter (char second-digit-code)
               remaining-digits (subs digits 2 4)]

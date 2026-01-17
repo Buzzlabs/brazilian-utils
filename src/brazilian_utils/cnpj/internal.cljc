@@ -37,7 +37,7 @@
 (defn calc-check-digit*
   "Computes mod-11 check digit for a CNPJ base (numeric or alphanumeric) using given weights."
   [base weights]
-  (helpers/mod11-check-digit base weights {:char->val char->cnpj-value
+  (helpers/check-digit base weights {:char->val char->cnpj-value
                                            :stringify? true}))
 
 (defn format-numeric

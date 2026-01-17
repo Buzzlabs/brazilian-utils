@@ -12,9 +12,8 @@
    PIS algorithm: digit = 11 - (weightedSum % 11);
    if result is 10 or 11, digit becomes 0."
   [base]
-  (let [d (helpers/mod11-check-digit base check-digit-weights {:stringify? true})
-        d-val #?(:clj (Integer/parseInt d)
-                 :cljs (js/parseInt d))]  
+  (let [d (helpers/check-digit base check-digit-weights {:stringify? true})
+        d-val (helpers/parse-int d)]  
     (if (>= d-val 10) "0" d)))
 
 (defn valid-checksum*

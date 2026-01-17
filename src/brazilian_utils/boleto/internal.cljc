@@ -1,7 +1,8 @@
 (ns brazilian-utils.boleto.internal
   "Internal helper functions for boleto validation and processing.
    
-   Pure functions for DV calculation, digit parsing, and data extraction.")
+   Pure functions for DV calculation, digit parsing, and data extraction."
+  (:require [brazilian-utils.helpers :as helpers]))
 
 ;; ============================================================================
 ;; Constants
@@ -25,8 +26,7 @@
 (defn parse-digit
   "Converts a character to its numeric value (0-9)."
   [ch]
-  #?(:clj  (Character/digit ch 10)
-     :cljs (js/parseInt (str ch) 10)))
+  (helpers/char->digit ch))
 
 (defn digit-at
   "Gets digit value at position in string, or nil if out of bounds."
@@ -170,8 +170,7 @@
    Returns:
      Integer representing days since base date"
   [digits]
-  #?(:clj  (Integer/parseInt (subs digits 33 37))
-     :cljs (js/parseInt (subs digits 33 37) 10)))
+  (helpers/parse-int (subs digits 33 37)))
 
 (defn extract-value
   "Extracts boleto value in cents from boleto digits.
@@ -182,8 +181,7 @@
    Returns:
      Long integer representing value in cents"
   [digits]
-  #?(:clj  (Long/parseLong (subs digits 37 47))
-     :cljs (js/parseInt (subs digits 37 47) 10)))
+  (parse-long (subs digits 37 47)))
 
 (defn calculate-due-date
   "Calculates due date from factor (days since 1997-10-07).

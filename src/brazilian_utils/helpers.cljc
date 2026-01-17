@@ -88,18 +88,24 @@
      (when (= (count ds) (count ws))
        (reduce + (map * (map char->val ds) ws))))))
 
-(defn mod11-check-digit
-  "Computes a mod-11 check digit using weighted sum.
-
-   digits     - string/seq of characters to convert
-   weights    - descending start weight number or a seq of weights
-   options    - {:char->val fn, :threshold n, :stringify? bool}
-                threshold default is 2 (remainder < threshold -> 0)
-                stringify? when true returns the digit as string
-
-   Returns the digit (int or string) or nil if weight count does not match."  
+(defn check-digit
+  "Computes check digit using modulo 11 with given weights.
+   
+   Arguments:
+   - digits: String or sequence of digits
+   - weights: Vector of weights (e.g., [9 8 7 6 5 4 3 2])
+   - options: Optional map with:
+     - :char->val (default char->digit) - function to convert char to int
+     - :threshold (default 2) - remainder < threshold returns 0, else 11 - remainder
+     - :stringify? (default false) - return as string instead of int
+   
+   Returns the digit (int or string) or nil if weight count does not match.
+   
+   Example:
+   (check-digit \"12000000\" [9 8 7 6 5 4 3 2]) ;; => 8
+   (check-digit \"11004249\" [1 3 4 5 6 7 8 10]) ;; => 0"  
   ([digits weights]
-   (mod11-check-digit digits weights {}))
+   (check-digit digits weights {}))
   ([digits weights {:keys [char->val threshold stringify?]
                     :or {char->val char->digit
                          threshold 2
@@ -129,3 +135,64 @@
   [s start end]
   (when (< start (count s))
     (subs s start (min end (count s)))))
+
+(defn digits->ints
+  "Converts a string of digit characters to a sequence of integers.
+   
+   Arguments:
+   - s: String containing digit characters
+   
+   Returns a lazy sequence of integers.
+   
+   Example:
+   (digits->ints \"12345\") ;; => (1 2 3 4 5)
+   (digits->ints \"000\") ;; => (0 0 0)"
+  [s]
+  (map char->digit (seq s)))
+
+(defn sum-digits
+  "Sums all digit characters in a string.
+   
+   Arguments:
+   - s: String containing digit characters
+   
+   Returns the sum of all digits as an integer.
+   
+   Example:
+   (sum-digits \"123\") ;; => 6
+   (sum-digits \"99\") ;; => 18"
+  [s]
+  (reduce + (digits->ints s)))
+
+(defn parse-int
+  "Parses a string to an integer in a cross-platform way.
+   
+   Arguments:
+   - s: String to parse
+   
+   Returns the integer value or nil if parsing fails.
+   
+   Example:
+   (parse-int \"123\") ;; => 123
+   (parse-int \"42\") ;; => 42"
+  [s]
+  #?(:clj  (try (Integer/parseInt s) (catch Exception _ nil))
+     :cljs (let [n (js/parseInt s 10)]
+             (if (js/isNaN n) nil n))))
+
+;; Note: Using clojure.core/parse-long directly instead of defining our own
+;; to avoid shadowing the core function. Core's parse-long is available in Clojure 1.11+
+
+(defn random-digits
+  "Generates a string of random digits.
+   
+   Arguments:
+   - n: Number of digits to generate
+   
+   Returns a string of n random digits.
+   
+   Example:
+   (random-digits 5) ;; => \"38291\"
+   (random-digits 3) ;; => \"742\""
+  [n]
+  (apply str (repeatedly n #(rand-int 10))))

@@ -53,18 +53,16 @@
   Examples:
     (generate)       ;; => \"12345678909\"
     (generate :SP)   ;; => \"12345678901\" (with SP state code)"
-  ([]
-   (generate nil))
+  ([]   (generate nil))
   ([state]
    (let [state-code (or (some-> state
                                 states/uf->code
-                                #?(:clj Integer/parseInt
-                                   :cljs js/parseInt))
+                                helpers/parse-int)
                         (rand-int 10))
          base (->> (repeatedly #(rand-int 10))
                    (take 8)
                    (apply str)
-                   (iterate (fn [_] (apply str (repeatedly 8 #(rand-int 10)))))
+                   (iterate (fn [_] (helpers/random-digits 8)))
                    (drop-while #(helpers/repeated-digits? (str % state-code)))
                    first
                    (#(str % state-code)))

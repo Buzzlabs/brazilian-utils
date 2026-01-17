@@ -50,8 +50,7 @@
   "Check if DDD (area code) is valid"
   [phone-digits]
   (when (and (string? phone-digits) (>= (count phone-digits) 2))
-    (let [ddd #?(:clj (parse-long (subs phone-digits 0 2))
-                  :cljs (js/parseInt (subs phone-digits 0 2) 10))]
+    (let [ddd (helpers/parse-int (subs phone-digits 0 2))]
       (contains? valid-area-codes ddd))))
 
 (defn- valid-mobile-length?
@@ -76,16 +75,14 @@
   "Check if first number after DDD is valid for mobile (6,7,8,9)"
   [phone-digits]
   (when (and (string? phone-digits) (>= (count phone-digits) 3))
-    (let [first-num #?(:clj (parse-long (str (nth phone-digits 2)))
-                       :cljs (js/parseInt (str (nth phone-digits 2)) 10))]
+    (let [first-num (helpers/parse-int (str (nth phone-digits 2)))]
       (contains? mobile-valid-first-numbers first-num))))
 
 (defn- valid-landline-first-number?
   "Check if first number after DDD is valid for landline (2,3,4,5)"
   [phone-digits]
   (when (and (string? phone-digits) (>= (count phone-digits) 3))
-    (let [first-num #?(:clj (parse-long (str (nth phone-digits 2)))
-                       :cljs (js/parseInt (str (nth phone-digits 2)) 10))]
+    (let [first-num (helpers/parse-int (str (nth phone-digits 2)))]
       (contains? landline-valid-first-numbers first-num))))
 
 (defn- valid-first-number?

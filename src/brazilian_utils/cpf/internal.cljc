@@ -8,7 +8,7 @@
 (defn calc-check-digit*
   "Computes mod-11 check digit for a CPF base using given weight."
   [base weight]
-  (helpers/mod11-check-digit base weight {:stringify? true}))
+  (helpers/check-digit base weight {:stringify? true}))
 
 (defn valid-checksum*
   "Validates both CPF check digits for 11-character cleaned input."

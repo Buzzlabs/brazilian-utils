@@ -39,7 +39,7 @@
   Args: none
   Returns: 14-digit numeric string (digits only); avoids repeated-digit bases"
   []
-  (let [rand-base (fn [] (apply str (repeatedly 12 #(rand-int 10))))
+  (let [rand-base (fn [] (helpers/random-digits 12))
         base (loop [b (rand-base)]
                (if (re-matches #"^(\d)\1{11}$" b) ; avoid all repeated
                  (recur (rand-base))
