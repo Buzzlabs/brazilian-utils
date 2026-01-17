@@ -1,14 +1,19 @@
 (ns brazilian-utils.cep.core
   (:require [brazilian-utils.cep.validation :as validation]
+            [brazilian-utils.cep.internal :as i]
             [brazilian-utils.helpers :as helpers]))
 
 ;; ============================================================================
 ;; Constants
 ;; ============================================================================
 
-(def ^:private length
-  "Expected length of CEP (without formatting)."
+(def ^:private cep-length
+  "Standard length of a Brazilian CEP (postal code)."
   8)
+
+(def ^:private formatting-length
+  "Length when we should be inserted hyphen when formatting."
+  6)
 
 (def ^:private hyphen-index
   "Index where hyphen should be inserted in formatting."
@@ -65,22 +70,82 @@
   (helpers/only-numbers cep))
 
 (defn format-cep
-  "Formats a CEP by adding hyphen at the correct position (xxxxx-xxx).
-   
-   Arguments:
-   - cep: String containing the CEP to be formatted
-   
-   Returns a formatted string with hyphen.
-   Removes non-numeric characters and limits to 8 digits.
-   
-  Example:
-  (format-cep \"01310100\")  ;; \"01310-100\"
-  (format-cep \"01310-100\") ;; \"01310-100\"
-  (format-cep \"013101\")    ;; \"01310-1\" (partial)"
+  "Formats a CEP with standard Brazilian mask (XXXXX-XXX).
+  
+  Arguments:
+    cep - String or number to format (formatted or unformatted)
+
+  Returns:
+    A CEP string formatted with the mask (XXXXX-XXX)
+    
+  Examples:
+    (format-cep \"01310100\") ;; => \"01310-100\"
+    (format-cep \"01310-100\") ;; => \"01310-100\"
+    (format-cep \"01310\") ;; => \"01310\""
   [cep]
-  (let [digits (helpers/only-numbers cep)
-        normalized-cep (subs digits 0 (min length (count digits)))
-        [prefix suffix] (split-at hyphen-index normalized-cep)]
-    (str (apply str prefix)
-         (when (seq suffix) "-")
-         (apply str suffix))))
+  (let [digits (helpers/only-numbers (str cep))
+        max-length (min cep-length (count digits))
+        cleaned (subs digits 0 max-length)]
+    (if (>= (count cleaned) formatting-length)
+      (helpers/split-and-rejoin cleaned [hyphen-index] "-")
+      cleaned)))
+
+;; ============================================================================
+;; ViaCEP API Integration
+;; ============================================================================
+
+(defn get-address-from-cep
+  "Retrieves address information for a given CEP using ViaCEP API.
+  
+  Args:
+    cep (string): The CEP code (8 digits, with or without hyphen)
+    
+  Returns:
+    A map containing address information on success, or an error map on failure.
+    Success: {:logradouro \"street name\", :bairro \"neighborhood\", :localidade \"city\", :uf \"state\"}
+    Error: {:error error-message}
+    
+  Examples:
+    (get-address-from-cep \"01310-100\")
+    (get-address-from-cep \"01310100\")"
+  [cep]
+  (helpers/safe-call
+   #(let [cep-clean (helpers/only-numbers cep)
+          url (i/build-viacep-url cep-clean)
+          response (helpers/http-get url)]
+      (if (contains? response :error)
+        response
+        (:body response)))
+   {:error "Request failed"}))
+
+(defn get-cep-information-from-address
+  "Searches for CEP code by address information using ViaCEP API.
+  Returns the first (most relevant) result.
+  
+  This function queries the ViaCEP API to find a CEP based on street name, city, and state.
+  The API may return multiple results, but this function returns only the first (most relevant) match.
+  
+  Arguments:
+    logradouro (string): Street name
+    localidade (string): City name
+    uf (string): State abbreviation (2 letters, e.g., \"SP\", \"RJ\")
+    
+  Returns:
+    A map with address information on success, or an error map on failure.
+    Success: {:logradouro \"street\", :bairro \"neighborhood\", :localidade \"city\", :uf \"state\", :cep \"12345-678\", :ddd \"11\", :ibge \"3550308\"}
+    Error: {:error error-message}
+    
+  Examples:
+    (get-cep-information-from-address \"Avenida Paulista\" \"São Paulo\" \"SP\")
+    (get-cep-information-from-address \"Rua Augusta\" \"São Paulo\" \"SP\")"
+  [logradouro localidade uf]
+  (helpers/safe-call
+   #(let [url (i/build-viacep-address-search-url uf localidade logradouro)
+          response (helpers/http-get url)]
+      (if (contains? response :error)
+        response
+        (let [results (:body response)]
+          (if (and (vector? results) (seq results))
+            (first results)
+            {:error "No results found"}))))
+   {:error "Request failed"}))

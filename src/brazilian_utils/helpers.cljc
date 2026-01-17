@@ -7,8 +7,11 @@
   Functions:
     - only-numbers: Extract digits from strings
     - repeated-digits?: Check if string has all same digits
-    - char->digit: Convert digit character to numeric value"
-  (:require [clojure.string :as str]))
+    - char->digit: Convert digit character to numeric value
+    - http-get: Make HTTP GET requests"
+  (:require [clojure.string :as str]
+            #?(:clj [clj-http.client :as http])
+            #?(:cljs [cljs-http.client :as http])))
 
 (defn only-numbers
   "Removes all non-numeric characters from a string.
@@ -196,3 +199,147 @@
    (random-digits 3) ;; => \"742\""
   [n]
   (apply str (repeatedly n #(rand-int 10))))
+
+(defn http-get
+  "Makes an HTTP GET request to the given URL.
+  
+  Args:
+    url (string): The URL to request
+    
+  Returns:
+    A map with the response body on success, or an error map on failure.
+    Success: {:status 200, :body response-data}
+    Error: {:error error-message}"
+  [url]
+  #?(:clj
+     (try
+       (let [response (http/get url {:as :json})]
+         {:status (:status response)
+          :body (:body response)})
+       (catch Exception e
+         {:error (.getMessage e)}))
+     :cljs
+     (js/Promise.
+      (fn [resolve _reject]
+        (-> (http/get url {:with-credentials? false})
+            (.then (fn [response]
+                     (resolve {:status (:status response)
+                               :body (:body response)})))
+            (.catch (fn [error]
+                      (resolve {:error (.-message error)}))))))))
+
+(defn safe-call
+  "Safely executes a function, returning a default value on any exception.
+  
+  Works cross-platform with both Clojure and ClojureScript.
+  
+  Args:
+    f (function): Zero-argument function to execute
+    default-value: Value to return if exception occurs
+    
+  Returns:
+    Result of (f) on success, or default-value on error
+    
+  Examples:
+    (safe-call #(get-holidays 2024) {:error \"fallback\"})
+    (safe-call #(is-holiday? \"2024-01-01\") false)
+    (safe-call #(parse-long \"123\") nil)"
+  [f default-value]
+  (try
+    (f)
+    (catch #?(:clj Throwable :cljs :default) _
+      default-value)))
+
+(defn validate-string-format
+  "Validates if a string matches a specific pattern defined by length,
+  separator positions, and digit positions.
+  
+  Args:
+    s (string): String to validate
+    length (int): Expected total length
+    separator-char (char): Expected separator character (e.g., \\- or \\/)
+    separator-positions (vector): Indices where separators should appear
+    
+  Returns:
+    true if format matches, false otherwise
+    
+  Examples:
+    (validate-string-format \"2024-01-15\" 10 \\- [4 7]) ;; true (ISO date)
+    (validate-string-format \"15/01/2024\" 10 \\/ [2 5]) ;; true (Brazilian date)
+    (validate-string-format \"01310-100\" 9 \\- [5]) ;; true (CEP)"
+  [s length separator-char separator-positions]
+  (and (string? s)
+       (= (count s) length)
+       (every? #(= (get s %) separator-char) separator-positions)
+       (let [sep-set (set separator-positions)
+             digit-positions (remove #(contains? sep-set %) (range length))]
+         (every? (fn [pos] 
+                   (let [c (get s pos)]
+                     (and c (re-matches #"\d" (str c)))))
+                 digit-positions))))
+
+(defn split-and-rejoin
+  "Splits a string by positions and rejoins with new separator.
+  
+  Args:
+    s (string): String to process
+    split-positions (vector): Indices to split at (e.g., [4 7] for YYYY-MM-DD)
+    new-separator (string): New separator to use when rejoining
+    
+  Returns:
+    Reformatted string or nil if invalid
+    
+  Examples:
+    (split-and-rejoin \"20240115\" [4 6] \"-\") ;; \"2024-01-15\"
+    (split-and-rejoin \"15012024\" [2 4] \"/\") ;; \"15/01/2024\""
+  [s split-positions new-separator]
+  (when (and (string? s) 
+             (<= (last split-positions) (count s)))
+    (let [positions (concat [0] split-positions [(count s)])
+          parts (map (fn [[start end]] (subs s start end))
+                     (partition 2 1 positions))]
+      (str/join new-separator parts))))
+
+(defn extract-date-parts
+  "Extracts day, month, and year from a date string.
+  
+  Args:
+    date (string): Date string
+    format (keyword): Either :iso (YYYY-MM-DD) or :brazilian (DD/MM/YYYY)
+    
+  Returns:
+    Map with :day, :month, :year keys, or nil if invalid
+    
+  Examples:
+    (extract-date-parts \"2024-01-15\" :iso) ;; {:year \"2024\", :month \"01\", :day \"15\"}
+    (extract-date-parts \"15/01/2024\" :brazilian) ;; {:day \"15\", :month \"01\", :year \"2024\"}"
+  [date format]
+  (when (string? date)
+    (case format
+      :iso (when (= (count date) 10)
+             {:year (subs date 0 4)
+              :month (subs date 5 7)
+              :day (subs date 8 10)})
+      :brazilian (when (= (count date) 10)
+                   {:day (subs date 0 2)
+                    :month (subs date 3 5)
+                    :year (subs date 6 10)})
+      nil)))
+
+(defn mod-large-number
+  "Calculates modulo for very large numbers in both Clojure and ClojureScript.
+   Handles BigInt conversion for cross-platform compatibility.
+   
+   Args:
+     num-str - Number as string (for big integer support)
+     divisor - The divisor for modulo operation
+   
+   Returns:
+     The remainder of num-str divided by divisor
+   
+   Examples:
+     (mod-large-number \"12345678901234567890\" 97)  ;; => 1
+     (mod-large-number \"98765432109876543210\" 11)  ;; => 5"
+  [num-str divisor]
+  #?(:clj (mod (bigint num-str) divisor)
+     :cljs (js/Number (mod (js/BigInt num-str) (js/BigInt divisor)))))
