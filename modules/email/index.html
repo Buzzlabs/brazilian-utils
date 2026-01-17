@@ -1,0 +1,1769 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Utilitários brasileiros para validação e formatação de dados">
+      
+      
+        <meta name="author" content="Seu Nome">
+      
+      
+        <link rel="canonical" href="https://seu-usuario.github.io/test-clj/modules/email/">
+      
+      
+        <link rel="prev" href="../inscricao_estadual/">
+      
+      
+        <link rel="next" href="../currency/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Email - Brazilian Utils</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#email-validacao-de-enderecos-de-e-mail" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="Brazilian Utils" class="md-header__button md-logo" aria-label="Brazilian Utils" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Brazilian Utils
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Email
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guides/installation/" class="md-tabs__link">
+          
+  
+  
+  Guias
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../cpf/" class="md-tabs__link">
+          
+  
+  
+  Módulos
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Brazilian Utils" class="md-nav__button md-logo" aria-label="Brazilian Utils" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Brazilian Utils
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guias
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Módulos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Módulos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CPF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnpj/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNPJ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telefone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license_plate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Placa Veicular
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CEP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../states/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processo_juridico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo Jurídico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PIS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../renavam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RENAVAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../titulo_eleitoral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Título Eleitoral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inscricao_estadual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Email
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Email
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visão Geral
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estrutura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcoes-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funções Principais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Funções Principais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is-valid?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validation-errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tratamento de Erros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Casos de Uso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Casos de Uso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-validacao-em-formularios-de-registro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Validação em Formulários de Registro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-filtragem-de-e-mails-validos-em-lote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Filtragem de E-mails Válidos em Lote
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-validacao-com-feedback-ao-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Validação com Feedback ao Usuário
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-normalizacao-de-e-mail-com-validacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Normalização de E-mail com Validação
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-processamento-de-lista-de-contatos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Processamento de Lista de Contatos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-api-rest-com-validacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. API REST com Validação
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#padroes-de-e-mail-validos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padrões de E-mail Válidos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-tambem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver Também
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../currency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Moeda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitalize/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capitalização
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boleto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boleto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visão Geral
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estrutura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcoes-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funções Principais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Funções Principais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is-valid?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validation-errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tratamento de Erros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Casos de Uso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Casos de Uso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-validacao-em-formularios-de-registro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Validação em Formulários de Registro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-filtragem-de-e-mails-validos-em-lote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Filtragem de E-mails Válidos em Lote
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-validacao-com-feedback-ao-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Validação com Feedback ao Usuário
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-normalizacao-de-e-mail-com-validacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Normalização de E-mail com Validação
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-processamento-de-lista-de-contatos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Processamento de Lista de Contatos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-api-rest-com-validacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. API REST com Validação
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#padroes-de-e-mail-validos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padrões de E-mail Válidos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-tambem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver Também
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="email-validacao-de-enderecos-de-e-mail">Email - Validação de Endereços de E-mail</h1>
+<p>Módulo para validação de endereços de e-mail com suporte a regras rigorosas de RFC 5321/5322 e feedback detalhado sobre erros de validação.</p>
+<h2 id="visao-geral">Visão Geral</h2>
+<p>O módulo <code>email</code> fornece validação abrangente de endereços de e-mail, com suporte a:
+- Validação de estrutura e formato
+- Detecção de múltiplos tipos de erro
+- Feedback detalhado sobre problemas encontrados
+- Conformidade com padrões internacionais (RFC 5321/5322)</p>
+<p><strong>Principais capacidades:</strong>
+- ✅ Validação completa de endereço de e-mail
+- ✅ Detecção de erros específicos
+- ✅ Feedback detalhado e mensagens de erro
+- ✅ Suporte a caracteres especiais válidos
+- ✅ Verificação de limites de comprimento
+- ✅ Tratamento de casos extremos</p>
+<h2 id="estrutura">Estrutura</h2>
+<p>Um endereço de e-mail válido segue a estrutura:</p>
+<div class="highlight"><pre><span></span><code>usuario@dominio.extensao
+</code></pre></div>
+<p>Componentes:
+- <strong>Usuário</strong>: Caracteres antes do <code>@</code> (mín. 1, máx. 64 caracteres)
+- <strong>@</strong>: Separador obrigatório (exatamente um)
+- <strong>Domínio</strong>: Nome do servidor (mín. 1 caractere)
+- <strong>Extensão</strong>: TLD (Top Level Domain - mín. 2 caracteres)</p>
+<p><strong>Regras:</strong>
+- Não pode ser vazio ou branco
+- Deve conter exatamente um símbolo <code>@</code>
+- Usuário não pode ser vazio
+- Domínio não pode ser vazio
+- Extensão deve ter pelo menos 2 caracteres</p>
+<h2 id="funcoes-principais">Funções Principais</h2>
+<h3 id="is-valid"><code>is-valid?</code></h3>
+<p>Valida se um valor é um endereço de e-mail bem formado.</p>
+<p><strong>Assinatura:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">email</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Argumentos:</strong>
+- <code>email</code> - Valor a validar como endereço de e-mail</p>
+<p><strong>Retorna:</strong> Boolean - <code>true</code> se for um e-mail válido, <code>false</code> caso contrário</p>
+<p><strong>Exemplos:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;user@example.com&quot;</span><span class="p">)</span><span class="w">          </span><span class="c1">; =&gt; true</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;john.doe@company.co.uk&quot;</span><span class="p">)</span><span class="w">    </span><span class="c1">; =&gt; true</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;alice+tag@domain.org&quot;</span><span class="p">)</span><span class="w">      </span><span class="c1">; =&gt; true</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w">                          </span><span class="c1">; =&gt; false</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">nil</span><span class="p">)</span><span class="w">                         </span><span class="c1">; =&gt; false</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;invalid.email&quot;</span><span class="p">)</span><span class="w">             </span><span class="c1">; =&gt; false (sem @)</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;user@@example.com&quot;</span><span class="p">)</span><span class="w">         </span><span class="c1">; =&gt; false (@ duplicado)</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;user@.com&quot;</span><span class="p">)</span><span class="w">                 </span><span class="c1">; =&gt; false (sem domínio)</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;user@example&quot;</span><span class="p">)</span><span class="w">              </span><span class="c1">; =&gt; false (sem TLD)</span>
+</code></pre></div></p>
+<h3 id="validation-errors"><code>validation-errors</code></h3>
+<p>Valida um e-mail e retorna informações detalhadas sobre erros.</p>
+<p><strong>Assinatura:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="nv">email</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Argumentos:</strong>
+- <code>email</code> - Valor a validar como endereço de e-mail</p>
+<p><strong>Retorna:</strong> Vetor de strings com mensagens de erro (vazio se válido)</p>
+<p><strong>Exemplos:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;user@example.com&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; []</span>
+
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Email cannot be blank&quot;]</span>
+
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="nv">nil</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;should be a string&quot;]</span>
+
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;user@@example.com&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Email should have only one @&quot;]</span>
+
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;userexample.com&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Email should have an @&quot;]</span>
+
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;user@.com&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Email domain is invalid&quot;]</span>
+
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;user@example&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Email domain must have an extension&quot;]</span>
+</code></pre></div></p>
+<h2 id="recursos">Recursos</h2>
+<ul>
+<li>✅ Validação rigorosa de formato de e-mail</li>
+<li>✅ Detecção de múltiplos tipos de erro</li>
+<li>✅ Mensagens de erro descritivas e específicas</li>
+<li>✅ Suporte a caracteres especiais válidos (., +, -, _)</li>
+<li>✅ Validação de limites de comprimento</li>
+<li>✅ Case-insensitive para domínios</li>
+<li>✅ Tratamento seguro de valores nulos/vazios</li>
+<li>✅ Conformidade com RFC 5321/5322</li>
+</ul>
+<h2 id="tratamento-de-erros">Tratamento de Erros</h2>
+<p>O módulo fornece feedback detalhado sobre problemas:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">;; E-mail vazio</span>
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Email cannot be blank&quot;]</span>
+
+<span class="c1">;; Tipo incorreto</span>
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="mi">123</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;should be a string&quot;]</span>
+
+<span class="c1">;; Sem @ ou @ duplicado</span>
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;userexample.com&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Email should have an @&quot;]</span>
+
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;user@@example.com&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Email should have only one @&quot;]</span>
+
+<span class="c1">;; Domínio inválido</span>
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;user@&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Email domain is invalid&quot;]</span>
+
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;user@.com&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Email domain is invalid&quot;]</span>
+
+<span class="c1">;; Sem extensão (TLD)</span>
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="s">&quot;user@example&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Email domain must have an extension&quot;]</span>
+
+<span class="c1">;; Usuário muito longo (&gt;64 caracteres)</span>
+<span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="nb">apply str </span><span class="p">(</span><span class="nb">repeat </span><span class="mi">65</span><span class="w"> </span><span class="s">&quot;a&quot;</span><span class="p">))</span><span class="w"> </span><span class="s">&quot;@example.com&quot;</span><span class="p">))</span>
+<span class="c1">; =&gt; [&quot;Email local part must be less than 64 characters&quot;]</span>
+</code></pre></div>
+<h2 id="casos-de-uso">Casos de Uso</h2>
+<h3 id="1-validacao-em-formularios-de-registro">1. Validação em Formulários de Registro</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">validate-email-field</span><span class="w"> </span><span class="p">[</span><span class="nv">email-input</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">email-input</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span><span class="ss">:status</span><span class="w"> </span><span class="ss">:valid</span><span class="w"> </span><span class="ss">:email</span><span class="w"> </span><span class="nv">email-input</span><span class="p">}</span>
+<span class="w">    </span><span class="p">{</span><span class="ss">:status</span><span class="w"> </span><span class="ss">:invalid</span><span class="w"> </span>
+<span class="w">     </span><span class="ss">:errors</span><span class="w"> </span><span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="nv">email-input</span><span class="p">)</span>
+<span class="w">     </span><span class="ss">:input</span><span class="w"> </span><span class="nv">email-input</span><span class="p">}))</span>
+
+<span class="p">(</span><span class="nf">validate-email-field</span><span class="w"> </span><span class="s">&quot;john@example.com&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; {:status :valid :email &quot;john@example.com&quot;}</span>
+
+<span class="p">(</span><span class="nf">validate-email-field</span><span class="w"> </span><span class="s">&quot;invalid&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; {:status :invalid :errors [...] :input &quot;invalid&quot;}</span>
+</code></pre></div>
+<h3 id="2-filtragem-de-e-mails-validos-em-lote">2. Filtragem de E-mails Válidos em Lote</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">filter-valid-emails</span><span class="w"> </span><span class="p">[</span><span class="nv">email-list</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">filter </span><span class="nv">is-valid?</span><span class="w"> </span><span class="nv">email-list</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">filter-valid-emails</span><span class="w"> </span>
+<span class="w">  </span><span class="p">[</span><span class="s">&quot;john@example.com&quot;</span>
+<span class="w">   </span><span class="s">&quot;invalid.email&quot;</span>
+<span class="w">   </span><span class="s">&quot;alice@domain.co.uk&quot;</span>
+<span class="w">   </span><span class="nv">nil</span>
+<span class="w">   </span><span class="s">&quot;bob@site.org&quot;</span><span class="p">])</span>
+<span class="c1">; =&gt; [&quot;john@example.com&quot; &quot;alice@domain.co.uk&quot; &quot;bob@site.org&quot;]</span>
+</code></pre></div>
+<h3 id="3-validacao-com-feedback-ao-usuario">3. Validação com Feedback ao Usuário</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">get-validation-message</span><span class="w"> </span><span class="p">[</span><span class="nv">email</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">email</span><span class="p">)</span>
+<span class="w">    </span><span class="s">&quot;E-mail válido!&quot;</span>
+<span class="w">    </span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">errors</span><span class="w"> </span><span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="nv">email</span><span class="p">)</span>
+<span class="w">          </span><span class="nv">first-error</span><span class="w"> </span><span class="p">(</span><span class="nb">first </span><span class="nv">errors</span><span class="p">)]</span>
+<span class="w">      </span><span class="p">(</span><span class="nb">str </span><span class="s">&quot;Erro: &quot;</span><span class="w"> </span><span class="nv">first-error</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nf">get-validation-message</span><span class="w"> </span><span class="s">&quot;user@example.com&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; &quot;E-mail válido!&quot;</span>
+
+<span class="p">(</span><span class="nf">get-validation-message</span><span class="w"> </span><span class="s">&quot;userexample&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; &quot;Erro: Email should have an @&quot;</span>
+</code></pre></div>
+<h3 id="4-normalizacao-de-e-mail-com-validacao">4. Normalização de E-mail com Validação</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">normalize-email</span><span class="w"> </span><span class="p">[</span><span class="nv">email</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">trimmed</span><span class="w"> </span><span class="p">(</span><span class="nf">clojure.string/trim</span><span class="w"> </span><span class="nv">email</span><span class="p">)</span>
+<span class="w">        </span><span class="nv">lowercased</span><span class="w"> </span><span class="p">(</span><span class="nf">clojure.string/lower-case</span><span class="w"> </span><span class="nv">trimmed</span><span class="p">)]</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">lowercased</span><span class="p">)</span>
+<span class="w">      </span><span class="nv">lowercased</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nf">normalize-email</span><span class="w"> </span><span class="s">&quot;  User@Example.COM  &quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; &quot;user@example.com&quot;</span>
+
+<span class="p">(</span><span class="nf">normalize-email</span><span class="w"> </span><span class="s">&quot;  invalid  &quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; nil</span>
+</code></pre></div>
+<h3 id="5-processamento-de-lista-de-contatos">5. Processamento de Lista de Contatos</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">process-contacts</span><span class="w"> </span><span class="p">[</span><span class="nv">contacts</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">grouped</span><span class="w"> </span><span class="p">(</span><span class="nf">group-by</span><span class="w"> </span>
+<span class="w">                  </span><span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">contact</span><span class="p">]</span>
+<span class="w">                    </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="p">(</span><span class="ss">:email</span><span class="w"> </span><span class="nv">contact</span><span class="p">))</span>
+<span class="w">                      </span><span class="ss">:valid</span>
+<span class="w">                      </span><span class="ss">:invalid</span><span class="p">))</span>
+<span class="w">                  </span><span class="nv">contacts</span><span class="p">)]</span>
+<span class="w">    </span><span class="p">{</span><span class="ss">:valid-contacts</span><span class="w"> </span><span class="p">(</span><span class="nb">get </span><span class="nv">grouped</span><span class="w"> </span><span class="ss">:valid</span><span class="w"> </span><span class="p">[])</span>
+<span class="w">     </span><span class="ss">:invalid-contacts</span><span class="w"> </span><span class="p">(</span><span class="nb">get </span><span class="nv">grouped</span><span class="w"> </span><span class="ss">:invalid</span><span class="w"> </span><span class="p">[])</span>
+<span class="w">     </span><span class="ss">:error-details</span><span class="w"> </span><span class="p">(</span><span class="nb">into </span><span class="p">{}</span>
+<span class="w">                      </span><span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">c</span><span class="p">]</span><span class="w"> </span>
+<span class="w">                             </span><span class="p">[(</span><span class="ss">:email</span><span class="w"> </span><span class="nv">c</span><span class="p">)</span><span class="w"> </span>
+<span class="w">                              </span><span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="p">(</span><span class="ss">:email</span><span class="w"> </span><span class="nv">c</span><span class="p">))])</span>
+<span class="w">                           </span><span class="p">(</span><span class="nb">get </span><span class="nv">grouped</span><span class="w"> </span><span class="ss">:invalid</span><span class="w"> </span><span class="p">[])))}))</span>
+
+<span class="p">(</span><span class="nf">process-contacts</span><span class="w"> </span>
+<span class="w">  </span><span class="p">[{</span><span class="ss">:name</span><span class="w"> </span><span class="s">&quot;João&quot;</span><span class="w"> </span><span class="ss">:email</span><span class="w"> </span><span class="s">&quot;joao@example.com&quot;</span><span class="p">}</span>
+<span class="w">   </span><span class="p">{</span><span class="ss">:name</span><span class="w"> </span><span class="s">&quot;Maria&quot;</span><span class="w"> </span><span class="ss">:email</span><span class="w"> </span><span class="s">&quot;invalid&quot;</span><span class="p">}</span>
+<span class="w">   </span><span class="p">{</span><span class="ss">:name</span><span class="w"> </span><span class="s">&quot;Pedro&quot;</span><span class="w"> </span><span class="ss">:email</span><span class="w"> </span><span class="s">&quot;pedro@domain.org&quot;</span><span class="p">}])</span>
+<span class="c1">; =&gt; {:valid-contacts [...] </span>
+<span class="c1">;     :invalid-contacts [...] </span>
+<span class="c1">;     :error-details {...}}</span>
+</code></pre></div>
+<h3 id="6-api-rest-com-validacao">6. API REST com Validação</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">validate-email-endpoint</span><span class="w"> </span><span class="p">[</span><span class="nv">email</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">email</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span><span class="ss">:status</span><span class="w"> </span><span class="mi">200</span>
+<span class="w">     </span><span class="ss">:body</span><span class="w"> </span><span class="p">{</span><span class="ss">:valid</span><span class="w"> </span><span class="nv">true</span><span class="w"> </span><span class="ss">:email</span><span class="w"> </span><span class="nv">email</span><span class="p">}}</span>
+<span class="w">    </span><span class="p">{</span><span class="ss">:status</span><span class="w"> </span><span class="mi">400</span>
+<span class="w">     </span><span class="ss">:body</span><span class="w"> </span><span class="p">{</span><span class="ss">:valid</span><span class="w"> </span><span class="nv">false</span><span class="w"> </span>
+<span class="w">            </span><span class="ss">:errors</span><span class="w"> </span><span class="p">(</span><span class="nf">validation-errors</span><span class="w"> </span><span class="nv">email</span><span class="p">)}}))</span>
+
+<span class="p">(</span><span class="nf">validate-email-endpoint</span><span class="w"> </span><span class="s">&quot;user@example.com&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; {:status 200 :body {:valid true :email &quot;user@example.com&quot;}}</span>
+
+<span class="p">(</span><span class="nf">validate-email-endpoint</span><span class="w"> </span><span class="s">&quot;bad-email&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; {:status 400 :body {:valid false :errors [...]}}</span>
+</code></pre></div>
+<h2 id="padroes-de-e-mail-validos">Padrões de E-mail Válidos</h2>
+<table>
+<thead>
+<tr>
+<th>Padrão</th>
+<th>Exemplo</th>
+<th>Válido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simples</td>
+<td>user@domain.com</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Com ponto</td>
+<td>john.doe@company.com</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Com + (alias)</td>
+<td>user+tag@domain.com</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Com hífen</td>
+<td>john-smith@domain.co.uk</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Com underscore</td>
+<td>user_name@domain.org</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Vazio</td>
+<td>""</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Sem @</td>
+<td>user.domain.com</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>@ duplicado</td>
+<td>user@@domain.com</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Sem domínio</td>
+<td>user@</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Sem TLD</td>
+<td>user@domain</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ver-tambem">Ver Também</h2>
+<ul>
+<li><a href="../capitalize/">Capitalize</a> - Formatação de nomes e textos</li>
+<li><a href="../phone/">Telefone</a> - Validação de números de telefone</li>
+<li><a href="../cpf/">CPF</a> - Validação de CPF</li>
+<li><a href="../cnpj/">CNPJ</a> - Validação de CNPJ</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

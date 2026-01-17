@@ -1,0 +1,1787 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Utilitários brasileiros para validação e formatação de dados">
+      
+      
+        <meta name="author" content="Seu Nome">
+      
+      
+        <link rel="canonical" href="https://seu-usuario.github.io/test-clj/modules/renavam/">
+      
+      
+        <link rel="prev" href="../pis/">
+      
+      
+        <link rel="next" href="../titulo_eleitoral/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>RENAVAM - Brazilian Utils</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#renavam-registro-nacional-de-veiculo-automotor" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="Brazilian Utils" class="md-header__button md-logo" aria-label="Brazilian Utils" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Brazilian Utils
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              RENAVAM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guides/installation/" class="md-tabs__link">
+          
+  
+  
+  Guias
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../cpf/" class="md-tabs__link">
+          
+  
+  
+  Módulos
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Brazilian Utils" class="md-nav__button md-logo" aria-label="Brazilian Utils" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Brazilian Utils
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guias
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Módulos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Módulos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CPF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnpj/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNPJ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telefone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license_plate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Placa Veicular
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CEP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../states/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processo_juridico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo Jurídico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PIS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RENAVAM
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RENAVAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visão Geral
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estrutura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algoritmo-de-validacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algoritmo de Validação
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcoes-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funções Principais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Funções Principais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is-valid?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-symbols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        remove-symbols
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tratamento de Erros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Casos de Uso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Casos de Uso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-validacao-em-registro-de-veiculo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Validação em Registro de Veículo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-normalizacao-de-renavam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Normalização de RENAVAM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-validacao-em-lote-de-veiculos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Validação em Lote de Veículos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-migracao-de-sistema-antigo-para-novo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Migração de Sistema Antigo para Novo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-filtragem-de-renavams-validos-em-lote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Filtragem de RENAVAMs Válidos em Lote
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-integracao-com-banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Integração com Banco de Dados
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formatos-aceitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formatos Aceitos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-formato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Formato
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-tambem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver Também
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../titulo_eleitoral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Título Eleitoral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inscricao_estadual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../email/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Email
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../currency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Moeda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitalize/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capitalização
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boleto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boleto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visão Geral
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estrutura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algoritmo-de-validacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algoritmo de Validação
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcoes-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funções Principais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Funções Principais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is-valid?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-symbols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        remove-symbols
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tratamento de Erros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Casos de Uso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Casos de Uso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-validacao-em-registro-de-veiculo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Validação em Registro de Veículo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-normalizacao-de-renavam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Normalização de RENAVAM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-validacao-em-lote-de-veiculos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Validação em Lote de Veículos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-migracao-de-sistema-antigo-para-novo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Migração de Sistema Antigo para Novo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-filtragem-de-renavams-validos-em-lote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Filtragem de RENAVAMs Válidos em Lote
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-integracao-com-banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Integração com Banco de Dados
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formatos-aceitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formatos Aceitos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-formato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Formato
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-tambem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver Também
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="renavam-registro-nacional-de-veiculo-automotor">RENAVAM - Registro Nacional de Veículo Automotor</h1>
+<p>Módulo para validação de RENAVAM (Registro Nacional de Veículo Automotor), incluindo suporte a formatos de 9 e 11 dígitos, com dígito verificador.</p>
+<h2 id="visao-geral">Visão Geral</h2>
+<p>O módulo <code>renavam</code> fornece validação completa do RENAVAM brasileiro, com suporte a:
+- Validação de números com 9 ou 11 dígitos
+- Verificação de dígito verificador
+- Remoção de caracteres de formatação
+- Suporte a registros antigos e novos</p>
+<p><strong>Principais capacidades:</strong>
+- ✅ Validação de RENAVAM de 9 dígitos (formato antigo)
+- ✅ Validação de RENAVAM de 11 dígitos (formato novo)
+- ✅ Verificação de dígito verificador
+- ✅ Remoção de caracteres especiais
+- ✅ Tratamento de múltiplos formatos</p>
+<h2 id="estrutura">Estrutura</h2>
+<p>O RENAVAM pode ter dois formatos válidos:</p>
+<p><strong>Formato antigo (9 dígitos):</strong>
+<div class="highlight"><pre><span></span><code>XXXXXXXXX
+</code></pre></div></p>
+<p><strong>Formato novo (11 dígitos):</strong>
+<div class="highlight"><pre><span></span><code>XXXXXXXXXXX
+</code></pre></div></p>
+<p><strong>Formato com formatação (novo):</strong>
+<div class="highlight"><pre><span></span><code>XX.XXX.XXX-XX
+</code></pre></div></p>
+<p><strong>Características:</strong>
+- Pode ser de 9 ou 11 dígitos
+- Contém dígito verificador (nos 11 dígitos)
+- Emitido pelo DENATRAN
+- Registra proprietário e características do veículo</p>
+<h2 id="algoritmo-de-validacao">Algoritmo de Validação</h2>
+<p>A validação RENAVAM utiliza módulo 11:</p>
+<ol>
+<li>Multiplica cada dígito por sequência específica (9,8,7,6,5,4,3,2)</li>
+<li>Calcula o módulo 11 da soma</li>
+<li>Verifica o dígito verificador (11º dígito)</li>
+</ol>
+<h2 id="funcoes-principais">Funções Principais</h2>
+<h3 id="is-valid"><code>is-valid?</code></h3>
+<p>Valida se um RENAVAM é válido.</p>
+<p><strong>Assinatura:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">renavam</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Argumentos:</strong>
+- <code>renavam</code> - String com RENAVAM (formatada ou não)</p>
+<p><strong>Retorna:</strong> Boolean - <code>true</code> se for válido, <code>false</code> caso contrário</p>
+<p><strong>Exemplos:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;12345678901&quot;</span><span class="p">)</span><span class="w">     </span><span class="c1">; =&gt; true/false (depende de dígito verificador)</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;123456789&quot;</span><span class="p">)</span><span class="w">       </span><span class="c1">; =&gt; true/false (formato antigo)</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;12.345.678-90&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">; =&gt; true/false</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;12345678&quot;</span><span class="p">)</span><span class="w">        </span><span class="c1">; =&gt; false (8 dígitos)</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">nil</span><span class="p">)</span><span class="w">               </span><span class="c1">; =&gt; false</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w">                </span><span class="c1">; =&gt; false</span>
+</code></pre></div></p>
+<h3 id="remove-symbols"><code>remove-symbols</code></h3>
+<p>Remove todos os caracteres não numéricos de um RENAVAM.</p>
+<p><strong>Assinatura:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">remove-symbols</span><span class="w"> </span><span class="nv">renavam</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Argumentos:</strong>
+- <code>renavam</code> - String com RENAVAM (formatada ou não); nil permitido</p>
+<p><strong>Retorna:</strong> String contendo apenas dígitos</p>
+<p><strong>Exemplos:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">remove-symbols</span><span class="w"> </span><span class="s">&quot;12345678901&quot;</span><span class="p">)</span><span class="w">    </span><span class="c1">; =&gt; &quot;12345678901&quot;</span>
+<span class="p">(</span><span class="nf">remove-symbols</span><span class="w"> </span><span class="s">&quot;12.345.678-90&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">; =&gt; &quot;1234567890&quot;</span>
+<span class="p">(</span><span class="nf">remove-symbols</span><span class="w"> </span><span class="s">&quot;123456789&quot;</span><span class="p">)</span><span class="w">      </span><span class="c1">; =&gt; &quot;123456789&quot;</span>
+<span class="p">(</span><span class="nf">remove-symbols</span><span class="w"> </span><span class="nv">nil</span><span class="p">)</span><span class="w">              </span><span class="c1">; =&gt; &quot;&quot;</span>
+<span class="p">(</span><span class="nf">remove-symbols</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w">               </span><span class="c1">; =&gt; &quot;&quot;</span>
+</code></pre></div></p>
+<h2 id="recursos">Recursos</h2>
+<ul>
+<li>✅ Validação de RENAVAM de 9 dígitos (antigo)</li>
+<li>✅ Validação de RENAVAM de 11 dígitos (novo)</li>
+<li>✅ Verificação robusta de dígito verificador</li>
+<li>✅ Suporte a múltiplos formatos de entrada</li>
+<li>✅ Remoção eficiente de caracteres de formatação</li>
+<li>✅ Tratamento seguro de valores nulos e vazios</li>
+<li>✅ Compatibilidade com registros antigos e novos</li>
+</ul>
+<h2 id="tratamento-de-erros">Tratamento de Erros</h2>
+<p>O módulo não lança exceções. Retorna <code>false</code> para entradas inválidas:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">;; Formato inválido</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;ABCDEFGHIJK&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">; =&gt; false</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;12345678&quot;</span><span class="p">)</span><span class="w">     </span><span class="c1">; =&gt; false (8 dígitos)</span>
+
+<span class="c1">;; Valores nulos/vazios</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">nil</span><span class="p">)</span><span class="w">  </span><span class="c1">; =&gt; false</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">; =&gt; false</span>
+
+<span class="c1">;; Dígitos verificadores inválidos</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;00000000000&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">; =&gt; false (dependendo do algoritmo)</span>
+
+<span class="c1">;; Números formatados</span>
+<span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="s">&quot;12.345.678-90&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">; =&gt; true/false (depende de dígito verificador)</span>
+</code></pre></div>
+<h2 id="casos-de-uso">Casos de Uso</h2>
+<h3 id="1-validacao-em-registro-de-veiculo">1. Validação em Registro de Veículo</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">register-vehicle</span><span class="w"> </span><span class="p">[</span><span class="nv">vehicle-info</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[{</span><span class="ss">:keys</span><span class="w"> </span><span class="p">[</span><span class="nv">renavam</span><span class="w"> </span><span class="nv">model</span><span class="p">]}</span><span class="w"> </span><span class="nv">vehicle-info</span>
+<span class="w">        </span><span class="nv">clean-renavam</span><span class="w"> </span><span class="p">(</span><span class="nf">remove-symbols</span><span class="w"> </span><span class="nv">renavam</span><span class="p">)]</span>
+<span class="w">    </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">clean-renavam</span><span class="p">)</span>
+<span class="w">      </span><span class="p">{</span><span class="ss">:status</span><span class="w"> </span><span class="ss">:success</span><span class="w"> </span><span class="ss">:vehicle</span><span class="w"> </span><span class="p">{</span><span class="ss">:renavam</span><span class="w"> </span><span class="nv">clean-renavam</span><span class="w"> </span><span class="ss">:model</span><span class="w"> </span><span class="nv">model</span><span class="p">}}</span>
+<span class="w">      </span><span class="p">{</span><span class="ss">:status</span><span class="w"> </span><span class="ss">:error</span><span class="w"> </span><span class="ss">:message</span><span class="w"> </span><span class="s">&quot;RENAVAM inválido&quot;</span><span class="p">})))</span>
+
+<span class="p">(</span><span class="nf">register-vehicle</span><span class="w"> </span><span class="p">{</span><span class="ss">:renavam</span><span class="w"> </span><span class="s">&quot;12.345.678-90&quot;</span><span class="w"> </span><span class="ss">:model</span><span class="w"> </span><span class="s">&quot;Fiat Uno&quot;</span><span class="p">})</span>
+<span class="c1">; =&gt; {:status :success :vehicle {...}}</span>
+</code></pre></div>
+<h3 id="2-normalizacao-de-renavam">2. Normalização de RENAVAM</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">normalize-renavam</span><span class="w"> </span><span class="p">[</span><span class="nv">renavam-input</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">cleaned</span><span class="w"> </span><span class="p">(</span><span class="nf">remove-symbols</span><span class="w"> </span><span class="nv">renavam-input</span><span class="p">)</span>
+<span class="w">        </span><span class="nv">trimmed</span><span class="w"> </span><span class="p">(</span><span class="nf">clojure.string/trim</span><span class="w"> </span><span class="nv">cleaned</span><span class="p">)]</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">trimmed</span><span class="p">)</span>
+<span class="w">      </span><span class="nv">trimmed</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nf">normalize-renavam</span><span class="w"> </span><span class="s">&quot;  12.345.678-90  &quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; &quot;12345678901&quot;</span>
+
+<span class="p">(</span><span class="nf">normalize-renavam</span><span class="w"> </span><span class="s">&quot;invalid&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; nil</span>
+</code></pre></div>
+<h3 id="3-validacao-em-lote-de-veiculos">3. Validação em Lote de Veículos</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">validate-vehicles</span><span class="w"> </span><span class="p">[</span><span class="nv">vehicles</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">vehicle</span><span class="p">]</span>
+<span class="w">         </span><span class="p">(</span><span class="nb">assoc </span><span class="nv">vehicle</span><span class="w"> </span>
+<span class="w">                </span><span class="ss">:renavam-valid?</span><span class="w"> </span><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="p">(</span><span class="nf">remove-symbols</span><span class="w"> </span><span class="p">(</span><span class="ss">:renavam</span><span class="w"> </span><span class="nv">vehicle</span><span class="p">)))))</span>
+<span class="w">       </span><span class="nv">vehicles</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">validate-vehicles</span><span class="w"> </span>
+<span class="w">  </span><span class="p">[{</span><span class="ss">:plate</span><span class="w"> </span><span class="s">&quot;ABC-1234&quot;</span><span class="w"> </span><span class="ss">:renavam</span><span class="w"> </span><span class="s">&quot;12.345.678-90&quot;</span><span class="p">}</span>
+<span class="w">   </span><span class="p">{</span><span class="ss">:plate</span><span class="w"> </span><span class="s">&quot;XYZ-5678&quot;</span><span class="w"> </span><span class="ss">:renavam</span><span class="w"> </span><span class="s">&quot;invalid&quot;</span><span class="p">}</span>
+<span class="w">   </span><span class="p">{</span><span class="ss">:plate</span><span class="w"> </span><span class="s">&quot;DEF-9012&quot;</span><span class="w"> </span><span class="ss">:renavam</span><span class="w"> </span><span class="s">&quot;98765432109&quot;</span><span class="p">}])</span>
+<span class="c1">; =&gt; [{:renavam-valid? true} ...]</span>
+</code></pre></div>
+<h3 id="4-migracao-de-sistema-antigo-para-novo">4. Migração de Sistema Antigo para Novo</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">upgrade-renavam</span><span class="w"> </span><span class="p">[</span><span class="nv">old-renavam</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">cleaned</span><span class="w"> </span><span class="p">(</span><span class="nf">remove-symbols</span><span class="w"> </span><span class="nv">old-renavam</span><span class="p">)]</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">cond</span>
+<span class="w">      </span><span class="p">(</span><span class="nb">and </span><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">cleaned</span><span class="p">)</span>
+<span class="w">           </span><span class="p">(</span><span class="nb">= </span><span class="mi">11</span><span class="w"> </span><span class="p">(</span><span class="nb">count </span><span class="nv">cleaned</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">{</span><span class="ss">:format</span><span class="w"> </span><span class="ss">:new</span><span class="w"> </span><span class="ss">:renavam</span><span class="w"> </span><span class="nv">cleaned</span><span class="p">}</span>
+
+<span class="w">      </span><span class="p">(</span><span class="nb">and </span><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">cleaned</span><span class="p">)</span>
+<span class="w">           </span><span class="p">(</span><span class="nb">= </span><span class="mi">9</span><span class="w"> </span><span class="p">(</span><span class="nb">count </span><span class="nv">cleaned</span><span class="p">)))</span>
+<span class="w">      </span><span class="p">{</span><span class="ss">:format</span><span class="w"> </span><span class="ss">:old</span><span class="w"> </span><span class="ss">:renavam</span><span class="w"> </span><span class="nv">cleaned</span><span class="w"> </span><span class="ss">:needs-update</span><span class="w"> </span><span class="nv">true</span><span class="p">}</span>
+
+<span class="w">      </span><span class="ss">:else</span>
+<span class="w">      </span><span class="p">{</span><span class="ss">:format</span><span class="w"> </span><span class="ss">:invalid</span><span class="w"> </span><span class="ss">:renavam</span><span class="w"> </span><span class="nv">cleaned</span><span class="p">})))</span>
+
+<span class="p">(</span><span class="nf">upgrade-renavam</span><span class="w"> </span><span class="s">&quot;123456789&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; {:format :old :renavam &quot;123456789&quot; :needs-update true}</span>
+
+<span class="p">(</span><span class="nf">upgrade-renavam</span><span class="w"> </span><span class="s">&quot;12.345.678-90&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; {:format :new :renavam &quot;12345678901&quot;}</span>
+</code></pre></div>
+<h3 id="5-filtragem-de-renavams-validos-em-lote">5. Filtragem de RENAVAMs Válidos em Lote</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">filter-valid-renavams</span><span class="w"> </span><span class="p">[</span><span class="nv">renavam-list</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">-&gt;&gt;</span><span class="w"> </span><span class="nv">renavam-list</span>
+<span class="w">       </span><span class="p">(</span><span class="nb">map </span><span class="nv">remove-symbols</span><span class="p">)</span>
+<span class="w">       </span><span class="p">(</span><span class="nb">filter </span><span class="nv">is-valid?</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nf">filter-valid-renavams</span><span class="w"> </span>
+<span class="w">  </span><span class="p">[</span><span class="s">&quot;12.345.678-90&quot;</span>
+<span class="w">   </span><span class="s">&quot;invalid&quot;</span>
+<span class="w">   </span><span class="s">&quot;98765432109&quot;</span>
+<span class="w">   </span><span class="s">&quot;123456789&quot;</span>
+<span class="w">   </span><span class="nv">nil</span><span class="p">])</span>
+<span class="c1">; =&gt; [&quot;12345678901&quot; &quot;98765432109&quot; &quot;123456789&quot;]</span>
+</code></pre></div>
+<h3 id="6-integracao-com-banco-de-dados">6. Integração com Banco de Dados</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">save-vehicle-record</span><span class="w"> </span><span class="p">[</span><span class="nv">db</span><span class="w"> </span><span class="nv">vehicle</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">renavam</span><span class="w"> </span><span class="p">(</span><span class="nf">remove-symbols</span><span class="w"> </span><span class="p">(</span><span class="ss">:renavam</span><span class="w"> </span><span class="nv">vehicle</span><span class="p">))]</span>
+<span class="w">    </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">is-valid?</span><span class="w"> </span><span class="nv">renavam</span><span class="p">)</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">do</span>
+<span class="w">        </span><span class="p">(</span><span class="nf">db/save</span><span class="w"> </span><span class="nv">db</span><span class="w"> </span><span class="p">{</span><span class="ss">:renavam</span><span class="w"> </span><span class="nv">renavam</span><span class="w"> </span>
+<span class="w">                     </span><span class="ss">:owner</span><span class="w"> </span><span class="p">(</span><span class="ss">:owner</span><span class="w"> </span><span class="nv">vehicle</span><span class="p">)</span>
+<span class="w">                     </span><span class="ss">:model</span><span class="w"> </span><span class="p">(</span><span class="ss">:model</span><span class="w"> </span><span class="nv">vehicle</span><span class="p">)})</span>
+<span class="w">        </span><span class="p">{</span><span class="ss">:status</span><span class="w"> </span><span class="ss">:saved</span><span class="p">})</span>
+<span class="w">      </span><span class="p">{</span><span class="ss">:status</span><span class="w"> </span><span class="ss">:error</span><span class="w"> </span><span class="ss">:message</span><span class="w"> </span><span class="s">&quot;RENAVAM inválido&quot;</span><span class="p">})))</span>
+
+<span class="p">(</span><span class="nf">save-vehicle-record</span><span class="w"> </span><span class="nv">my-db</span><span class="w"> </span>
+<span class="w">  </span><span class="p">{</span><span class="ss">:renavam</span><span class="w"> </span><span class="s">&quot;12.345.678-90&quot;</span><span class="w"> </span>
+<span class="w">   </span><span class="ss">:owner</span><span class="w"> </span><span class="s">&quot;João Silva&quot;</span><span class="w"> </span>
+<span class="w">   </span><span class="ss">:model</span><span class="w"> </span><span class="s">&quot;Toyota Corolla&quot;</span><span class="p">})</span>
+<span class="c1">; =&gt; {:status :saved}</span>
+</code></pre></div>
+<h2 id="formatos-aceitos">Formatos Aceitos</h2>
+<table>
+<thead>
+<tr>
+<th>Formato</th>
+<th>Exemplo</th>
+<th>Válido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9 dígitos (antigo)</td>
+<td>123456789</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>11 dígitos (novo)</td>
+<td>12345678901</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Formatado</td>
+<td>12.345.678-90</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Com espaços</td>
+<td>12 345 678 90</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>8 dígitos</td>
+<td>12345678</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>10 dígitos</td>
+<td>1234567890</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<h2 id="historico-de-formato">Histórico de Formato</h2>
+<table>
+<thead>
+<tr>
+<th>Período</th>
+<th>Formato</th>
+<th>Dígitos</th>
+<th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Antigo</td>
+<td>XXXXXXXXX</td>
+<td>9</td>
+<td>Ainda válido, sem dígito verificador</td>
+</tr>
+<tr>
+<td>Novo</td>
+<td>XX.XXX.XXX-XX</td>
+<td>11</td>
+<td>Formato atual, com dígito verificador</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ver-tambem">Ver Também</h2>
+<ul>
+<li><a href="../cnh/">CNH</a> - Carteira Nacional de Habilitação</li>
+<li><a href="../titulo_eleitoral/">Título Eleitoral</a> - Validação de Título Eleitoral</li>
+<li><a href="../cpf/">CPF</a> - Validação de CPF</li>
+<li><a href="../cnpj/">CNPJ</a> - Validação de CNPJ</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
