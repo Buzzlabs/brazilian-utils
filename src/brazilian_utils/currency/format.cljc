@@ -14,6 +14,57 @@
      :cljs
      (.toFixed value precision)))
 
+(defn- convert-to-brazilian-decimal
+  "Converts dot decimal separator to comma (Brazilian format).
+  
+  Args:
+    s - String with dot as decimal separator
+    
+  Returns:
+    String with comma as decimal separator
+    
+  Example:
+    (convert-to-brazilian-decimal \"1234.56\") ;; => \"1234,56\""
+  [s]
+  (str/replace s "." ","))
+
+(defn- split-integer-and-decimal
+  "Splits a number string into integer and decimal parts.
+  
+  Args:
+    s - String with comma as decimal separator
+    precision - Number of decimal places expected
+    
+  Returns:
+    Vector [integer-part decimal-part]
+    
+  Example:
+    (split-integer-and-decimal \"1234,56\" 2) ;; => [\"1234\" \"56\"]
+    (split-integer-and-decimal \"1234\" 2)    ;; => [\"1234\" \"00\"]"
+  [s precision]
+  (let [parts (str/split s #",")
+        integer-part (first parts)
+        decimal-part (if (> (count parts) 1)
+                       (second parts)
+                       (apply str (repeat precision "0")))]
+    [integer-part decimal-part]))
+
+(defn- add-thousands-separators
+  "Adds dot separators for thousands in the integer part.
+  
+  Args:
+    integer-str - String with the integer part
+    
+  Returns:
+    String with dots as thousands separators
+    
+  Example:
+    (add-thousands-separators \"1234567\") ;; => \"1.234.567\""
+  [integer-str]
+  (str/replace integer-str
+               validation/thousands-separator-pattern
+               "$1."))
+
 (defn format-currency
   "Formats a number as Brazilian currency string (BRL).
    
@@ -35,19 +86,10 @@
   ([value]
    (format-currency value 2))
   ([value precision]
-   (let [fixed-str (format-with-precision value precision)
-         ;; Replace dot with comma for Brazilian format
-         with-comma (str/replace fixed-str "." ",")
-         ;; Split to get integer and decimal parts
-         parts (str/split with-comma #",")
-         integer-part (first parts)
-         decimal-part (if (> (count parts) 1)
-                        (second parts)
-                        (apply str (repeat precision "0")))
-         ;; Add thousands separator (dot) to integer part
-         formatted-integer (str/replace integer-part
-                                       validation/thousands-separator-pattern
-                                       "$1.")]
+   (let [number-str (format-with-precision value precision)
+         with-brazilian-decimal (convert-to-brazilian-decimal number-str)
+         [integer-part decimal-part] (split-integer-and-decimal with-brazilian-decimal precision)
+         formatted-integer (add-thousands-separators integer-part)]
      (str formatted-integer "," decimal-part))))
 
 (defn parse-currency

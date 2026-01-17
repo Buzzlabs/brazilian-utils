@@ -99,3 +99,25 @@
       (and (= (subs cnpj 12 13) dv1)
            (= (subs cnpj 13 14) dv2)))))
 
+
+(defn generate-numeric-base
+  "Generates a valid 12-digit numeric base that won't be all repeated digits.
+  
+  Returns:
+    String with 12 random digits"
+  []
+  (let [rand-base (fn [] (helpers/random-digits 12))]
+    (loop [b (rand-base)]
+      (if (re-matches #"^(\d)\1{11}$" b) ; avoid all repeated
+        (recur (rand-base))
+        b))))
+
+(defn generate-alphanumeric-base
+  "Generates a valid 12-character alphanumeric base using letters and digits.
+  
+  Returns:
+    String with 12 random alphanumeric characters (A-Z, 0-9)"
+  []
+  (let [chars "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        rand-ch (fn [] (nth chars (rand-int (count chars))))]
+    (apply str (repeatedly 12 rand-ch))))

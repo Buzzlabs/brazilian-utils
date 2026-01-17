@@ -22,41 +22,66 @@
 
 (defn format-cnpj
   "Formats a CNPJ with standard Brazilian mask (XX.XXX.XXX/XXXX-XX).
-  Supports numeric, alphanumeric, partial, and optional zero-padding.
+  
+  This function normalizes and formats a CNPJ string by adding the standard Brazilian
+  punctuation mask. It supports numeric, alphanumeric, partial inputs, and optional
+  zero-padding behavior.
 
-   Args:
-     cnpj - String or number to format
-     opts - Optional map for padding rules
+  Arguments:
+    cnpj - String or number to format (formatted or unformatted)
+    opts - Optional map for zero-padding behavior (not required)
 
-   Returns:
-     CNPJ string formatted with mask"
+  Returns:
+    A CNPJ string formatted with the mask (XX.XXX.XXX/XXXX-XX)
+    
+  Examples:
+    (format-cnpj \"12345678000195\") ;; => \"12.345.678/0001-95\"
+    (format-cnpj \"12.345.678/0001-95\") ;; => \"12.345.678/0001-95\"
+    (format-cnpj \"1234567\") ;; => \"12.345.67\" (partial)"
   ([cnpj] (fmt/format-cnpj cnpj))
   ([cnpj opts] (fmt/format-cnpj cnpj opts)))
 
 (defn generate
   "Generates a valid numeric CNPJ (14 digits, unformatted).
+  
+  This function creates a random valid CNPJ that passes all validation checks.
+  It ensures the generated CNPJ is not composed entirely of repeated digits and
+  has valid check digits according to the Brazilian CNPJ algorithm.
 
-  Args: none
-  Returns: 14-digit numeric string (digits only); avoids repeated-digit bases"
+  Arguments:
+    None
+
+  Returns:
+    A valid 14-digit numeric CNPJ string (unformatted, digits only)
+    
+  Examples:
+    (generate) ;; => \"12345678000195\"
+    (generate) ;; => \"98765432000123\""
   []
-  (let [rand-base (fn [] (helpers/random-digits 12))
-        base (loop [b (rand-base)]
-               (if (re-matches #"^(\d)\1{11}$" b) ; avoid all repeated
-                 (recur (rand-base))
-                 b))
+  (let [base (i/generate-numeric-base)
         dv1 (i/calc-check-digit* base i/first-check-digit-weights)
         dv2 (i/calc-check-digit* (str base dv1) i/second-check-digit-weights)]
     (str base dv1 dv2)))
 
 (defn generate-alfanumeric
   "Generates a valid alphanumeric CNPJ (14 chars, unformatted).
+  
+  This function creates a random valid alphanumeric CNPJ where the first 12 characters
+  can be letters (A-Z) or digits (0-9), and the last 2 characters are numeric check digits.
+  The generated CNPJ passes all validation checks according to IN RFB nº 2.229/2024.
 
-  Args: none
-  Returns: 14-character alphanumeric string; check digits remain numeric"
+  Arguments:
+    None
+
+  Returns:
+    A valid 14-character alphanumeric CNPJ string (unformatted)
+    Last 2 characters are always numeric (check digits)
+    
+  Examples:
+    (generate-alfanumeric) ;; => \"AB1234567000195\"
+    (generate-alfanumeric) ;; => \"XY9876543000123\""
   []
-  (let [chars "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        rand-ch (fn [] (nth chars (rand-int (count chars))))
-        base (apply str (repeatedly 12 rand-ch))
+  (let [base (i/generate-alphanumeric-base)
         dv1 (i/calc-check-digit* base i/first-check-digit-weights)
         dv2 (i/calc-check-digit* (str base dv1) i/second-check-digit-weights)]
     (str base dv1 dv2)))
@@ -64,13 +89,27 @@
 (defn is-valid?
   "Validates numeric or alphanumeric CNPJ (IN RFB nº 2.229/2024).
 
-   Args:
-     cnpj - String (formatted or not); nil returns false
+  This function checks if a CNPJ is valid by verifying:
+  - It is a string
+  - It has exactly 14 characters (after cleaning)
+  - It is not all repeated digits
+  - The check digits are correct according to the Brazilian algorithm
+  - If it contains letters, it follows the alphanumeric format rules
 
-   Rules: 14 chars after cleaning, not all repeated, mod-11 check digits correct,
-   and if letters are present it must fit alphanumeric shape (12 A-Z/0-9 + 2 digits).
+  Accepts both formatted (XX.XXX.XXX/XXXX-XX) and unformatted (XXXXXXXXXXXXXX) CNPJs.
 
-   Returns: true when valid; false otherwise"
+  Arguments:
+    cnpj - CNPJ string to validate (formatted or unformatted)
+
+  Returns:
+    true if valid; false otherwise
+    
+  Examples:
+    (is-valid? \"12.345.678/0001-95\") ;; => true/false
+    (is-valid? \"12345678000195\")    ;; => true/false
+    (is-valid? \"00000000000000\")    ;; => false (repeated)
+    (is-valid? \"AB.123.456/0001-95\") ;; => true/false (alphanumeric)
+    (is-valid? nil)                    ;; => false"
   [cnpj]
   (if-not (string? cnpj)
     false

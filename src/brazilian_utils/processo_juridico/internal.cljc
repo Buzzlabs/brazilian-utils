@@ -1,22 +1,34 @@
-(ns brazilian-utils.processo-juridico.internal)
+(ns brazilian-utils.processo-juridico.internal
+  (:require [brazilian-utils.helpers :as helpers]))
 
-(def ^:const processo-length 20)
-
-(defn- mod-large-number
-  "Calculates mod for very large numbers in both clj and cljs."
-  [num-str divisor]
-  #?(:clj (mod (bigint num-str) divisor)
-     :cljs (js/Number (mod (js/BigInt num-str) (js/BigInt divisor)))))
+(def ^:const processo-length
+  "Standard length of a Brazilian legal process number (processo jurídico).
+   Format: NNNNNNN-DD.AAAA.J.TT.OOOO (20 digits total)"
+  20)
 
 (defn verify-digit*
   "Verifies check digits using MOD 97-10 algorithm.
    
-   Rearranges to NNNNNNN + AAAAJTTOOOO + DD and verifies mod 97 = 1"
+   The MOD 97-10 algorithm rearranges the processo number and verifies
+   that the modulo 97 equals 1, ensuring check digit validity.
+   
+   Original format: NNNNNNN-DD.AAAA.J.TT.OOOO
+   Positions:       0-6    7-8  9-12 13 14-15 16-19
+   
+   Args:
+     processo - 20-digit processo string
+   
+   Returns:
+     true if check digits are valid, false otherwise"
   [processo]
   (when (= (count processo) processo-length)
-    (let [;; Rearrange: NNNNNNN (0-7) + AAAA J TT OOOO (9-20) + DD (7-9)
-          rearranged (str (subs processo 0 7) 
-                          (subs processo 9 20)
-                          (subs processo 7 9))
-          mod-result (mod-large-number rearranged 97)]
+    (let [;;   NNNNNNN = sequential number (positions 0-6)
+          sequential (subs processo 0 7)
+          ;;   AAAA = year + J + TT + OOOO = segment + origin (positions 9-20)
+          segment-origin (subs processo 9 20)
+          ;;   DD = check digits (positions 7-8)
+          check-digits (subs processo 7 9)
+
+          rearranged (str sequential segment-origin check-digits)
+          mod-result (helpers/mod-large-number rearranged 97)]
       (= mod-result 1))))

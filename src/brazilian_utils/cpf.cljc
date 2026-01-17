@@ -12,7 +12,7 @@
     (generate :SP) ;; => \"34567890121\" (with state code)"
   (:require [brazilian-utils.cpf.core :as core]))
 
-  (def remove-symbols core/remove-symbols)
+(def remove-symbols core/remove-symbols)
 (def format-cpf core/format-cpf)
 (def generate core/generate)
 (def is-valid? core/is-valid?)

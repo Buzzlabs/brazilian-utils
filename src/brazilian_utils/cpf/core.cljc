@@ -2,7 +2,6 @@
   (:require [brazilian-utils.cpf.internal :as i]
             [brazilian-utils.cpf.format :as fmt]
             [brazilian-utils.cpf.validation :as validation]
-            [brazilian-utils.states :as states]
             [brazilian-utils.helpers :as helpers]))
 
 
@@ -28,10 +27,22 @@
 
 (defn format-cpf
   "Formats a CPF string with standard Brazilian punctuation (XXX.XXX.XXX-XX).
-  Supports partial inputs and optional zero-padding.
+  
+  This function normalizes and formats a CPF string by adding the standard Brazilian
+  punctuation mask. It supports both formatted and unformatted inputs, partial inputs,
+  and optional zero-padding behavior.
 
-  Input: string or number; optional opts map for zero-padding behavior.
-  Output: formatted CPF string with mask."
+  Args:
+    cpf - CPF string or number to format
+    opts - Optional map for zero-padding behavior (not required)
+
+  Returns:
+    A CPF string formatted with the mask (XXX.XXX.XXX-XX)
+    
+  Examples:
+    (format-cpf \"12345678909\") ;; => \"123.456.789-09\"
+    (format-cpf \"123.456.789-09\") ;; => \"123.456.789-09\"
+    (format-cpf \"1234567\") ;; => \"12.345.67\" (partial)"
   ([cpf] (fmt/format-cpf cpf))
   ([cpf opts] (fmt/format-cpf cpf opts)))
 
@@ -55,20 +66,13 @@
     (generate :SP)   ;; => \"12345678901\" (with SP state code)"
   ([]   (generate nil))
   ([state]
-   (let [state-code (or (some-> state
-                                states/uf->code
-                                helpers/parse-int)
-                        (rand-int 10))
-         base (->> (repeatedly #(rand-int 10))
-                   (take 8)
-                   (apply str)
-                   (iterate (fn [_] (helpers/random-digits 8)))
-                   (drop-while #(helpers/repeated-digits? (str % state-code)))
-                   first
-                   (#(str % state-code)))
-         dv1 (i/calc-check-digit* base i/first-check-digit-weight)
-         dv2 (i/calc-check-digit* (str base dv1) i/second-check-digit-weight)]
-     (str base dv1 dv2))))
+   (let [state-code (i/get-state-code state)
+         base-8-digits (i/generate-non-repeated-base state-code)
+         base-9-digits (str base-8-digits state-code)
+         first-check-digit (i/calc-check-digit* base-9-digits i/first-check-digit-weight)
+         base-with-first-dv (str base-9-digits first-check-digit)
+         second-check-digit (i/calc-check-digit* base-with-first-dv i/second-check-digit-weight)]
+     (str base-with-first-dv second-check-digit))))
 
 (defn is-valid?
   "Validates a CPF string.

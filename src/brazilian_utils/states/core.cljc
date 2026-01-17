@@ -1,6 +1,7 @@
 (ns brazilian-utils.states.core
   (:require [brazilian-utils.data :as data]
-            [brazilian-utils.states.validation :as validation]))
+            [brazilian-utils.states.validation :as validation]
+            [clojure.string :as str]))
 
 (defn uf->state-name
   "Returns the full state name for a UF keyword.
@@ -53,12 +54,21 @@
     (get-in data/states-map [uf :area-codes])))
 
 (defn uf->code
-  "Returns the numeric IBGE code for a UF.
+  "Returns the numeric IBGE code for a given UF.
    
-   Args:
-   - uf: keyword (e.g., :SP)
+   The IBGE code is a numeric identifier used by the Brazilian Institute of Geography and Statistics
+   to uniquely identify each state.
    
-   Returns integer or nil if not found."
+   Arguments:
+   - uf: Keyword representing the state abbreviation (e.g., :SP, :RJ)
+   
+   Returns:
+    An integer representing the IBGE code, or nil if the UF is invalid.
+    
+   Examples:
+    (uf->code :SP) ;; 35
+    (uf->code :RJ) ;; 33
+    (uf->code :XX) ;; nil"
   [uf]
   (when (validation/valid-uf? uf)
     (get-in data/states-map [uf :code])))
@@ -96,8 +106,8 @@
    (name->uf \"Rio de Janeiro\") ;; :RJ"
   [name]
   (when (string? name)
-    (let [name-lower (clojure.string/lower-case name)]
+    (let [name-lower (str/lower-case name)]
       (->> data/states-map
-           (filter (fn [[_ v]] (= (clojure.string/lower-case (:name v)) name-lower)))
+           (filter (fn [[_ v]] (= (str/lower-case (:name v)) name-lower)))
            first
            first))))

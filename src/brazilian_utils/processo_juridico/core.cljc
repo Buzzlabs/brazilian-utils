@@ -5,55 +5,68 @@
             [brazilian-utils.helpers :as helpers]))
 
 (defn remove-symbols
-  "Removes all non-digits from a court case number.
+  "Removes all non-numeric characters from a court case number.
 
-  Args:
-    processo - Court case number string (formatted or not); nil allowed
+  This function normalizes court case number input by stripping formatting characters,
+  returning only the digits.
+
+  Arguments:
+    processo - Court case number string (formatted or unformatted); nil allowed
 
   Returns:
     Digits-only string; nil yields an empty string
 
   Examples:
     (remove-symbols \"0002080-25.2012.515.0049\") ;; => \"00020802520125150049\"
-    (remove-symbols nil)                           ;; => \"\""
+    (remove-symbols \"00020802520125150049\")     ;; => \"00020802520125150049\"
+    (remove-symbols nil)                           ;; => \"\"
+    (remove-symbols \"\")                        ;; => \"\""
   [processo]
   (helpers/only-numbers processo))
 
 (defn format-processo
-  "Formats a court case number with mask NNNNNNN-DD.AAAA.J.TT.OOOO.
+  "Formats a court case number with the standard judicial mask (NNNNNNN-DD.AAAA.J.TT.OOOO).
 
-  Args:
-    processo - Court case number string (formatted or not)
+  This function takes a 20-digit court case number and formats it according to the
+  Brazilian judicial system standard. It supports partial input (preserving the number
+  of digits) and discards extra digits beyond 20.
+
+  Arguments:
+    processo - Court case number string (formatted or unformatted)
 
   Returns:
-    Masked string; partial input stays partial; extra digits are discarded
+    Formatted string with the mask; partial input stays partial; extra digits are discarded
 
   Examples:
     (format-processo \"00020802520125150049\") ;; => \"0002080-25.2012.515.0049\"
     (format-processo \"0002080\")              ;; => \"0002080\"
-    (format-processo \"\")                      ;; => \"\""
+    (format-processo \"\")                      ;; => \"\"
+    (format-processo \"0002080-25.2012.515.0049\") ;; => \"0002080-25.2012.515.0049\""
   [processo]
   (fmt/format-processo processo))
 
 (defn is-valid?
-  "Validates a court case number (20 digits, mod 97-10).
+  "Validates a Brazilian court case number (processo judicial).
 
-  Checks:
-  - Input is a string
-  - After removing symbols, length is 20 digits
-  - Formatting is acceptable
-  - Check digits (mod 97-10) are correct
+  This function checks if a court case number is valid by verifying:
+  - It is a string
+  - Contains exactly 20 digits (after removing formatting)
+  - The formatting follows the standard judicial mask (NNNNNNN-DD.AAAA.J.TT.OOOO)
+  - The check digits (mod 97-10 algorithm) are correct
 
-  Args:
-    processo - Court case number string (formatted or not)
+  Accepts both formatted (NNNNNNN-DD.AAAA.J.TT.OOOO) and unformatted (20 digits) court case numbers.
+
+  Arguments:
+    processo - Court case number string (formatted or unformatted)
 
   Returns:
-    true when valid; false otherwise
+    true if valid; false otherwise
 
   Examples:
-    (is-valid? \"0002080-25.2012.515.0049\") ;; => true/false
-    (is-valid? \"00020802520125150049\")     ;; => true/false
-    (is-valid? nil)                            ;; => false"
+    (is-valid? \"0002080-25.2012.515.0049\") ;; true/false depending on check digits
+    (is-valid? \"00020802520125150049\")     ;; true/false depending on check digits
+    (is-valid? \"0002080\")                  ;; false (incomplete)
+    (is-valid? nil)                            ;; false"
   [processo]
   (if-not (string? processo)
     false

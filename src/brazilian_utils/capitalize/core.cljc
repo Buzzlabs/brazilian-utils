@@ -22,6 +22,27 @@
   [word]
   (str/capitalize (str/lower-case word)))
 
+(defn- process-word
+  "Processes a single word based on capitalization rules.
+  
+  Args:
+    word - The word to process
+    idx - Index of the word (0-based)
+    lower-case-set - Set of words that should be lowercase
+    upper-case-set - Set of words that should be uppercase
+    
+  Returns:
+    The processed word according to the rules"
+  [word idx lower-case-set upper-case-set]
+  (let [lower-word (str/lower-case word)
+        is-acronym? (contains? upper-case-set lower-word)
+        is-preposition? (contains? lower-case-set lower-word)
+        is-first-word? (zero? idx)]
+    (cond
+      is-acronym? (str/upper-case lower-word)
+      (and (not is-first-word?) is-preposition?) lower-word
+      :else (capitalize-word word))))
+
 (defn capitalize
   "Capitalizes a string according to capitalization rules.
   
@@ -47,27 +68,16 @@
     (capitalize \"doc da empresa ab\" {:upper-case-words [\"DOC\" \"AB\"]}) ;; => \"DOC da Empresa AB\""
   ([text]
    (capitalize text {}))
-  ([text {:keys [lower-case-words upper-case-words] :or {lower-case-words prepositions upper-case-words acronyms}}]
-   (let [normalized-text (-> text
-                             str/trim
-                             (str/replace #"\s+" " "))]
+  ([text {:keys [lower-case-words upper-case-words] 
+          :or {lower-case-words prepositions 
+               upper-case-words acronyms}}]
+   (let [normalized-text (-> text str/trim (str/replace #"\s+" " "))]
      (if (empty? normalized-text)
        ""
        (let [words (str/split normalized-text #" ")
-             lower-case-set (->> lower-case-words (map str/lower-case) set)
-             upper-case-set (->> upper-case-words (map str/lower-case) set)
-             
-             capitalized-words (map-indexed
-                                (fn [idx word]
-                                  (let [lower-word (str/lower-case word)]
-                                    (cond
-                                      ;; Check upper-case-words list (before checking first word)
-                                      (contains? upper-case-set lower-word) (str/upper-case lower-word)
-                                      
-                                      ;; Check lower-case-words list (except first word)
-                                      (and (not (zero? idx)) (contains? lower-case-set lower-word)) lower-word
-                                      
-                                      ;; First word or default: capitalize
-                                      :else (capitalize-word word))))
-                                words)]
+             lower-case-set (set (map str/lower-case lower-case-words))
+             upper-case-set (set (map str/lower-case upper-case-words))
+             capitalized-words (map-indexed 
+                                 #(process-word %2 %1 lower-case-set upper-case-set)
+                                 words)]
          (str/join " " capitalized-words))))))

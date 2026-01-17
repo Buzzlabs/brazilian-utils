@@ -1,7 +1,8 @@
 (ns brazilian-utils.cities.core
   "Utilities to work with Brazilian cities by state (UF)."
   (:require [brazilian-utils.data :as data]
-            [brazilian-utils.states.validation :as state-validation]))
+            [brazilian-utils.states.validation :as state-validation]
+            [clojure.string :as str]))
 
 (defn- valid-state?
   "Returns true if state is a valid UF keyword.
@@ -79,11 +80,11 @@
    (find-city-by-name \"santa cruz\") ;; Multiple cities named Santa Cruz in different states"
   [city-name]
   (when (string? city-name)
-    (let [name-lower (clojure.string/lower-case city-name)]
+    (let [name-lower (str/lower-case city-name)]
       (->> data/cities-by-state
            (mapcat (fn [[uf cities]]
                      (->> cities
-                          (filter #(= (clojure.string/lower-case %) name-lower))
+                          (filter #(= (str/lower-case %) name-lower))
                           (map (fn [c] {:state uf :city c})))))
            vec))))
 
@@ -102,6 +103,6 @@
    (city-exists? :RJ \"Rio de Janeiro\") ;; true"
   [state city-name]
   (when (and (valid-state? state) (string? city-name))
-    (let [name-lower (clojure.string/lower-case city-name)
+    (let [name-lower (str/lower-case city-name)
           cities (get data/cities-by-state state [])]
-      (boolean (some #(= (clojure.string/lower-case %) name-lower) cities)))))
+      (boolean (some #(= (str/lower-case %) name-lower) cities)))))

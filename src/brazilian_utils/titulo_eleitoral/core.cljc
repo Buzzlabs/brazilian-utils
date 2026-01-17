@@ -77,8 +77,11 @@
 (defn remove-symbols
   "Removes all non-numeric characters from a voter ID string.
    
-   Args:
-     voter-id - String with voter ID (may include formatting)
+   This function normalizes voter ID input by stripping formatting characters,
+   returning only the digits.
+   
+   Arguments:
+     voter-id - String with voter ID (may include formatting); nil allowed
    
    Returns:
      String with only digits, or empty string if input is nil
@@ -86,7 +89,9 @@
    Examples:
      (remove-symbols \"1234 5678 9035\") ;; => \"123456789035\"
      (remove-symbols \"1234-5678-9035\") ;; => \"123456789035\"
-     (remove-symbols nil) ;; => \"\""
+     (remove-symbols \"123456789035\") ;; => \"123456789035\"
+     (remove-symbols nil) ;; => \"\"
+     (remove-symbols \"\") ;; => \"\""
   [voter-id]
   (if (string? voter-id)
     (helpers/only-numbers voter-id)
@@ -95,16 +100,20 @@
 (defn get-uf-code
   "Extracts the UF code from a voter ID.
    
-   Args:
+   The UF code is the last 2 digits of the 12-digit voter ID and represents
+   the Brazilian state where the voter is registered.
+   
+   Arguments:
      voter-id - String with voter ID (may include formatting)
    
    Returns:
-     String with 2-digit UF code, or nil if invalid
+     String with 2-digit UF code, or nil if the voter ID is invalid
    
    Examples:
      (get-uf-code \"123456789035\") ;; => \"35\" (São Paulo)
      (get-uf-code \"1234 5678 9035\") ;; => \"35\"
-     (get-uf-code \"invalid\") ;; => nil"
+     (get-uf-code \"invalid\") ;; => nil
+     (get-uf-code \"12345678\") ;; => nil (too short)"
   [voter-id]
   (when (string? voter-id)
     (let [cleaned (helpers/only-numbers voter-id)]
@@ -114,18 +123,24 @@
 (defn generate
   "Generates a valid Brazilian Voter ID (Título Eleitoral).
 
-   Options map supports:
-   - :uf-code => optional UF code (string or integer). When provided and
-     invalid, returns nil. When omitted, a valid UF code is chosen at random.
+   This function creates a random valid voter ID with correct check digits
+   according to TSE (Tribunal Superior Eleitoral) rules. The generated ID
+   has the format: 8 digits base + 2 check digits + 2 digit UF code = 12 digits total.
 
-   Returns a 12-digit string containing base, check digits, and UF code, or
-   nil if generation fails after multiple attempts.
+   Arguments:
+     options - Optional map with:
+               :uf-code => UF code (string or integer, e.g., \"35\" or 35 for SP)
+                          When omitted, a random valid UF code is chosen
+                          When invalid, returns nil
+
+   Returns:
+     A valid 12-digit voter ID string, or nil if generation fails
 
    Examples:
-     (generate)                ;; => \"123456780104\" (example)
-     (generate {:uf-code 35})  ;; => UF 35 (SP)
-     (generate {:uf-code \"01\"})
-  "
+     (generate)                ;; => \"123456780104\" (random UF)
+     (generate {:uf-code 35})  ;; => voter ID for São Paulo (UF 35)
+     (generate {:uf-code \"01\"}) ;; => voter ID for Distrito Federal (UF 01)
+     (generate {:uf-code 99})  ;; => nil (invalid UF code)"
   ([] (generate {}))
   ([{:keys [uf-code]}]
    (when-let [uf (if (some? uf-code)

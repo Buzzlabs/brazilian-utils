@@ -19,5 +19,3 @@
   "Returns true if RENAVAM is valid."
   [renavam]
   (empty? (validation-errors* renavam)))
-
-

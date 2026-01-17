@@ -1,10 +1,14 @@
 (ns brazilian-utils.pis.internal
   (:require [brazilian-utils.helpers :as helpers]))
 
-(def ^:const pis-length 11)
+(def ^:const pis-length
+  "Standard length of a Brazilian PIS (Programa de Integração Social) number."
+  11)
 
-;; PIS check digit calculation weights
-(def ^:const check-digit-weights [3 2 9 8 7 6 5 4 3 2])
+(def ^:const check-digit-weights
+  "Weights used in PIS check digit calculation (mod-11 algorithm).
+   Applied left-to-right: [3 2 9 8 7 6 5 4 3 2]"
+  [3 2 9 8 7 6 5 4 3 2])
 
 (defn calc-check-digit*
   "Computes the PIS check digit using weighted sum.

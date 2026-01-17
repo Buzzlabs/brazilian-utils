@@ -11,6 +11,22 @@
             [clojure.string :as str]))
 
 ;; ============================================================================
+;; Regex Patterns for License Plate Formats
+;; ============================================================================
+
+(def ^:const mercosul-pattern
+  "Mercosul format: 3 letters + 1 digit + 1 letter + 2 digits (e.g., ABC1D23)"
+  #"^[A-Z]{3}[0-9]{1}[A-Z]{1}[0-9]{2}$")
+
+(def ^:const traditional-pattern
+  "Traditional format: 3 letters + 4 digits (e.g., ABC1234)"
+  #"^[A-Z]{3}[0-9]{4}$")
+
+(def ^:const hyphen-separator
+  "Pattern to remove hyphens from license plates"
+  #"-")
+
+;; ============================================================================
 ;; Public API
 ;; ============================================================================
 
@@ -53,18 +69,13 @@
      (get-format \"abc1d23\")  ;; => \"LLLNLNN\""
   [plate]
   (when (and (string? plate) (not (empty? plate)))
-    (let [cleaned (str/upper-case (str/replace plate #"-" ""))]
+    (let [normalized (str/upper-case (str/replace plate hyphen-separator ""))
+          is-mercosul? (re-matches mercosul-pattern normalized)
+          is-traditional? (re-matches traditional-pattern normalized)]
       (cond
-        ;; Check Mercosul format: 3 letters + 1 digit + 1 letter + 2 digits
-        (re-matches #"^[A-Z]{3}[0-9]{1}[A-Z]{1}[0-9]{2}$" cleaned)
-        "LLLNLNN"
-        
-        ;; Check traditional format: 3 letters + 4 digits
-        (re-matches #"^[A-Z]{3}[0-9]{4}$" cleaned)
-        "LLLNNNN"
-        
-        :else
-        nil))))
+        is-mercosul? "LLLNLNN"
+        is-traditional? "LLLNNNN"
+        :else nil))))
 
 (defn convert-to-mercosul
   "Converts a traditional Brazilian license plate to Mercosul format.
@@ -86,17 +97,21 @@
      (convert-to-mercosul \"invalid\")  ;; => nil"
   [plate]
   (when (and (string? plate) (not (empty? plate)))
-    (let [cleaned (str/upper-case (str/replace plate #"-" ""))]
-      ;; Only convert if it's in traditional format
-      (when (= (get-format cleaned) "LLLNNNN")
-        (let [letters (subs cleaned 0 3)
-              digits (subs cleaned 3 7)
-              first-digit (str (first digits))
-              ;; Get second digit as a character, convert to int, then to letter
-              second-digit-char (second digits)
-              second-digit-int (helpers/char->digit second-digit-char)
-              second-digit-code (+ 65 second-digit-int)
-              converted-letter (char second-digit-code)
-              remaining-digits (subs digits 2 4)]
-          (str letters first-digit converted-letter remaining-digits))))))
+    (let [normalized (str/upper-case (str/replace plate hyphen-separator ""))
+          format-type (get-format normalized)]
+      (when (= format-type "LLLNNNN")
+        (let [plate-letters (subs normalized 0 3)
+              plate-digits (subs normalized 3 7)
+
+              ;; Parse the digits for conversion
+              first-digit (str (first plate-digits))
+              second-digit-char (second plate-digits)
+              second-digit-as-int (helpers/char->digit second-digit-char)
+              remaining-two-digits (subs plate-digits 2 4)
+              
+              ;; Convert the second digit to a letter
+              ascii-code-for-a 65
+              letter-code (+ ascii-code-for-a second-digit-as-int)
+              converted-letter (char letter-code)]
+          (str plate-letters first-digit converted-letter remaining-two-digits))))))
 
