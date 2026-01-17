@@ -3,7 +3,10 @@
  :deps
  {org.clojure/clojure       {:mvn/version "1.11.1"}
   org.clojure/clojurescript {:mvn/version "1.11.60"}
-  metosin/malli             {:mvn/version "0.15.0"}}
+  metosin/malli             {:mvn/version "0.15.0"}
+  clj-http/clj-http         {:mvn/version "3.12.3"}
+  cljs-http/cljs-http       {:mvn/version "0.1.46"}
+  cheshire/cheshire         {:mvn/version "5.11.0"}}
 
  :aliases
  {;; Testing

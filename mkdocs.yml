@@ -1,0 +1,50 @@
+site_name: Brazilian Utils
+site_description: Utilitários brasileiros para validação e formatação de dados
+site_author: Seu Nome
+site_url: https://seu-usuario.github.io/test-clj
+
+theme:
+  name: material
+  language: pt
+  palette:
+    primary: green
+    accent: green
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.top
+    - search.suggest
+
+nav:
+  - Home: index.md
+  - Guias:
+      - Instalação: guides/installation.md
+      - Uso: guides/usage.md
+  - Módulos:
+      - CPF: modules/cpf.md
+      - CNPJ: modules/cnpj.md
+      - Telefone: modules/phone.md
+      - Placa Veicular: modules/license_plate.md
+      - CEP: modules/cep.md
+      - Cidades: modules/cities.md
+      - Estados: modules/states.md
+      - Processo Jurídico: modules/processo_juridico.md
+      - CNH: modules/cnh.md
+      - PIS: modules/pis.md
+      - RENAVAM: modules/renavam.md
+      - Título Eleitoral: modules/titulo_eleitoral.md
+      - IE: modules/inscricao_estadual.md
+      - Email: modules/email.md
+      - Moeda: modules/currency.md
+      - Capitalização: modules/capitalize.md
+      - Boleto: modules/boleto.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - tables
+  - admonition

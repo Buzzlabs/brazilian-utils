@@ -1,0 +1,1743 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Utilitários brasileiros para validação e formatação de dados">
+      
+      
+        <meta name="author" content="Seu Nome">
+      
+      
+        <link rel="canonical" href="https://seu-usuario.github.io/test-clj/">
+      
+      
+      
+        <link rel="next" href="guides/installation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Brazilian Utils</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#brazilian-utils" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="." title="Brazilian Utils" class="md-header__button md-logo" aria-label="Brazilian Utils" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Brazilian Utils
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="guides/installation/" class="md-tabs__link">
+          
+  
+  
+  Guias
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="api-reference/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Referência da API
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="modules/cpf/" class="md-tabs__link">
+          
+  
+  
+  Módulos
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Brazilian Utils" class="md-nav__button md-logo" aria-label="Brazilian Utils" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Brazilian Utils
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#caracteristicas-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✨ Características Principais
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plataformas-suportadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Plataformas Suportadas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inicio-rapido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Início Rápido
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Início Rápido">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estados-cidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estados &amp; Cidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpf-cnpj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPF &amp; CNPJ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cep-enderecos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CEP &amp; Endereços
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#telefone-email" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Telefone &amp; Email
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placas-veiculares" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Placas Veiculares
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacao-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Documentação Completa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#todos-os-modulos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Todos os Módulos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplos-avancados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Exemplos Avançados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Exemplos Avançados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tratamento de Erros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integracao-viacep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integração ViaCEP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geracao-de-documentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geração de Documentos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤟 Contributing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#licenca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 Licença
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links-uteis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Links Úteis
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guias
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guides/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guides/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referência da API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Módulos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Módulos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/cpf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CPF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/cnpj/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNPJ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/phone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telefone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/license_plate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Placa Veicular
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/cep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CEP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/cities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/states/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/processo_juridico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo Jurídico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/cnh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/pis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PIS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/renavam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RENAVAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/titulo_eleitoral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Título Eleitoral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/inscricao_estadual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/email/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Email
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/currency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Moeda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/capitalize/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capitalização
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/boleto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boleto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#caracteristicas-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✨ Características Principais
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plataformas-suportadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Plataformas Suportadas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inicio-rapido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Início Rápido
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Início Rápido">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estados-cidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estados &amp; Cidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpf-cnpj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPF &amp; CNPJ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cep-enderecos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CEP &amp; Endereços
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#telefone-email" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Telefone &amp; Email
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placas-veiculares" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Placas Veiculares
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentacao-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Documentação Completa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#todos-os-modulos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Todos os Módulos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplos-avancados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Exemplos Avançados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Exemplos Avançados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tratamento de Erros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integracao-viacep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integração ViaCEP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geracao-de-documentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geração de Documentos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤟 Contributing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#licenca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 Licença
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links-uteis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Links Úteis
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="brazilian-utils">Brazilian Utils</h1>
+<p><strong>Brazilian Utils</strong> é uma biblioteca completa de validação, formatação e geração de dados brasileiros. Desenvolvida em Clojure/ClojureScript, oferece suporte total para JVM, navegadores e Node.js.</p>
+<h2 id="caracteristicas-principais">✨ Características Principais</h2>
+<ul>
+<li><strong>Estados &amp; Cidades</strong> - UF codes, state names, area codes, city lists</li>
+<li><strong>Documentos</strong> - CPF, CNPJ (numérico e alfanumérico), PIS, CNH, RENAVAM, Título Eleitoral, IE</li>
+<li><strong>Endereços</strong> - CEP validation, ViaCEP integration, postal code formatting</li>
+<li><strong>Comunicação</strong> - Phone validation (mobile/landline), Email validation</li>
+<li><strong>Placas</strong> - Traditional &amp; Mercosul license plate validation &amp; conversion</li>
+<li><strong>Processos Jurídicos</strong> - Court case number validation (MOD 97-10)</li>
+<li><strong>Utilitários</strong> - Currency formatting, Date handling, Smart capitalization</li>
+<li><strong>Geração</strong> - CPF/CNPJ/Título Eleitoral generation with validation</li>
+</ul>
+<h2 id="plataformas-suportadas">📦 Plataformas Suportadas</h2>
+<table>
+<thead>
+<tr>
+<th>Plataforma</th>
+<th>Suporte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clojure (JVM)</td>
+<td>✅ Completo (1.9+)</td>
+</tr>
+<tr>
+<td>ClojureScript</td>
+<td>✅ Completo (Navegador e Node.js)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="inicio-rapido">🚀 Início Rápido</h2>
+<h3 id="estados-cidades">Estados &amp; Cidades</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.states</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">states</span><span class="p">]</span>
+<span class="w">         </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.cities</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">cities</span><span class="p">])</span>
+
+<span class="p">(</span><span class="nf">states/valid-uf?</span><span class="w"> </span><span class="ss">:SP</span><span class="p">)</span><span class="w">                    </span><span class="c1">; =&gt; true</span>
+<span class="p">(</span><span class="nf">states/uf-&gt;state-name</span><span class="w"> </span><span class="ss">:SP</span><span class="p">)</span><span class="w">               </span><span class="c1">; =&gt; &quot;São Paulo&quot;</span>
+<span class="p">(</span><span class="nf">states/uf-&gt;area-codes</span><span class="w"> </span><span class="ss">:SP</span><span class="p">)</span><span class="w">               </span><span class="c1">; =&gt; [11 12 13 14 15 16 17 18 19]</span>
+
+<span class="p">(</span><span class="nf">cities/cities-of</span><span class="w"> </span><span class="ss">:SP</span><span class="p">)</span><span class="w">                    </span><span class="c1">; =&gt; [&quot;São Paulo&quot; &quot;Campinas&quot; ...]</span>
+<span class="p">(</span><span class="nf">cities/city-exists?</span><span class="w"> </span><span class="ss">:SP</span><span class="w"> </span><span class="s">&quot;Campinas&quot;</span><span class="p">)</span><span class="w">      </span><span class="c1">; =&gt; true</span>
+</code></pre></div>
+<h3 id="cpf-cnpj">CPF &amp; CNPJ</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.cpf</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">cpf</span><span class="p">]</span>
+<span class="w">         </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.cnpj</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">cnpj</span><span class="p">])</span>
+
+<span class="c1">; CPF Validation &amp; Generation</span>
+<span class="p">(</span><span class="nf">cpf/is-valid?</span><span class="w"> </span><span class="s">&quot;123.456.789-09&quot;</span><span class="p">)</span><span class="w">          </span><span class="c1">; =&gt; true/false</span>
+<span class="p">(</span><span class="nf">cpf/generate</span><span class="p">)</span><span class="w">                            </span><span class="c1">; =&gt; &quot;12345678909&quot; (random valid)</span>
+<span class="p">(</span><span class="nf">cpf/format-cpf</span><span class="w"> </span><span class="s">&quot;12345678909&quot;</span><span class="p">)</span><span class="w">            </span><span class="c1">; =&gt; &quot;123.456.789-09&quot;</span>
+
+<span class="c1">; CNPJ Validation &amp; Generation</span>
+<span class="p">(</span><span class="nf">cnpj/is-valid?</span><span class="w"> </span><span class="s">&quot;12.345.678/0001-95&quot;</span><span class="p">)</span><span class="w">    </span><span class="c1">; =&gt; true/false</span>
+<span class="p">(</span><span class="nf">cnpj/generate</span><span class="p">)</span><span class="w">                           </span><span class="c1">; =&gt; &quot;12345678000195&quot; (random valid)</span>
+<span class="p">(</span><span class="nf">cnpj/generate-alfanumeric</span><span class="p">)</span><span class="w">               </span><span class="c1">; =&gt; &quot;AB1234567000195&quot;</span>
+</code></pre></div>
+<h3 id="cep-enderecos">CEP &amp; Endereços</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.cep</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">cep</span><span class="p">])</span>
+
+<span class="p">(</span><span class="nf">cep/is-valid?</span><span class="w"> </span><span class="s">&quot;01310-100&quot;</span><span class="p">)</span><span class="w">               </span><span class="c1">; =&gt; true</span>
+<span class="p">(</span><span class="nf">cep/format-cep</span><span class="w"> </span><span class="s">&quot;01310100&quot;</span><span class="p">)</span><span class="w">               </span><span class="c1">; =&gt; &quot;01310-100&quot;</span>
+
+<span class="c1">; Via ViaCEP</span>
+<span class="p">(</span><span class="nf">cep/get-address-from-cep</span><span class="w"> </span><span class="s">&quot;01310-100&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">; =&gt; {:logradouro &quot;Av. Paulista&quot; :localidade &quot;São Paulo&quot; ...}</span>
+</code></pre></div>
+<h3 id="telefone-email">Telefone &amp; Email</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.phone</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">phone</span><span class="p">]</span>
+<span class="w">         </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.email</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">email</span><span class="p">])</span>
+
+<span class="p">(</span><span class="nf">phone/is-valid?</span><span class="w"> </span><span class="s">&quot;(11) 99999-9999&quot;</span><span class="p">)</span><span class="w">       </span><span class="c1">; =&gt; true</span>
+<span class="p">(</span><span class="nf">phone/is-valid-mobile?</span><span class="w"> </span><span class="s">&quot;11999999999&quot;</span><span class="p">)</span><span class="w">    </span><span class="c1">; =&gt; true</span>
+<span class="p">(</span><span class="nf">email/is-valid?</span><span class="w"> </span><span class="s">&quot;user@example.com&quot;</span><span class="p">)</span><span class="w">      </span><span class="c1">; =&gt; true</span>
+</code></pre></div>
+<h3 id="placas-veiculares">Placas Veiculares</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.license-plate</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">plate</span><span class="p">])</span>
+
+<span class="p">(</span><span class="nf">plate/is-valid?</span><span class="w"> </span><span class="s">&quot;ABC-1234&quot;</span><span class="p">)</span><span class="w">              </span><span class="c1">; =&gt; true (traditional)</span>
+<span class="p">(</span><span class="nf">plate/is-valid?</span><span class="w"> </span><span class="s">&quot;ABC1D23&quot;</span><span class="p">)</span><span class="w">               </span><span class="c1">; =&gt; true (Mercosul)</span>
+<span class="p">(</span><span class="nf">plate/convert-to-mercosul</span><span class="w"> </span><span class="s">&quot;ABC1234&quot;</span><span class="p">)</span><span class="w">     </span><span class="c1">; =&gt; &quot;ABC1B34&quot;</span>
+</code></pre></div>
+<h2 id="documentacao-completa">📚 Documentação Completa</h2>
+<ul>
+<li><strong><a href="api-reference/">API Reference</a></strong> - Documentação completa de todas as funções</li>
+<li><strong><a href="guides/installation/">Installation Guide</a></strong> - Como instalar e configurar</li>
+<li><strong><a href="guides/usage/">Usage Guide</a></strong> - Exemplos e padrões de uso</li>
+</ul>
+<h2 id="todos-os-modulos">🔗 Todos os Módulos</h2>
+<p><a href="api-reference/">Ver documentação completa dos módulos →</a></p>
+<table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Estados</strong></td>
+<td>UF codes, state names, area codes</td>
+</tr>
+<tr>
+<td><strong>Cidades</strong></td>
+<td>Cities by state, city lookup</td>
+</tr>
+<tr>
+<td><strong>CEP</strong></td>
+<td>Postal code validation &amp; formatting</td>
+</tr>
+<tr>
+<td><strong>CPF</strong></td>
+<td>Personal ID validation &amp; generation</td>
+</tr>
+<tr>
+<td><strong>CNPJ</strong></td>
+<td>Business ID (numeric &amp; alphanumeric)</td>
+</tr>
+<tr>
+<td><strong>PIS</strong></td>
+<td>Social integration program validation</td>
+</tr>
+<tr>
+<td><strong>CNH</strong></td>
+<td>Driver's license validation</td>
+</tr>
+<tr>
+<td><strong>RENAVAM</strong></td>
+<td>Vehicle registration validation</td>
+</tr>
+<tr>
+<td><strong>Título Eleitoral</strong></td>
+<td>Voter ID validation &amp; generation</td>
+</tr>
+<tr>
+<td><strong>Inscrição Estadual</strong></td>
+<td>State registration by UF</td>
+</tr>
+<tr>
+<td><strong>Email</strong></td>
+<td>Email format validation</td>
+</tr>
+<tr>
+<td><strong>Telefone</strong></td>
+<td>Phone validation (mobile &amp; landline)</td>
+</tr>
+<tr>
+<td><strong>Capitalização</strong></td>
+<td>Smart text capitalization</td>
+</tr>
+<tr>
+<td><strong>Moeda</strong></td>
+<td>Brazilian Real formatting</td>
+</tr>
+<tr>
+<td><strong>Placa de Veículo</strong></td>
+<td>Plate validation &amp; Mercosul conversion</td>
+</tr>
+<tr>
+<td><strong>Processo Jurídico</strong></td>
+<td>Court case number validation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exemplos-avancados">💡 Exemplos Avançados</h2>
+<h3 id="tratamento-de-erros">Tratamento de Erros</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.phone</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">phone</span><span class="p">])</span>
+
+<span class="p">(</span><span class="nf">phone/validation-errors</span><span class="w"> </span><span class="s">&quot;(11) 99999-9999&quot;</span><span class="p">)</span><span class="w">    </span><span class="c1">; =&gt; [] (valid)</span>
+<span class="p">(</span><span class="nf">phone/validation-errors</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">)</span><span class="w">                </span><span class="c1">; =&gt; [&quot;Invalid area code&quot; ...]</span>
+</code></pre></div>
+<h3 id="integracao-viacep">Integração ViaCEP</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.cep</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">cep</span><span class="p">])</span>
+
+<span class="p">(</span><span class="nf">cep/get-cep-information-from-address</span><span class="w"> </span>
+<span class="w">  </span><span class="s">&quot;Av. Paulista&quot;</span><span class="w"> </span><span class="s">&quot;São Paulo&quot;</span><span class="w"> </span><span class="s">&quot;SP&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; {:cep &quot;01310-100&quot; :logradouro &quot;Av. Paulista&quot; ...}</span>
+</code></pre></div>
+<h3 id="geracao-de-documentos">Geração de Documentos</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">require</span><span class="w"> </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.cpf</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">cpf</span><span class="p">]</span>
+<span class="w">         </span><span class="o">&#39;</span><span class="p">[</span><span class="nv">brazilian-utils.cnpj</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">cnpj</span><span class="p">])</span>
+
+<span class="c1">; CPF with specific UF code</span>
+<span class="p">(</span><span class="nf">cpf/generate</span><span class="w"> </span><span class="p">{</span><span class="ss">:uf-code</span><span class="w"> </span><span class="ss">:SP</span><span class="p">})</span><span class="w">              </span><span class="c1">; =&gt; CPF with :SP rules</span>
+
+<span class="c1">; CNPJ alphanumeric (newer format)</span>
+<span class="p">(</span><span class="nf">cnpj/generate-alfanumeric</span><span class="p">)</span><span class="w">                </span><span class="c1">; =&gt; &quot;AB1234567000195&quot;</span>
+</code></pre></div>
+<h2 id="contributing">🤟 Contributing</h2>
+<p>Sua contribuição é bem-vinda! Abra uma issue ou pull request no repositório do GitHub.</p>
+<h2 id="licenca">📄 Licença</h2>
+<p>Este projeto está licenciado sob a licença MIT - veja o arquivo <a href="https://github.com/Buzzlabs/brazilian-utils/blob/master/LICENSE">LICENSE</a> para detalhes.</p>
+<h2 id="links-uteis">🔗 Links Úteis</h2>
+<ul>
+<li><a href="api-reference/">Documentação Completa</a></li>
+<li><a href="https://github.com/Buzzlabs/brazilian-utils">GitHub Repository</a></li>
+<li><a href="https://clojars.org/br.com.buzzlabs/brazilian-utils">Clojars</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "search.suggest"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

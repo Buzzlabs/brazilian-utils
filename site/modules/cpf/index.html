@@ -1,0 +1,1633 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Utilitários brasileiros para validação e formatação de dados">
+      
+      
+        <meta name="author" content="Seu Nome">
+      
+      
+        <link rel="canonical" href="https://seu-usuario.github.io/test-clj/modules/cpf/">
+      
+      
+        <link rel="prev" href="../../api-reference/">
+      
+      
+        <link rel="next" href="../cnpj/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>CPF - Brazilian Utils</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cpf-cadastro-de-pessoa-fisica" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="Brazilian Utils" class="md-header__button md-logo" aria-label="Brazilian Utils" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Brazilian Utils
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CPF
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guides/installation/" class="md-tabs__link">
+          
+  
+  
+  Guias
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api-reference/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Referência da API
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  Módulos
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Brazilian Utils" class="md-nav__button md-logo" aria-label="Brazilian Utils" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Brazilian Utils
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guias
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referência da API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Módulos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Módulos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CPF
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CPF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visão Geral
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algoritmo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algoritmo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcoes-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funções Principais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Funções Principais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is-valid?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format-cpf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        format-cpf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validation-errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tratamento de Erros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Casos de Uso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Casos de Uso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validar-entrada-de-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validar entrada de usuário
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gerar-dados-de-teste" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gerar dados de teste
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processamento-em-lote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processamento em lote
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-tambem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver Também
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnpj/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNPJ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telefone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license_plate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Placa Veicular
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CEP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../states/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processo_juridico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processo Jurídico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PIS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../renavam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RENAVAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../titulo_eleitoral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Título Eleitoral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inscricao_estadual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../email/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Email
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../currency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Moeda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capitalize/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capitalização
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boleto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boleto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visao-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visão Geral
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algoritmo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algoritmo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcoes-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funções Principais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Funções Principais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is-valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is-valid?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format-cpf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        format-cpf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validation-errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tratamento-de-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tratamento de Erros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Casos de Uso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Casos de Uso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validar-entrada-de-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validar entrada de usuário
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gerar-dados-de-teste" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gerar dados de teste
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processamento-em-lote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processamento em lote
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-tambem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver Também
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="cpf-cadastro-de-pessoa-fisica">CPF - Cadastro de Pessoa Física</h1>
+<p>Módulo para validação e geração de CPF (Cadastro de Pessoa Física), documento de identificação pessoal brasileiro.</p>
+<h2 id="visao-geral">Visão Geral</h2>
+<p>O CPF é um número de 11 dígitos que identifica uma pessoa física no Brasil. Este módulo fornece funções para:</p>
+<ul>
+<li>Validar CPF com ou sem formatação</li>
+<li>Formatar CPF em padrão brasileiro</li>
+<li>Gerar CPF válido aleatoriamente</li>
+<li>Obter informações sobre erros de validação</li>
+</ul>
+<h2 id="algoritmo">Algoritmo</h2>
+<p>O CPF utiliza um algoritmo de validação com 2 dígitos verificadores calculados através do <strong>módulo 11</strong>:</p>
+<ol>
+<li><strong>Primeiro dígito verificador</strong>: </li>
+<li>Multiplica os 9 primeiros dígitos por [10, 9, 8, 7, 6, 5, 4, 3, 2]</li>
+<li>Soma todos os produtos</li>
+<li>Calcula o resto da divisão por 11</li>
+<li>
+<p>Se resto &lt; 2, dígito = 0; senão dígito = 11 - resto</p>
+</li>
+<li>
+<p><strong>Segundo dígito verificador</strong>:</p>
+</li>
+<li>Multiplica os 10 dígitos (9 + 1º verificador) por [11, 10, 9, 8, 7, 6, 5, 4, 3, 2]</li>
+<li>Soma todos os produtos</li>
+<li>Calcula o resto da divisão por 11</li>
+<li>Se resto &lt; 2, dígito = 0; senão dígito = 11 - resto</li>
+</ol>
+<h2 id="funcoes-principais">Funções Principais</h2>
+<h3 id="is-valid">is-valid?</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">cpf/is-valid?</span><span class="w"> </span><span class="nv">cpf-string</span><span class="p">)</span>
+</code></pre></div>
+<p>Valida um CPF com ou sem formatação.</p>
+<p><strong>Argumentos:</strong>
+- <code>cpf-string</code> (string): CPF a validar, com ou sem formatação</p>
+<p><strong>Retorna:</strong>
+- <code>true</code> se válido, <code>false</code> caso contrário</p>
+<p><strong>Exemplos:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">cpf/is-valid?</span><span class="w"> </span><span class="s">&quot;123.456.789-09&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">; =&gt; true/false</span>
+<span class="p">(</span><span class="nf">cpf/is-valid?</span><span class="w"> </span><span class="s">&quot;12345678909&quot;</span><span class="p">)</span><span class="w">     </span><span class="c1">; =&gt; true/false</span>
+<span class="p">(</span><span class="nf">cpf/is-valid?</span><span class="w"> </span><span class="s">&quot;111.111.111-11&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">; =&gt; false (sequência repetida)</span>
+</code></pre></div></p>
+<p><strong>Notas:</strong>
+- Valida tanto CPF formatado quanto não-formatado
+- Rejeita CPFs com todos os dígitos iguais (ex: 111.111.111-11)
+- Remove automaticamente caracteres de formatação antes de validar</p>
+<h3 id="format-cpf">format-cpf</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">cpf/format-cpf</span><span class="w"> </span><span class="nv">cpf-string</span><span class="p">)</span>
+</code></pre></div>
+<p>Formata um CPF no padrão brasileiro XXX.XXX.XXX-XX.</p>
+<p><strong>Argumentos:</strong>
+- <code>cpf-string</code> (string): CPF a formatar (com ou sem formatação)</p>
+<p><strong>Retorna:</strong>
+- String com CPF formatado como XXX.XXX.XXX-XX</p>
+<p><strong>Exemplos:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">cpf/format-cpf</span><span class="w"> </span><span class="s">&quot;12345678909&quot;</span><span class="p">)</span><span class="w">     </span><span class="c1">; =&gt; &quot;123.456.789-09&quot;</span>
+<span class="p">(</span><span class="nf">cpf/format-cpf</span><span class="w"> </span><span class="s">&quot;123.456.789-09&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">; =&gt; &quot;123.456.789-09&quot;</span>
+</code></pre></div></p>
+<h3 id="generate">generate</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">cpf/generate</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">cpf/generate</span><span class="w"> </span><span class="p">{</span><span class="ss">:uf-code</span><span class="w"> </span><span class="ss">:SP</span><span class="p">})</span>
+</code></pre></div>
+<p>Gera um CPF válido aleatoriamente.</p>
+<p><strong>Argumentos:</strong>
+- <code>:uf-code</code> (opcional, keyword): Código do estado (UF) que define o 9º dígito
+  - Válidos: <code>:AC</code>, <code>:AL</code>, <code>:AP</code>, <code>:AM</code>, <code>:BA</code>, <code>:CE</code>, <code>:DF</code>, <code>:ES</code>, <code>:GO</code>, <code>:MA</code>, <code>:MT</code>, <code>:MS</code>, <code>:MG</code>, <code>:PA</code>, <code>:PB</code>, <code>:PR</code>, <code>:PE</code>, <code>:PI</code>, <code>:RJ</code>, <code>:RN</code>, <code>:RS</code>, <code>:RO</code>, <code>:RR</code>, <code>:SC</code>, <code>:SP</code>, <code>:SE</code>, <code>:TO</code></p>
+<p><strong>Retorna:</strong>
+- String com CPF válido de 11 dígitos (sem formatação)</p>
+<p><strong>Exemplos:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">cpf/generate</span><span class="p">)</span><span class="w">                      </span><span class="c1">; =&gt; &quot;12345678909&quot; (aleatório)</span>
+<span class="p">(</span><span class="nf">cpf/generate</span><span class="w"> </span><span class="p">{</span><span class="ss">:uf-code</span><span class="w"> </span><span class="ss">:SP</span><span class="p">})</span><span class="w">       </span><span class="c1">; =&gt; CPF com código :SP (8)</span>
+<span class="p">(</span><span class="nf">cpf/generate</span><span class="w"> </span><span class="p">{</span><span class="ss">:uf-code</span><span class="w"> </span><span class="ss">:RJ</span><span class="p">})</span><span class="w">       </span><span class="c1">; =&gt; CPF com código :RJ (5)</span>
+<span class="p">(</span><span class="nf">cpf/generate</span><span class="w"> </span><span class="p">{</span><span class="ss">:uf-code</span><span class="w"> </span><span class="ss">:MG</span><span class="p">})</span><span class="w">       </span><span class="c1">; =&gt; CPF com código :MG (1)</span>
+</code></pre></div></p>
+<p><strong>Códigos UF:</strong>
+- SP=8, RJ=5, BA=1, MG=1, RS=4, PR=6, CE=7, PA=9, PE=2, SC=3, GO=2, MA=3, PB=1, RN=0, AL=8, ES=3, PI=2, RO=1, AC=0, AM=2, AP=3, DF=9, MS=2, MT=3, RR=3, SE=0, TO=0</p>
+<h3 id="validation-errors">validation-errors</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">cpf/validation-errors</span><span class="w"> </span><span class="nv">cpf-string</span><span class="p">)</span>
+</code></pre></div>
+<p>Retorna uma lista de erros de validação do CPF.</p>
+<p><strong>Argumentos:</strong>
+- <code>cpf-string</code> (string): CPF a validar</p>
+<p><strong>Retorna:</strong>
+- Vector com lista de erros (vazio se válido)</p>
+<p><strong>Exemplos:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">cpf/validation-errors</span><span class="w"> </span><span class="s">&quot;123.456.789-09&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">; =&gt; [] ou [&quot;Invalid check digit&quot;]</span>
+<span class="p">(</span><span class="nf">cpf/validation-errors</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">)</span><span class="w">             </span><span class="c1">; =&gt; [&quot;Invalid length&quot;]</span>
+<span class="p">(</span><span class="nf">cpf/validation-errors</span><span class="w"> </span><span class="s">&quot;111.111.111-11&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">; =&gt; [&quot;CPF with all equal digits&quot;]</span>
+</code></pre></div></p>
+<h2 id="recursos">Recursos</h2>
+<ul>
+<li>✅ Validação com ou sem formatação</li>
+<li>✅ Formatação automática</li>
+<li>✅ Geração de CPF válido aleatório</li>
+<li>✅ Suporte a códigos de UF para geração</li>
+<li>✅ Rejeição de CPFs com dígitos repetidos</li>
+<li>✅ Mensagens de erro detalhadas</li>
+<li>✅ Cross-platform (Clojure &amp; ClojureScript)</li>
+</ul>
+<h2 id="tratamento-de-erros">Tratamento de Erros</h2>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">cpf/validation-errors</span><span class="w"> </span><span class="s">&quot;123&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Invalid length&quot;]</span>
+
+<span class="p">(</span><span class="nf">cpf/validation-errors</span><span class="w"> </span><span class="s">&quot;123.456.789-00&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;Invalid check digit&quot;]</span>
+
+<span class="p">(</span><span class="nf">cpf/validation-errors</span><span class="w"> </span><span class="s">&quot;111.111.111-11&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; [&quot;CPF with all equal digits&quot;]</span>
+</code></pre></div>
+<h2 id="casos-de-uso">Casos de Uso</h2>
+<h3 id="validar-entrada-de-usuario">Validar entrada de usuário</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">validate-cpf-input</span><span class="w"> </span><span class="p">[</span><span class="nv">cpf-input</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">cpf/is-valid?</span><span class="w"> </span><span class="nv">cpf-input</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span><span class="ss">:status</span><span class="w"> </span><span class="ss">:valid</span><span class="w"> </span><span class="ss">:cpf</span><span class="w"> </span><span class="p">(</span><span class="nf">cpf/format-cpf</span><span class="w"> </span><span class="nv">cpf-input</span><span class="p">)}</span>
+<span class="w">    </span><span class="p">{</span><span class="ss">:status</span><span class="w"> </span><span class="ss">:invalid</span><span class="w"> </span><span class="ss">:errors</span><span class="w"> </span><span class="p">(</span><span class="nf">cpf/validation-errors</span><span class="w"> </span><span class="nv">cpf-input</span><span class="p">)}))</span>
+
+<span class="p">(</span><span class="nf">validate-cpf-input</span><span class="w"> </span><span class="s">&quot;123.456.789-09&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; {:status :valid :cpf &quot;123.456.789-09&quot;} ou</span>
+<span class="c1">; =&gt; {:status :invalid :errors [&quot;Invalid check digit&quot;]}</span>
+</code></pre></div>
+<h3 id="gerar-dados-de-teste">Gerar dados de teste</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">; Gerar 10 CPFs válidos para testes</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">test-cpfs</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">repeatedly</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">#</span><span class="p">(</span><span class="nf">cpf/format-cpf</span><span class="w"> </span><span class="p">(</span><span class="nf">cpf/generate</span><span class="p">))))</span>
+
+<span class="c1">; Gerar CPFs de um estado específico</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">sp-cpfs</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">repeatedly</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">#</span><span class="p">(</span><span class="nf">cpf/generate</span><span class="w"> </span><span class="p">{</span><span class="ss">:uf-code</span><span class="w"> </span><span class="ss">:SP</span><span class="p">})))</span>
+</code></pre></div>
+<h3 id="processamento-em-lote">Processamento em lote</h3>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">validate-cpf-batch</span><span class="w"> </span><span class="p">[</span><span class="nv">cpf-strings</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">reduce </span><span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">acc</span><span class="w"> </span><span class="nv">cpf</span><span class="p">]</span>
+<span class="w">            </span><span class="p">(</span><span class="nb">assoc </span><span class="nv">acc</span><span class="w"> </span><span class="nv">cpf</span><span class="w"> </span><span class="p">(</span><span class="nf">cpf/is-valid?</span><span class="w"> </span><span class="nv">cpf</span><span class="p">)))</span>
+<span class="w">          </span><span class="p">{}</span>
+<span class="w">          </span><span class="nv">cpf-strings</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">validate-cpf-batch</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;123.456.789-09&quot;</span><span class="w"> </span><span class="s">&quot;111.111.111-11&quot;</span><span class="w"> </span><span class="s">&quot;12345678909&quot;</span><span class="p">])</span>
+<span class="c1">; =&gt; {&quot;123.456.789-09&quot; true </span>
+<span class="c1">;     &quot;111.111.111-11&quot; false </span>
+<span class="c1">;     &quot;12345678909&quot; true/false}</span>
+</code></pre></div>
+<h2 id="ver-tambem">Ver Também</h2>
+<ul>
+<li><a href="../cnpj/">CNPJ</a> - Para validação de CNPJ (documentos empresariais)</li>
+<li><a href="../inscricao_estadual/">Inscrição Estadual</a> - Para IE por estado</li>
+<li><a href="../../api-reference/">API Reference</a> - Referência completa de todas as funções</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -17,10 +17,10 @@
 - [Installation](#installation)
   - [Clojure](#clojure)
   - [ClojureScript](#clojurescript)
-- [Usage](#usage)
-  - [Clojure](#clojure-1)
-  - [ClojureScript](#clojurescript-1)
-- [Contributors](#contributors)
+- [Modules](#modules)
+- [Quick Examples](#quick-examples)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
 - [License](#license)
 
 # Installation
@@ -51,13 +51,20 @@ Same as Clojure - add to your `deps.edn` or `project.clj` as shown above. Works 
 ```clojure
 (require '[brazilian-utils.states :as states]
          '[brazilian-utils.cities :as cities]
-         '[brazilian-utils.cep :as cep])
+         '[brazilian-utils.cep :as cep]
+         '[brazilian-utils.cpf :as cpf]
+         '[brazilian-utils.cnpj :as cnpj]
+         '[brazilian-utils.phone :as phone])
 
-(states/valid-uf? :SP)
-(states/uf->state-name :SP)
-(cities/cities-of :GO)
-(cep/is-valid? "01310-100")
-(cep/format-cep "01310100")
+(states/valid-uf? :SP)                            ; => true
+(states/uf->state-name :SP)                       ; => "São Paulo"
+(cities/cities-of :GO)                            ; => ["Goiânia" "Anápolis" ...]
+(cep/is-valid? "01310-100")                       ; => true
+(cep/format-cep "01310100")                       ; => "01310-100"
+(cpf/is-valid? "123.456.789-09")                  ; => true/false
+(cpf/generate)                                    ; => "12345678909" (válido)
+(cnpj/generate)                                   ; => "12345678000195" (válido)
+(phone/is-valid-mobile? "11999999999")            ; => true
 ```
 
 ## ClojureScript
@@ -66,14 +73,138 @@ Same as Clojure - add to your `deps.edn` or `project.clj` as shown above. Works 
 (ns my-app
   (:require [brazilian-utils.states :as states]
             [brazilian-utils.cities :as cities]
-            [brazilian-utils.cep :as cep]))
+            [brazilian-utils.cep :as cep]
+            [brazilian-utils.cpf :as cpf]
+            [brazilian-utils.cnpj :as cnpj]
+            [brazilian-utils.phone :as phone]))
 
-(states/valid-uf? :SP)
-(states/uf->state-name :SP)
-(cities/cities-of :GO)
-(cep/is-valid? "01310-100")
-(cep/format-cep "01310100")
+(states/valid-uf? :SP)                            ; => true
+(states/uf->state-name :SP)                       ; => "São Paulo"
+(cities/cities-of :GO)                            ; => ["Goiânia" "Anápolis" ...]
+(cep/is-valid? "01310-100")                       ; => true
+(cpf/is-valid? "123.456.789-09")                  ; => true/false
+(phone/is-valid-mobile? "11999999999")            ; => true
 ```
+
+---
+
+## Modules
+
+Brazilian Utils provides validation, formatting, and generation utilities for:
+
+- **[States](docs/api-reference.md#estados)** - UF codes, state names, area codes
+- **[Cities](docs/api-reference.md#cidades)** - Cities by state, city lookup
+- **[CEP](docs/api-reference.md#cep)** - Postal codes, address lookup via ViaCEP
+- **[CPF](docs/api-reference.md#cpf)** - Brazilian personal ID validation & generation
+- **[CNPJ](docs/api-reference.md#cnpj)** - Brazilian business ID validation & generation (numeric and alphanumeric)
+- **[PIS](docs/api-reference.md#pis)** - Social integration program number validation
+- **[CNH](docs/api-reference.md#cnh)** - Driver's license validation
+- **[RENAVAM](docs/api-reference.md#renavam)** - Vehicle registration validation
+- **[Título Eleitoral](docs/api-reference.md#título-eleitoral)** - Voter ID validation & generation
+- **[Inscrição Estadual](docs/api-reference.md#inscrição-estadual)** - State registration (IE) by UF
+- **[Email](docs/api-reference.md#email)** - Email format validation
+- **[Phone](docs/api-reference.md#telefone)** - Brazilian phone number validation (mobile & landline)
+- **[Capitalize](docs/api-reference.md#capitalização)** - Smart capitalization with Portuguese rules
+- **[Currency](docs/api-reference.md#moeda)** - Brazilian Real (BRL) formatting & parsing
+- **[Date](docs/api-reference.md#data)** - Holiday checking and date utilities
+- **[License Plate](docs/api-reference.md#placa-de-veículo)** - Traditional & Mercosul plate validation & conversion
+- **[Processo Jurídico](docs/api-reference.md#processo-jurídico)** - Court case number validation
+
+For complete API documentation, see [API Reference](docs/api-reference.md).
+
+---
+
+## Quick Examples
+
+### States & Cities
+
+```clojure
+(require '[brazilian-utils.states :as states])
+(require '[brazilian-utils.cities :as cities])
+
+; States
+(states/valid-uf? :SP)                    ; => true
+(states/uf->state-name :SP)               ; => "São Paulo"
+(states/uf->area-codes :SP)               ; => [11 12 13 14 15 16 17 18 19]
+
+; Cities
+(cities/cities-of :SP)                    ; => ["São Paulo" "Campinas" ...]
+(cities/find-city-by-name "São Paulo")    ; => [{:state :SP :city "São Paulo"}]
+(cities/city-exists? :SP "Campinas")      ; => true
+```
+
+### CPF & CNPJ
+
+```clojure
+(require '[brazilian-utils.cpf :as cpf])
+(require '[brazilian-utils.cnpj :as cnpj])
+
+; CPF
+(cpf/is-valid? "123.456.789-09")          ; => true/false
+(cpf/format-cpf "12345678909")            ; => "123.456.789-09"
+(cpf/generate)                            ; => "12345678909" (valid random)
+(cpf/generate {:uf-code :SP})             ; => CPF with SP as 9th digit
+
+; CNPJ (numeric)
+(cnpj/is-valid? "12.345.678/0001-95")    ; => true/false
+(cnpj/format-cnpj "12345678000195")      ; => "12.345.678/0001-95"
+(cnpj/generate)                           ; => "12345678000195" (valid random)
+
+; CNPJ (alphanumeric - newer standard)
+(cnpj/generate-alfanumeric)               ; => "AB1234567000195"
+```
+
+### Phone & Email
+
+```clojure
+(require '[brazilian-utils.phone :as phone])
+(require '[brazilian-utils.email :as email])
+
+; Phone
+(phone/is-valid? "(11) 99999-9999")       ; => true
+(phone/is-valid-mobile? "11999999999")    ; => true
+(phone/is-valid-landline? "1133334444")   ; => true
+(phone/validation-errors "123")           ; => ["Invalid area code" ...]
+
+; Email
+(email/is-valid? "user@example.com")      ; => true
+```
+
+### CEP & Address
+
+```clojure
+(require '[brazilian-utils.cep :as cep])
+
+(cep/is-valid? "01310-100")                                   ; => true
+(cep/format-cep "01310100")                                   ; => "01310-100"
+(cep/get-address-from-cep "01310-100")                        ; => {:logradouro "..." :localidade "São Paulo" ...}
+(cep/get-cep-information-from-address "Av. Paulista" "São Paulo" "SP") ; => {:cep "01310-100" ...}
+```
+
+### License Plates
+
+```clojure
+(require '[brazilian-utils.license-plate :as plate])
+
+; Validation
+(plate/is-valid? "ABC-1234")              ; => true (traditional)
+(plate/is-valid? "ABC1D23")               ; => true (Mercosul)
+
+; Format detection
+(plate/get-format "ABC1234")              ; => "LLLNNNN"
+(plate/get-format "ABC1D23")              ; => "LLLNLNN"
+
+; Conversion
+(plate/convert-to-mercosul "ABC1234")     ; => "ABC1B34"
+```
+
+---
+
+## Documentation
+
+- **[API Reference](docs/api-reference.md)** - Complete API documentation
+- **[Contributing](docs/contributing.md)** - How to contribute
+- **[Module Guides](docs/guides/)** - Usage guides for each module
 
 ### Setup
 
