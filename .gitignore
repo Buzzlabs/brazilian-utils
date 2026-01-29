@@ -19,6 +19,7 @@ dist/
 .vscode/
 .calva/
 .clj-kondo/
+.lsp/
 *.swp
 *.swo
 *~
