@@ -1,7 +1,7 @@
 site_name: Brazilian Utils
 site_description: Utilitários brasileiros para validação e formatação de dados
-site_author: Seu Nome
-site_url: https://seu-usuario.github.io/test-clj
+site_author: Buzzlabs
+site_url: https://buzzlabs.github.io/brazilian-utils
 
 theme:
   name: material

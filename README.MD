@@ -92,25 +92,24 @@ Same as Clojure - add to your `deps.edn` or `project.clj` as shown above. Works 
 
 Brazilian Utils provides validation, formatting, and generation utilities for:
 
-- **[States](docs/api-reference.md#estados)** - UF codes, state names, area codes
-- **[Cities](docs/api-reference.md#cidades)** - Cities by state, city lookup
-- **[CEP](docs/api-reference.md#cep)** - Postal codes, address lookup via ViaCEP
-- **[CPF](docs/api-reference.md#cpf)** - Brazilian personal ID validation & generation
-- **[CNPJ](docs/api-reference.md#cnpj)** - Brazilian business ID validation & generation (numeric and alphanumeric)
-- **[PIS](docs/api-reference.md#pis)** - Social integration program number validation
-- **[CNH](docs/api-reference.md#cnh)** - Driver's license validation
-- **[RENAVAM](docs/api-reference.md#renavam)** - Vehicle registration validation
-- **[Título Eleitoral](docs/api-reference.md#título-eleitoral)** - Voter ID validation & generation
-- **[Inscrição Estadual](docs/api-reference.md#inscrição-estadual)** - State registration (IE) by UF
-- **[Email](docs/api-reference.md#email)** - Email format validation
-- **[Phone](docs/api-reference.md#telefone)** - Brazilian phone number validation (mobile & landline)
-- **[Capitalize](docs/api-reference.md#capitalização)** - Smart capitalization with Portuguese rules
-- **[Currency](docs/api-reference.md#moeda)** - Brazilian Real (BRL) formatting & parsing
-- **[Date](docs/api-reference.md#data)** - Holiday checking and date utilities
-- **[License Plate](docs/api-reference.md#placa-de-veículo)** - Traditional & Mercosul plate validation & conversion
-- **[Processo Jurídico](docs/api-reference.md#processo-jurídico)** - Court case number validation
+- **[States](docs/modules/states.md)** - UF codes, state names, area codes
+- **[Cities](docs/modules/cities.md)** - Cities by state, city lookup
+- **[CEP](docs/modules/cep.md)** - Postal codes, address lookup via ViaCEP
+- **[CPF](docs/modules/cpf.md)** - Brazilian personal ID validation & generation
+- **[CNPJ](docs/modules/cnpj.md)** - Brazilian business ID validation & generation (numeric and alphanumeric)
+- **[PIS](docs/modules/pis.md)** - Social integration program number validation
+- **[CNH](docs/modules/cnh.md)** - Driver's license validation
+- **[RENAVAM](docs/modules/renavam.md)** - Vehicle registration validation
+- **[Título Eleitoral](docs/modules/titulo_eleitoral.md)** - Voter ID validation & generation
+- **[Inscrição Estadual](docs/modules/inscricao_estadual.md)** - State registration (IE) by UF
+- **[Email](docs/modules/email.md)** - Email format validation
+- **[Phone](docs/modules/phone.md)** - Brazilian phone number validation (mobile & landline)
+- **[Capitalize](docs/modules/capitalize.md)** - Smart capitalization with Portuguese rules
+- **[Currency](docs/modules/currency.md)** - Brazilian Real (BRL) formatting & parsing
+- **[License Plate](docs/modules/license_plate.md)** - Traditional & Mercosul plate validation & conversion
+- **[Processo Jurídico](docs/modules/processo_juridico.md)** - Court case number validation
 
-For complete API documentation, see [API Reference](docs/api-reference.md).
+For complete documentation, see [docs/index.md](docs/index.md).
 
 ---
 

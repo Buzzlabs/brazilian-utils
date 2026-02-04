@@ -297,4 +297,3 @@ Converte uma placa tradicional para o formato Mercosul.
 ## Ver Também
 
 - [Estados](states.md) - Para informações sobre UFs (mapeamento com letras Mercosul)
-- [API Reference](../api-reference.md) - Referência completa de todas as funções

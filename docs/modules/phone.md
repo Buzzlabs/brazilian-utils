@@ -271,4 +271,3 @@ Retorna uma lista de erros de validação do telefone.
 
 - [Email](email.md) - Para validação de email
 - [Estados](states.md) - Para DDDs por estado
-- [API Reference](../api-reference.md) - Referência completa de todas as funções

@@ -232,4 +232,3 @@ Retorna uma lista de erros de validação do CNPJ.
 
 - [CPF](cpf.md) - Para validação de CPF (documentos pessoais)
 - [Inscrição Estadual](inscricao_estadual.md) - Para IE por estado
-- [API Reference](../api-reference.md) - Referência completa de todas as funções

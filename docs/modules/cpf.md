@@ -193,4 +193,3 @@ Retorna uma lista de erros de validação do CPF.
 
 - [CNPJ](cnpj.md) - Para validação de CNPJ (documentos empresariais)
 - [Inscrição Estadual](inscricao_estadual.md) - Para IE por estado
-- [API Reference](../api-reference.md) - Referência completa de todas as funções

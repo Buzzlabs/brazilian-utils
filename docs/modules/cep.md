@@ -283,4 +283,3 @@ O módulo utiliza a **ViaCEP API** (gratuita e sem autenticação) para busca de
 
 - [Estados](states.md) - Para validação de UF
 - [Cidades](cities.md) - Para lista de cidades por estado
-- [API Reference](../api-reference.md) - Referência completa de todas as funções

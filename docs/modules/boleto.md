@@ -321,7 +321,6 @@ Valor 8000002603 = R$ 80.000,26
 
 - [CEP](cep.md) - Para validação de endereços de cobrança
 - [Estados](states.md) - Para informações de estados e cidades
-- [API Reference](../api-reference.md) - Referência completa de todas as funções
     (boleto/format-linha-digitavel entrada)
     nil))
 

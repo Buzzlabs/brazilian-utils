@@ -338,6 +338,5 @@ Para aplicações com lookup frequente de cidades:
 
 - [Estados](states.md) - Para validação e informações de estados
 - [CEP](cep.md) - Para validação de endereços e busca por CEP
-- [API Reference](../api-reference.md) - Referência completa de todas as funções
 
 City data is loaded from `resources/cities.edn` at compile time and validated against the schema to ensure data integrity.

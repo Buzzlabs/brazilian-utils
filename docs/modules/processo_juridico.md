@@ -284,5 +284,4 @@ Para validação em lote de processos:
 
 ## Ver Também
 
-- [API Reference](../api-reference.md) - Referência completa de todas as funções
 - [Documentação Oficial do CNJ](https://www.cnj.jus.br/) - Conselho Nacional de Justiça

@@ -88,13 +88,10 @@
 
 ## 📚 Documentação Completa
 
-- **[API Reference](api-reference.md)** - Documentação completa de todas as funções
 - **[Installation Guide](guides/installation.md)** - Como instalar e configurar
 - **[Usage Guide](guides/usage.md)** - Exemplos e padrões de uso
 
 ## 🔗 Todos os Módulos
-
-[Ver documentação completa dos módulos →](api-reference.md)
 
 | Módulo | Descrição |
 |--------|-----------|
@@ -159,6 +156,5 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](http
 
 ## 🔗 Links Úteis
 
-- [Documentação Completa](api-reference.md)
 - [GitHub Repository](https://github.com/Buzzlabs/brazilian-utils)
 - [Clojars](https://clojars.org/br.com.buzzlabs/brazilian-utils)
