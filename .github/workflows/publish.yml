@@ -54,4 +54,4 @@ jobs:
       run: clojure -X:deploy
       env:
         CLOJARS_USERNAME: ${{secrets.CLOJARS_USERNAME}}
-        CLOJARS_TOKEN: ${{ secrets.CLOJARS_PASSWORD }}
+        CLOJARS_PASSWORD: ${{ secrets.CLOJARS_PASSWORD }}
