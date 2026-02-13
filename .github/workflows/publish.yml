@@ -53,5 +53,5 @@ jobs:
     - name: Deploy to Clojars
       run: clojure -X:deploy
       env:
-        CLOJARS_USERNAME: ${{ secrets.CLOJARS_USERNAME }}
+        CLOJARS_USERNAME: buzzlabs
         CLOJARS_TOKEN: ${{ secrets.CLOJARS_TOKEN }}
