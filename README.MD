@@ -8,7 +8,7 @@
 
 [📖 Documentation](#installation)
 
-[![Build Status](https://github.com/Buzzlabs/brazilian-utils/workflows/Tests/badge.svg)](https://github.com/Buzzlabs/brazilian-utils/actions?query=workflow%3ATests) [![Code Quality](https://github.com/Buzzlabs/brazilian-utils/workflows/Code%20Quality/badge.svg)](https://github.com/Buzzlabs/brazilian-utils/actions?query=workflow%3ACode%20Quality) [![Clojars](https://img.shields.io/clojars/v/com.github.Buzzlabs/brazilian-utils.svg)](https://clojars.org/com.github.Buzzlabs/brazilian-utils) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://github.com/Buzzlabs/brazilian-utils/workflows/Tests/badge.svg)](https://github.com/Buzzlabs/brazilian-utils/actions?query=workflow%3ATests) [![Code Quality](https://github.com/Buzzlabs/brazilian-utils/workflows/Code%20Quality/badge.svg)](https://github.com/Buzzlabs/brazilian-utils/actions?query=workflow%3ACode%20Quality) [![Clojars](https://img.shields.io/clojars/v/br.com.buzzlabs/brazilian-utils.svg)](https://clojars.org/br.com.buzzlabs/brazilian-utils) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 </div>
 
@@ -17,11 +17,21 @@
 - [Installation](#installation)
   - [Clojure](#clojure)
   - [ClojureScript](#clojurescript)
-- [Modules](#modules)
-- [Quick Examples](#quick-examples)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [License](#license)
+- [Usage](#usage)
+  - [Clojure](#clojure-1)
+  - [ClojureScript](#clojurescript-1)
+  - [Modules](#modules)
+  - [Quick Examples](#quick-examples)
+    - [States \& Cities](#states--cities)
+    - [CPF \& CNPJ](#cpf--cnpj)
+    - [Phone \& Email](#phone--email)
+    - [CEP \& Address](#cep--address)
+    - [License Plates](#license-plates)
+  - [Documentation](#documentation)
+    - [Setup](#setup)
+    - [Run Tests](#run-tests)
+    - [Code Style](#code-style)
+  - [License](#license)
 
 # Installation
 
