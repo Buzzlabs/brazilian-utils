@@ -48,7 +48,7 @@ jobs:
         </settings>' > ~/.m2/settings.xml
 
     - name: Build the project
-      run: clojure -X:build jar
+      run: clojure -T:build jar
 
     - name: Deploy to Clojars
       run: clojure -X:deploy
