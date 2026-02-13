@@ -3,14 +3,14 @@
   :url "https://github.com/Buzzlabs/brazilian-utils"
   :license {:name "MIT"
             :url "https://opensource.org/licenses/MIT"}
-  
+
   :dependencies [[org.clojure/clojure "1.11.1"]]
-  
+
   :plugins [[lein-codox "0.10.8"]]
-  
+
   :codox {:output-path "doc/api"
           :source-paths ["src"]
-          :doc-files ["README.MD" 
+          :doc-files ["README.MD"
                       "CHANGELOG.md"
                       "docs/index.md"
                       "docs/guides/usage.md"
@@ -34,7 +34,7 @@
                       "docs/modules/titulo_eleitoral.md"]
           :source-uri "https://github.com/Buzzlabs/brazilian-utils/blob/{version}/{filepath}#L{line}"
           :metadata {:doc/format :markdown}}
-  
+
   :deploy-repositories {"clojars" {:url "https://clojars.org/repo"
                                     :username :env/clojars_username
                                     :password :env/clojars_password

@@ -41,4 +41,17 @@
   :lint
   {:extra-deps
    {clj-kondo/clj-kondo {:mvn/version "2024.12.12"}}
-   :main-opts ["-m" "clj-kondo.core" "--lint" "src" "test"]}}}
+   :main-opts ["-m" "clj-kondo.core" "--lint" "src" "test"]}
+
+  ;; Building
+  :build
+  {:deps       {io.github.clojure/tools.build {:git/tag "v0.10.12"
+                                               :git/sha "97c5562"}}
+   :ns-default build}
+
+  ;; Publishing
+  :deploy
+  {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.2"}}
+   :exec-fn deps-deploy.deps-deploy/deploy
+   :exec-args {:installer :remote
+               :artifact "target/brazilian-utils.jar"}}}}

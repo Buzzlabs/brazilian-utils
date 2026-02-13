@@ -8,16 +8,16 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up JDK
       uses: actions/setup-java@v4
       with:
         java-version: 17
         distribution: 'temurin'
-    
+
     - name: Cache clojure dependencies
       uses: actions/cache@v3
       with:
@@ -25,15 +25,15 @@ jobs:
         key: ${{ runner.os }}-clojure-${{ hashFiles('**/deps.edn') }}
         restore-keys: |
           ${{ runner.os }}-clojure-
-    
+
     - name: Install Clojure tools
       uses: DeLaGuardo/setup-clojure@12.5
       with:
         cli: latest
-    
+
     - name: Run tests before publishing
       run: clojure -M:test
-    
+
     - name: Configure Maven settings
       run: |
         mkdir -p ~/.m2
@@ -46,9 +46,12 @@ jobs:
             </server>
           </servers>
         </settings>' > ~/.m2/settings.xml
-    
+
+    - name: Build the project
+      run: clojure -X:build jar
+
     - name: Deploy to Clojars
-      run: clojure -X:deploy/clojars
+      run: clojure -X:deploy
       env:
         CLOJARS_USERNAME: ${{ secrets.CLOJARS_USERNAME }}
         CLOJARS_TOKEN: ${{ secrets.CLOJARS_TOKEN }}
