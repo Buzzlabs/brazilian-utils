@@ -112,10 +112,10 @@
   (helpers/safe-call
    #(let [cep-clean (helpers/only-numbers cep)
           url (i/build-viacep-url cep-clean)
-          response (helpers/http-get url)]
+          response (helpers/ensure-map-response (helpers/http-get url))]
       (if (contains? response :error)
         response
-        (:body response)))
+        (or (:body response) {:error "Invalid response"})))
    {:error "Request failed"}))
 
 (defn get-cep-information-from-address
@@ -141,7 +141,7 @@
   [logradouro localidade uf]
   (helpers/safe-call
    #(let [url (i/build-viacep-address-search-url uf localidade logradouro)
-          response (helpers/http-get url)]
+          response (helpers/ensure-map-response (helpers/http-get url))]
       (if (contains? response :error)
         response
         (let [results (:body response)]

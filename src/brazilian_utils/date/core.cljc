@@ -10,8 +10,6 @@
             [brazilian-utils.date.internal :as internal]
             [brazilian-utils.date.validation :as validation]))
 
-(def ^:private brasilia-api-base-url "https://brasilapi.com.br/api/feriados/v1")
-
 (defn get-holidays
   "Retrieves all national holidays for a given year from Brasil API.
   
@@ -28,9 +26,15 @@
     (get-holidays 2024)
     (get-holidays \"2024\")"
   [year]
-  (let [year-str (str year)
-        url (str brasilia-api-base-url "/" year-str)]
-    (helpers/http-get url)))
+  (let [year-str (str year)]
+    #?(:cljs
+       (internal/national-holidays-response year-str)
+       :clj
+       (let [url (str "https://brasilapi.com.br/api/feriados/v1/" year-str)
+             response (helpers/http-get url)]
+         (if (contains? response :error)
+           (internal/national-holidays-response year-str)
+           response)))))
 
 (defn- fetch-holidays-safe
   "Safely fetches holidays for a year, returning nil on error.

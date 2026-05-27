@@ -228,10 +228,7 @@ cd brazilian-utils
 # Clojure (JVM)
 clojure -M:test
 
-# ClojureScript (Node.js)
-clojure -M:cljs test
-
-# Watch mode - recompila automaticamente quando arquivos mudam
+# ClojureScript (Node.js) Watch mode - recompila automaticamente quando arquivos mudam
 clojure -M:cljs watch test
 
 # REPL ClojureScript no browser

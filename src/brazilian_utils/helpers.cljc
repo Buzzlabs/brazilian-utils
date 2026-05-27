@@ -10,8 +10,7 @@
     - char->digit: Convert digit character to numeric value
     - http-get: Make HTTP GET requests"
   (:require [clojure.string :as str]
-            #?(:clj [clj-http.client :as http])
-            #?(:cljs [cljs-http.client :as http])))
+            #?(:clj [clj-http.client :as http])))
 
 (defn only-numbers
   "Removes all non-numeric characters from a string.
@@ -221,12 +220,31 @@
      :cljs
      (js/Promise.
       (fn [resolve _reject]
-        (-> (http/get url {:with-credentials? false})
-            (.then (fn [response]
-                     (resolve {:status (:status response)
-                               :body (:body response)})))
-            (.catch (fn [error]
-                      (resolve {:error (.-message error)}))))))))
+        (-> (js/fetch url)
+            (.then
+             (fn [response]
+               (-> (.json response)
+                   (.then
+                    (fn [body]
+                      {:status (.-status response)
+                       :body (js->clj body :keywordize-keys true)})))))
+            (.then resolve)
+            (.catch
+             (fn [error]
+               (resolve {:error (.-message error)}))))))))
+
+(defn ensure-map-response
+  "Normalizes HTTP client return values to a map.
+
+   In CLJS, HTTP calls may return a Promise when consumed synchronously.
+   This helper keeps public API functions deterministic by returning
+   an explicit error map for unsupported async responses."
+  ([response]
+   (ensure-map-response response "Request failed"))
+  ([response error-message]
+   (if (map? response)
+     response
+     {:error error-message})))
 
 (defn safe-call
   "Safely executes a function, returning a default value on any exception.
